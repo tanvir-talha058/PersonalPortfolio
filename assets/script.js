@@ -1,16 +1,43 @@
 // Interactive portfolio script
 document.addEventListener('DOMContentLoaded', () => {
-  // Data (you can replace these with your real projects)
+  // Data populated from Tanvir's resume (extracted and lightly normalized)
   const skills = [
-    { name: 'JavaScript', level: 92 }, { name: 'HTML5', level: 98 }, { name: 'CSS3', level: 94 },
-    { name: 'React', level: 88 }, { name: 'Node.js', level: 82 }, { name: 'Express', level: 78 },
-    { name: 'MongoDB', level: 75 }, { name: 'Git', level: 90 }, { name: 'Python', level: 70 }
+    { name: 'Python', level: 90 },
+    { name: 'JavaScript', level: 92 },
+    { name: 'HTML5', level: 98 },
+    { name: 'CSS3', level: 94 },
+    { name: 'C', level: 75 },
+    { name: 'C++', level: 75 },
+    { name: 'Java', level: 70 },
+    { name: 'NumPy', level: 85 },
+    { name: 'Pandas', level: 85 },
+    { name: 'Matplotlib', level: 80 },
+    { name: 'OpenCV', level: 82 },
+    { name: 'scikit-learn', level: 80 },
+    { name: 'TensorFlow', level: 75 },
+    { name: 'Keras', level: 75 },
+    { name: 'PyTorch', level: 70 },
+    { name: 'Pygame', level: 72 },
+    { name: 'PHP', level: 70 },
+    { name: 'MySQL', level: 80 },
+    { name: 'Flutter', level: 78 },
+    { name: 'Firebase', level: 78 },
+    { name: 'Git', level: 88 },
+    { name: 'Linux', level: 75 },
+    { name: 'Figma', level: 70 },
+    { name: 'UI/UX Design', level: 70 }
   ];
 
+  // Projects extracted from resume (descriptions and tech stacks preserved where available)
   const projects = [
-    { id:1, title:'Personal Portfolio', tag:'Web', short:'A fast and animated portfolio built with vanilla JS and modern CSS.', desc:'A responsive portfolio site that showcases projects and skills, includes animations and a resume viewer.', demo:'#' },
-    { id:2, title:'Task Manager', tag:'Full-stack', short:'MERN task manager with auth and realtime updates.', desc:'Full CRUD app with JWT authentication, real-time updates using WebSockets and a clean UX.' , demo:'#'},
-    { id:3, title:'Weather Dashboard', tag:'API', short:'Real-time weather data from public APIs with caching.', desc:'Displays weather info, forecasts and location-based suggestions. Implements API caching and graceful fallback.', demo:'#'}
+    { id:1, title:'Edu-Buddy AI Assistant', tag:'AI', short:'Voice-activated assistant for students with reminders and study help.', desc:'Edu-Buddy is a voice-activated assistant that can set reminders, help with study schedules and answer common academic queries. Built with speech I/O and a lightweight local DB UI.', tech:['Python','SpeechRecognition','Google Text-to-Speech','SQLite','Tkinter'], demo:'#' },
+    { id:2, title:'AgroKart BD', tag:'Mobile / Web', short:'Marketplace connecting farmers and consumers with a Flutter mobile app and responsive web portal.', desc:'Developed both a mobile app (Flutter) and a responsive web application to connect farmers directly with customers, including product listings and order management.', tech:['Flutter','Dart','Firebase','HTML','CSS','JavaScript','PHP','MySQL'], demo:'#' },
+    { id:3, title:'Hand Gesture Virtual Mouse', tag:'Computer Vision', short:'Control the cursor using hand gestures via webcam.', desc:'A real-time hand-gesture based virtual mouse that maps detected hand positions to cursor movement and mouse events for touchless control.', tech:['Python','OpenCV','MediaPipe','PyAutoGUI'], demo:'#' },
+    { id:4, title:'Cross-Platform Task Manager', tag:'Tool', short:'Lightweight cross-platform task/process manager for desktop.', desc:'A cross-platform task manager utility built in Python to inspect and manage processes (works on Windows/Linux/macOS).', tech:['Python','psutil'], demo:'#' },
+    { id:5, title:'Automation Tool for Local Garment', tag:'Automation', short:'Selenium-based GUI to automate bulk web form submissions from Excel.', desc:'Python GUI that uploads Excel sheets and automates data-entry on target websites by letting users map fields and triggers via a simple Tkinter interface.', tech:['Python','Selenium','Tkinter'], demo:'#' },
+    { id:6, title:'Lie Detector (ML)', tag:'Research / ML', short:'Prototype lie detection using audio/visual signal features and ML.', desc:'Built a prototype that analyzes behavioral/physiological signals (voice stress, facial cues) to predict truthfulness using supervised ML techniques.', tech:['Python','scikit-learn','OpenCV','librosa','SpeechRecognition','Google Text-to-Speech'], demo:'#' },
+    { id:7, title:'4 in a Row (AI)', tag:'Game / AI', short:'Two-player strategy game with AI using Minimax and alpha-beta pruning.', desc:'Implemented gameplay and an AI opponent using Minimax with alpha-beta pruning to provide competitive play and learning opportunities.', tech:['Python','Pygame','Minimax','Alpha-Beta'], demo:'#' },
+    { id:8, title:'Maze Rival', tag:'Game', short:'Competitive maze-solving game with dynamic levels and multiplayer.', desc:'A competitive maze game featuring dynamic levels and real-time multiplayer mechanics to boost problem-solving skills.', tech:['Python','Pygame','BFS/DFS','A*'], demo:'#' }
   ];
 
   // Render skills
