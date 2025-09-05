@@ -56,10 +56,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const card = document.createElement('div');
     card.className = 'project-card fade-up';
     card.setAttribute('data-id', p.id);
+    card.setAttribute('tabindex', '0');
     card.innerHTML = `<div class="project-title"><strong>${p.title}</strong> <span class="project-tag">${p.tag}</span></div><div class="project-meta">${p.short}</div>`;
     projectsList.appendChild(card);
     card.addEventListener('click', () => openProjectModal(p));
+    // keyboard enter/space -> open
+    card.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); openProjectModal(p); } });
   });
+
+  // Project filtering
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  function applyFilter(tag){
+    const cards = document.querySelectorAll('#projects-list .project-card');
+    cards.forEach(c=>{ const p = projects.find(x=>String(x.id)===c.dataset.id); if(!p) return; if(tag==='all' || p.tag.includes(tag) || p.tag===tag) { c.style.display='block'; } else { c.style.display='none'; } });
+  }
+  filterButtons.forEach(b=>b.addEventListener('click', ()=>{ filterButtons.forEach(x=>x.classList.remove('active')); b.classList.add('active'); applyFilter(b.dataset.filter); }));
+
+  // Copy email button
+  const copyBtn = document.getElementById('copy-email');
+  const copyStatus = document.getElementById('copy-status');
+  if(copyBtn){ copyBtn.addEventListener('click', async ()=>{ const email = document.getElementById('contact-email').textContent.trim(); try{ await navigator.clipboard.writeText(email); copyStatus.textContent = 'Email copied to clipboard'; setTimeout(()=>copyStatus.textContent='',2800); }catch(e){ copyStatus.textContent='Press Ctrl+C to copy: '+email; } }); }
 
   // Typing effect for roles
   const typedEl = document.getElementById('typed');
@@ -131,86 +147,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-/* --- Three.js simple scene + particles + model switch --- */
+/* --- Gallery & lightbox behavior (replaces 3D content) --- */
 (() => {
-  const canvas = document.getElementById('three-canvas');
-  if(!canvas) return;
-  const width = () => canvas.clientWidth || 360;
-  const height = () => 220;
+  const thumbs = Array.from(document.querySelectorAll('.gallery-thumb'));
+  if(!thumbs.length) return;
 
-  // renderer
-  const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
-  renderer.setPixelRatio(window.devicePixelRatio || 1);
-  renderer.setSize(width(), height());
-  renderer.setClearColor(0x000000, 0);
+  const lightbox = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lightbox-img');
+  const lbClose = document.getElementById('lightbox-close');
+  const lbNext = document.getElementById('lightbox-next');
+  const lbPrev = document.getElementById('lightbox-prev');
+  let idx = 0;
 
-  // scene + camera
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(45, width()/height(), 0.1, 1000);
-  camera.position.set(0,0,4);
+  function open(index){ idx = index; lbImg.src = thumbs[idx].src; lbImg.alt = thumbs[idx].alt || ''; lightbox.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
+  function close(){ lightbox.setAttribute('aria-hidden','true'); lbImg.src=''; document.body.style.overflow=''; }
+  function next(){ idx = (idx+1) % thumbs.length; lbImg.src = thumbs[idx].src; }
+  function prev(){ idx = (idx-1+thumbs.length) % thumbs.length; lbImg.src = thumbs[idx].src; }
 
-  // lights
-  const amb = new THREE.AmbientLight(0xffffff, 0.6);
-  const dir = new THREE.DirectionalLight(0xffffff, 0.6);
-  dir.position.set(5,5,5);
-  scene.add(amb,dir);
+  thumbs.forEach((t,i)=>{ t.addEventListener('click', ()=>open(i)); t.setAttribute('tabindex','0'); t.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); open(i); } }); });
 
-  // materials
-  const mat = new THREE.MeshStandardMaterial({color:0x38bdf8, metalness:0.5, roughness:0.2, emissive:0x072033});
+  lbClose.addEventListener('click', close);
+  lbNext.addEventListener('click', next);
+  lbPrev.addEventListener('click', prev);
 
-  // models
-  let mesh;
-  function makeModel(type){
-    if(mesh){scene.remove(mesh);mesh.geometry.dispose();mesh.material.dispose();mesh=null}
-    let geom;
-    if(type==='cube') geom = new THREE.BoxGeometry(1.4,1.4,1.4);
-    else if(type==='sphere') geom = new THREE.SphereGeometry(0.95, 32, 32);
-    else geom = new THREE.TorusKnotGeometry(0.6,0.18,128,24);
-    mesh = new THREE.Mesh(geom, mat.clone());
-    scene.add(mesh);
-  }
-  makeModel('cube');
-
-  // particles (simple points)
-  const particlesGeo = new THREE.BufferGeometry();
-  const pts = 120;
-  const positions = new Float32Array(pts * 3);
-  for(let i=0;i<pts;i++){positions[i*3+0] = (Math.random()-0.5)*8; positions[i*3+1] = (Math.random()-0.5)*4; positions[i*3+2] = (Math.random()-0.5)*2}
-  particlesGeo.setAttribute('position', new THREE.BufferAttribute(positions,3));
-  const particlesMat = new THREE.PointsMaterial({color:0xffffff,size:0.03,opacity:0.7,transparent:true});
-  const points = new THREE.Points(particlesGeo, particlesMat);
-  points.position.set(0,0,-1.2);
-  scene.add(points);
-
-  // animation loop
-  let t = 0;
-  function animate(){
-    t += 0.01;
-    if(mesh) mesh.rotation.y = 0.4*t; mesh.rotation.x = 0.15*t;
-    points.rotation.y = -0.02*t;
-    renderer.render(scene, camera);
-    requestAnimationFrame(animate);
-  }
-  animate();
-
-  // resize handling
-  const onResize = ()=>{renderer.setSize(width(), height()); camera.aspect = width()/height(); camera.updateProjectionMatrix();};
-  window.addEventListener('resize', onResize);
-
-  // model switching buttons
-  const modelBtns = document.querySelectorAll('.model-btn');
-  modelBtns.forEach(b=>b.addEventListener('click', ()=>{
-    modelBtns.forEach(x=>x.classList.remove('active'));b.classList.add('active');
-    makeModel(b.dataset.model);
-  }));
-
-  // tilt / parallax on canvas
-  canvas.addEventListener('mousemove', (e)=>{
-    const r = canvas.getBoundingClientRect();
-    const x = ((e.clientX - r.left)/r.width - 0.5)*2; const y = ((e.clientY - r.top)/r.height - 0.5)*2;
-    if(mesh) mesh.rotation.y = x*0.6; mesh.rotation.x = -y*0.6;
-  });
-  canvas.addEventListener('mouseleave', ()=>{ if(mesh){mesh.rotation.x=0;mesh.rotation.y=0} });
+  window.addEventListener('keydown', (e)=>{ if(lightbox.getAttribute('aria-hidden')==='false'){ if(e.key==='Escape') close(); if(e.key==='ArrowRight') next(); if(e.key==='ArrowLeft') prev(); } });
 
 })();
 
