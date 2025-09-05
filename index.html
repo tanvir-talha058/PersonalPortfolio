@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tanvir Talha | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+  <meta name="description" content="Portfolio of Tanvir Talha — projects, skills, resume and contact.">
+  <link rel="icon" href="assets/profile.png">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="#home">Tanvir Talha</a>
+      <button id="nav-toggle" aria-label="Toggle navigation">☰</button>
+      <nav id="site-nav" class="nav">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#resume">Resume</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="container hero-inner">
+        <div class="hero-left">
+          <div class="avatar">TT</div>
+          <h1 class="headline">Hi, I'm <span class="accent">Tanvir</span>.</h1>
+          <p class="subhead">I build fast, reliable web apps and delightful user experiences.</p>
+          <div class="roles"><span id="typed"></span><span class="cursor">|</span></div>
+          <div class="hero-cta">
+            <a class="btn primary" href="#projects">See Projects</a>
+            <a class="btn outline" href="Tanvir's Resume.pdf" target="_blank">Download Resume</a>
+          </div>
+          <div class="social">
+            <a href="https://www.linkedin.com/in/tanvir-talha058" target="_blank">LinkedIn</a>
+            <a href="#contact">Contact</a>
+          </div>
+        </div>
+        <div class="hero-right">
+          <canvas id="three-canvas" aria-hidden="false"></canvas>
+          <div class="model-controls">
+            <button class="model-btn" data-model="cube">Cube</button>
+            <button class="model-btn" data-model="sphere">Sphere</button>
+            <button class="model-btn" data-model="torus">Torus</button>
+          </div>
+          <div class="card-stacked" aria-hidden="true">
+            <div class="card card-1">Performance</div>
+            <div class="card card-2">Polished UI</div>
+            <div class="card card-3">Accessibility</div>
+          </div>
+        </div>
+      </div>
+      <svg class="hero-wave" viewBox="0 0 1440 120" preserveAspectRatio="none"><path d="M0,40 C360,120 1080,0 1440,60 L1440 120 L0 120 Z" fill="rgba(255,255,255,0.85)"></path></svg>
+    </section>
+
+    <section id="about" class="section">
+      <div class="container">
+        <h2>About Me</h2>
+        <p class="lead">I'm a passionate web developer who loves turning ideas into production-ready apps. I enjoy working across the stack with a focus on performance, accessibility and polished UI.</p>
+        <div class="about-grid">
+          <div class="about-card"><strong>Location:</strong> Dhaka, Bangladesh</div>
+          <div class="about-card"><strong>Education:</strong> BSc in Computer Science</div>
+          <div class="about-card"><strong>Availability:</strong> Open to opportunities</div>
+          <div class="about-card"><strong>Contact:</strong> <a href="mailto:your-email@example.com">your-email@example.com</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="section">
+      <div class="container">
+        <h2>Skills</h2>
+        <div id="skills-list" class="skills-grid"></div>
+      </div>
+    </section>
+
+    <section id="projects" class="section">
+      <div class="container">
+        <h2>Featured Projects</h2>
+        <div id="projects-list" class="projects-grid"></div>
+      </div>
+    </section>
+
+    <section id="resume" class="section">
+      <div class="container resume-wrap">
+        <h2>Resume</h2>
+        <div class="resume-actions">
+          <a class="btn primary" href="Tanvir's Resume.pdf" target="_blank">Open Resume (PDF)</a>
+          <a class="btn outline" href="Tanvir's Resume.pdf" download>Download</a>
+        </div>
+        <div class="resume-embed">
+          <iframe src="Tanvir's Resume.pdf" title="Resume" frameborder="0"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="container">
+        <h2>Contact</h2>
+        <form id="contact-form" class="contact-form">
+          <input type="text" name="name" placeholder="Your name" required>
+          <input type="email" name="email" placeholder="Your email" required>
+          <textarea name="message" placeholder="Message" rows="5" required></textarea>
+          <div class="form-actions">
+            <button type="submit" class="btn primary">Send Message</button>
+            <button type="button" id="mailto-btn" class="btn outline">Send via Email</button>
+          </div>
+        </form>
+        <div id="form-status" class="form-status" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2025 Tanvir Talha — Built with care.</p>
+    </div>
+  </footer>
+
+  <!-- Project modal -->
+  <div id="project-modal" class="modal" aria-hidden="true">
+    <div class="modal-panel">
+      <button id="modal-close" class="modal-close" aria-label="Close">×</button>
+      <div id="modal-content"></div>
+    </div>
+  </div>
+
+  <!-- Three.js (for simple 3D models) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r146/three.min.js"></script>
+  <script src="assets/script.js"></script>
+</body>
+</html>
