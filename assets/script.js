@@ -80,26 +80,52 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Enhanced skills with interactive filtering
+  // Core skills based on actual projects and experience
   const skills = [
-    { name: 'Python', category: 'backend' },
-    { name: 'JavaScript', category: 'frontend' },
+    // Programming Languages
+    { name: 'Python', category: 'languages' },
+    { name: 'JavaScript', category: 'languages' },
+    { name: 'Dart', category: 'languages' },
+    { name: 'PHP', category: 'languages' },
+    { name: 'SQL', category: 'languages' },
+    
+    // Frontend Technologies
     { name: 'HTML5', category: 'frontend' },
     { name: 'CSS3', category: 'frontend' },
     { name: 'React', category: 'frontend' },
+    { name: 'Bootstrap', category: 'frontend' },
+    
+    // Backend Technologies
     { name: 'Node.js', category: 'backend' },
-    { name: 'MongoDB', category: 'database' },
-    { name: 'PostgreSQL', category: 'database' },
-    { name: 'Git', category: 'tools' },
-    { name: 'Docker', category: 'tools' },
-    { name: 'AWS', category: 'cloud' },
+    { name: 'Django', category: 'backend' },
+    { name: 'Flask', category: 'backend' },
+    { name: 'REST APIs', category: 'backend' },
+    
+    // Databases
+    { name: 'SQLite', category: 'database' },
+    { name: 'Firebase', category: 'database' },
+    { name: 'MySQL', category: 'database' },
+    
+    // Mobile Development
+    { name: 'Flutter', category: 'mobile' },
+    { name: 'Android', category: 'mobile' },
+    
+    // AI & Machine Learning
     { name: 'TensorFlow', category: 'ai' },
     { name: 'OpenCV', category: 'ai' },
-    { name: 'Flutter', category: 'mobile' },
-    { name: 'Firebase', category: 'cloud' },
-    { name: 'PHP', category: 'backend' },
-    { name: 'MySQL', category: 'database' },
-    { name: 'Linux', category: 'tools' }
+    { name: 'Computer Vision', category: 'ai' },
+    { name: 'Speech Recognition', category: 'ai' },
+    
+    // Tools & Technologies
+    { name: 'Git', category: 'tools' },
+    { name: 'GitHub', category: 'tools' },
+    { name: 'VS Code', category: 'tools' },
+    { name: 'Android Studio', category: 'tools' },
+    { name: 'Tkinter', category: 'tools' },
+    
+    // Other Technologies
+    { name: 'Selenium', category: 'other' },
+    { name: 'Google TTS', category: 'other' }
   ];
 
   // Enhanced projects with better interaction
@@ -110,8 +136,8 @@ document.addEventListener('DOMContentLoaded', () => {
       tag: 'AI',
       description: 'Voice-activated assistant for students with reminders and study help. Built with speech recognition and natural language processing.',
       tech: ['Python', 'SpeechRecognition', 'Google TTS', 'SQLite', 'Tkinter'],
-      demo: '#',
-      github: '#',
+      demo: 'https://github.com/tanvir-talha058/edu-buddy-ai',
+      github: 'https://github.com/tanvir-talha058/edu-buddy-ai',
       featured: true
     },
     {
@@ -120,8 +146,8 @@ document.addEventListener('DOMContentLoaded', () => {
       tag: 'Web/Mobile',
       description: 'Marketplace connecting farmers and consumers with a Flutter mobile app and responsive web portal.',
       tech: ['Flutter', 'Dart', 'Firebase', 'HTML5', 'CSS3', 'JavaScript', 'PHP'],
-      demo: '#',
-      github: '#',
+      demo: 'https://github.com/tanvir-talha058/agrokart-bd',
+      github: 'https://github.com/tanvir-talha058/agrokart-bd',
       featured: true
     },
     {
@@ -129,9 +155,9 @@ document.addEventListener('DOMContentLoaded', () => {
       title: 'Hand Gesture Virtual Mouse',
       tag: 'Computer Vision',
       description: 'Real-time hand-gesture based virtual mouse that maps detected hand positions to cursor movement.',
-      tech: ['Python', 'OpenCV', 'TensorFlow', 'TensorFlow'],
-      demo: '#',
-      github: '#',
+      tech: ['Python', 'OpenCV', 'TensorFlow'],
+      demo: 'https://github.com/tanvir-talha058/hand-gesture-mouse',
+      github: 'https://github.com/tanvir-talha058/hand-gesture-mouse',
       featured: false
     },
     {
@@ -140,8 +166,8 @@ document.addEventListener('DOMContentLoaded', () => {
       tag: 'Tool',
       description: 'Lightweight cross-platform task/process manager for desktop environments.',
       tech: ['Python', 'Node.js', 'React'],
-      demo: '#',
-      github: '#',
+      demo: 'https://github.com/tanvir-talha058/task-manager',
+      github: 'https://github.com/tanvir-talha058/task-manager',
       featured: false
     },
     {
@@ -149,9 +175,9 @@ document.addEventListener('DOMContentLoaded', () => {
       title: 'Automation Tool for Garment Industry',
       tag: 'Automation',
       description: 'Selenium-based GUI to automate bulk web form submissions from Excel data.',
-      tech: ['Python', 'JavaScript', 'HTML5'],
-      demo: '#',
-      github: '#',
+      tech: ['Python', 'Selenium', 'JavaScript', 'HTML5'],
+      demo: 'https://github.com/tanvir-talha058/garment-automation',
+      github: 'https://github.com/tanvir-talha058/garment-automation',
       featured: false
     },
     {
@@ -160,8 +186,8 @@ document.addEventListener('DOMContentLoaded', () => {
       tag: 'Machine Learning',
       description: 'Prototype lie detection using audio/visual signal features and machine learning.',
       tech: ['Python', 'TensorFlow', 'OpenCV'],
-      demo: '#',
-      github: '#',
+      demo: 'https://github.com/tanvir-talha058/ai-lie-detector',
+      github: 'https://github.com/tanvir-talha058/ai-lie-detector',
       featured: true
     }
   ];
@@ -175,13 +201,14 @@ document.addEventListener('DOMContentLoaded', () => {
     filterContainer.innerHTML = `
       <div class="skill-filters">
         <button class="skill-filter-btn active" data-filter="all">All</button>
+        <button class="skill-filter-btn" data-filter="languages">Languages</button>
         <button class="skill-filter-btn" data-filter="frontend">Frontend</button>
         <button class="skill-filter-btn" data-filter="backend">Backend</button>
         <button class="skill-filter-btn" data-filter="database">Database</button>
-        <button class="skill-filter-btn" data-filter="tools">Tools</button>
-        <button class="skill-filter-btn" data-filter="cloud">Cloud</button>
-        <button class="skill-filter-btn" data-filter="ai">AI/ML</button>
         <button class="skill-filter-btn" data-filter="mobile">Mobile</button>
+        <button class="skill-filter-btn" data-filter="ai">AI/ML</button>
+        <button class="skill-filter-btn" data-filter="tools">Tools</button>
+        <button class="skill-filter-btn" data-filter="other">Other</button>
       </div>
     `;
     
@@ -244,30 +271,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // Enhanced projects rendering with interactions
   const projectsContainer = document.getElementById('projects-list');
   if (projectsContainer) {
-    // Add project controls
-    const controlsContainer = document.createElement('div');
-    controlsContainer.className = 'projects-controls';
-    controlsContainer.innerHTML = `
-      <div class="project-filters">
-        <button class="project-filter-btn active" data-filter="all">All Projects</button>
-        <button class="project-filter-btn" data-filter="featured">Featured</button>
-        <button class="project-filter-btn" data-filter="AI">AI Projects</button>
-        <button class="project-filter-btn" data-filter="Web/Mobile">Web/Mobile</button>
-      </div>
-      <div class="project-view-toggle">
-        <button class="view-btn active" data-view="card">Card View</button>
-        <button class="view-btn" data-view="list">List View</button>
-      </div>
-    `;
-    
-    projectsContainer.parentNode.insertBefore(controlsContainer, projectsContainer);
-    
     // Clear and render enhanced projects
     projectsContainer.innerHTML = '';
     
-    function renderProjects(projectsToShow = projects, viewType = 'card') {
+    function renderProjects(projectsToShow = projects) {
       projectsContainer.innerHTML = '';
-      projectsContainer.className = `projects-container ${viewType}-view`;
+      projectsContainer.className = 'projects-minimal';
       
       projectsToShow.forEach((project, index) => {
         const projectEl = document.createElement('div');
@@ -282,19 +291,15 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
           <p class="project-description">${project.description}</p>
           <div class="tech-minimal">
-            ${project.tech.slice(0, 4).map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
-            ${project.tech.length > 4 ? `<span class="tech-more">+${project.tech.length - 4} more</span>` : ''}
+            ${project.tech.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
           </div>
-          <div class="project-actions">
-            <button class="project-action-btn demo-btn" data-action="demo">
-              <i class="fas fa-external-link-alt"></i> Demo
-            </button>
-            <button class="project-action-btn code-btn" data-action="code">
+          <div class="project-links">
+            <a href="${project.github}" target="_blank" class="project-link github-link">
               <i class="fab fa-github"></i> Code
-            </button>
-            <button class="project-action-btn details-btn" data-action="details" data-id="${project.id}">
-              <i class="fas fa-info-circle"></i> Details
-            </button>
+            </a>
+            <a href="${project.demo}" target="_blank" class="project-link demo-link">
+              <i class="fas fa-external-link-alt"></i> View
+            </a>
           </div>
         `;
         projectsContainer.appendChild(projectEl);
@@ -302,29 +307,23 @@ document.addEventListener('DOMContentLoaded', () => {
         // Add staggered animation delay
         projectEl.style.animationDelay = `${index * 0.2}s`;
         
-        // Add enhanced interactions
-        const actionBtns = projectEl.querySelectorAll('.project-action-btn');
-        actionBtns.forEach(btn => {
-          btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const action = btn.dataset.action;
-            
+        // Add button click feedback
+        const projectLinks = projectEl.querySelectorAll('.project-link');
+        projectLinks.forEach(link => {
+          link.addEventListener('click', (e) => {
             // Visual feedback
-            btn.style.transform = 'scale(0.95)';
-            setTimeout(() => btn.style.transform = 'scale(1)', 150);
+            link.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+              link.style.transform = '';
+            }, 150);
             
-            // Handle actions
-            if (action === 'demo') {
-              showNotification('🚀 Demo will be available soon!', 'info');
-            } else if (action === 'code') {
-              showNotification('💻 GitHub repository coming soon!', 'info');
-            } else if (action === 'details') {
-              showProjectModal(project);
-            }
+            // Add a small notification for user feedback
+            const linkType = link.classList.contains('github-link') ? 'GitHub' : 'Demo';
+            console.log(`Opening ${linkType} link: ${link.href}`);
           });
         });
         
-        // Add hover effects
+        // Add hover effects to the card
         projectEl.addEventListener('mouseenter', () => {
           projectEl.style.transform = 'translateY(-5px)';
         });
@@ -336,51 +335,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initial render
     renderProjects();
-    
-    // Filter functionality
-    const filterBtns = controlsContainer.querySelectorAll('.project-filter-btn');
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const filter = btn.dataset.filter;
-        
-        // Update active button
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        
-        // Filter projects
-        let filteredProjects = projects;
-        if (filter === 'featured') {
-          filteredProjects = projects.filter(p => p.featured);
-        } else if (filter !== 'all') {
-          filteredProjects = projects.filter(p => p.tag === filter);
-        }
-        
-        renderProjects(filteredProjects);
-        
-        // Button feedback
-        btn.style.transform = 'scale(0.95)';
-        setTimeout(() => btn.style.transform = 'scale(1)', 150);
-      });
-    });
-    
-    // View toggle functionality
-    const viewBtns = controlsContainer.querySelectorAll('.view-btn');
-    viewBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const view = btn.dataset.view;
-        
-        // Update active button
-        viewBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        
-        // Re-render with new view
-        renderProjects(projects, view);
-        
-        // Button feedback
-        btn.style.transform = 'scale(0.95)';
-        setTimeout(() => btn.style.transform = 'scale(1)', 150);
-      });
-    });
   }
 
   // Utility functions for enhanced interactivity
@@ -411,77 +365,6 @@ document.addEventListener('DOMContentLoaded', () => {
       notification.classList.add('fade-out');
       setTimeout(() => notification.remove(), 300);
     });
-  }
-  
-  function showProjectModal(project) {
-    // Remove existing modal
-    const existing = document.querySelector('.project-modal');
-    if (existing) existing.remove();
-    
-    const modal = document.createElement('div');
-    modal.className = 'project-modal';
-    modal.innerHTML = `
-      <div class="modal-overlay">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h2>${project.title}</h2>
-            <button class="modal-close">&times;</button>
-          </div>
-          <div class="modal-body">
-            <div class="project-badges">
-              <span class="project-tag">${project.tag}</span>
-              ${project.featured ? '<span class="featured-badge">Featured</span>' : ''}
-            </div>
-            <p class="project-full-description">${project.description}</p>
-            <div class="project-tech-full">
-              <h4>Technologies Used:</h4>
-              <div class="tech-grid">
-                ${project.tech.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
-              </div>
-            </div>
-            <div class="project-links">
-              <button class="project-link-btn demo-link">
-                <i class="fas fa-external-link-alt"></i> View Demo
-              </button>
-              <button class="project-link-btn github-link">
-                <i class="fab fa-github"></i> View Code
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
-    
-    document.body.appendChild(modal);
-    
-    // Close modal functionality
-    const closeModal = () => {
-      modal.classList.add('fade-out');
-      setTimeout(() => modal.remove(), 300);
-    };
-    
-    modal.querySelector('.modal-close').addEventListener('click', closeModal);
-    modal.querySelector('.modal-overlay').addEventListener('click', (e) => {
-      if (e.target === modal.querySelector('.modal-overlay')) closeModal();
-    });
-    
-    // Link buttons
-    modal.querySelector('.demo-link').addEventListener('click', () => {
-      showNotification('🚀 Demo will be available soon!', 'info');
-    });
-    
-    modal.querySelector('.github-link').addEventListener('click', () => {
-      showNotification('💻 GitHub repository coming soon!', 'info');
-    });
-    
-    // ESC key to close
-    const handleEsc = (e) => {
-      if (e.key === 'Escape') {
-        closeModal();
-        document.removeEventListener('keydown', handleEsc);
-      }
-    };
-    document.addEventListener('keydown', handleEsc);
   }
 
   // Typing effect for roles
@@ -637,38 +520,38 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Copy email functionality
+  const copyEmailBtn = document.getElementById('copy-email');
+  const contactEmail = document.getElementById('contact-email');
+  
+  if (copyEmailBtn && contactEmail) {
+    copyEmailBtn.addEventListener('click', async () => {
+      try {
+        const email = contactEmail.textContent;
+        await navigator.clipboard.writeText(email);
+        showNotification('📧 Email copied to clipboard!', 'success');
+        
+        // Visual feedback
+        copyEmailBtn.textContent = 'Copied!';
+        setTimeout(() => {
+          copyEmailBtn.textContent = 'Copy';
+        }, 2000);
+      } catch (err) {
+        showNotification('❌ Failed to copy email', 'error');
+      }
+    });
+  }
+
+  // mailto button functionality
+  const mailtoBtn = document.getElementById('mailto-btn');
+  if (mailtoBtn) {
+    mailtoBtn.addEventListener('click', () => {
+      const subject = encodeURIComponent('Portfolio Contact');
+      const body = encodeURIComponent('Hi Tanvir,\n\nI found your portfolio and would like to connect.\n\nBest regards,');
+      window.location.href = `mailto:tanvirahmed123000@gmail.com?subject=${subject}&body=${body}`;
+    });
+  }
+
 });
-
-/* --- Gallery & lightbox behavior (replaces 3D content) --- */
-(() => {
-  const thumbs = Array.from(document.querySelectorAll('.gallery-thumb'));
-  if(!thumbs.length) return;
-
-  const lightbox = document.getElementById('lightbox');
-  const lbImg = document.getElementById('lightbox-img');
-  const lbClose = document.getElementById('lightbox-close');
-  const lbNext = document.getElementById('lightbox-next');
-  const lbPrev = document.getElementById('lightbox-prev');
-  let idx = 0;
-
-  function open(index){ idx = index; lbImg.src = thumbs[idx].src; lbImg.alt = thumbs[idx].alt || ''; lightbox.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
-  function close(){ lightbox.setAttribute('aria-hidden','true'); lbImg.src=''; document.body.style.overflow=''; }
-  function next(){ idx = (idx+1) % thumbs.length; lbImg.src = thumbs[idx].src; }
-  function prev(){ idx = (idx-1+thumbs.length) % thumbs.length; lbImg.src = thumbs[idx].src; }
-
-  thumbs.forEach((t,i)=>{ t.addEventListener('click', ()=>open(i)); t.setAttribute('tabindex','0'); t.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); open(i); } }); });
-
-  lbClose.addEventListener('click', close);
-  lbNext.addEventListener('click', next);
-  lbPrev.addEventListener('click', prev);
-
-  // Basic focus: move focus into lightbox when opened
-  const firstFocusable = lbClose; // simple
-  const lastFocusable = lbNext;
-  lightbox.addEventListener('transitionend', ()=>{ if(lightbox.getAttribute('aria-hidden')==='false'){ firstFocusable.focus(); } });
-
-  window.addEventListener('keydown', (e)=>{ if(lightbox.getAttribute('aria-hidden')==='false'){ if(e.key==='Escape') close(); if(e.key==='ArrowRight') next(); if(e.key==='ArrowLeft') prev(); } });
-
-})();
 
 

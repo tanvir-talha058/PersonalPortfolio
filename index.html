@@ -15,7 +15,7 @@
 <body>
   <header class="site-header">
     <div class="container nav-wrap">
-      <a class="brand" href="#home">Tanvir Talha</a>
+      <a class="brand" href="#home">Tanvir Ahmed</a>
       <button id="nav-toggle" aria-label="Toggle navigation">☰</button>
       <nav id="site-nav" class="nav">
         <a href="#home">Home</a>
@@ -57,12 +57,54 @@
     <section id="about" class="section">
       <div class="container">
         <h2>About Me</h2>
-        <p class="lead">I'm a passionate web developer who loves turning ideas into production-ready apps. I enjoy working across the stack with a focus on performance, accessibility and polished UI.</p>
+        <div class="about-content">
+          <div class="about-intro">
+            <p class="lead">I'm a passionate web developer and tech enthusiast who loves turning ideas into production-ready applications.</p>
+          </div>
+          
+          <div class="about-details">
+            <div class="about-story">
+              <h3>About Me</h3>
+              <p>Currently pursuing BSc in Computer Science, I'm a dedicated tech enthusiast eager to learn and adapt to any new technology. I enjoy working across the full stack, from crafting intuitive UIs with React to building robust backends with Node.js and Python.</p>
+            </div>
+            
+            <div class="about-expertise">
+              <h3>What I Do</h3>
+              <div class="expertise-grid">
+                <div class="expertise-item">
+                  <i class="fas fa-code"></i>
+                  <h4>Full-Stack Development</h4>
+                  <p>Building complete web applications using modern technologies and best practices.</p>
+                </div>
+                <div class="expertise-item">
+                  <i class="fas fa-mobile-alt"></i>
+                  <h4>Mobile Development</h4>
+                  <p>Creating cross-platform mobile apps with Flutter and React Native.</p>
+                </div>
+                <div class="expertise-item">
+                  <i class="fas fa-robot"></i>
+                  <h4>AI & Machine Learning</h4>
+                  <p>Exploring AI and computer vision to create innovative solutions.</p>
+                </div>
+                <div class="expertise-item">
+                  <i class="fas fa-database"></i>
+                  <h4>Database Design</h4>
+                  <p>Designing efficient database schemas for scalable applications.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
         <div class="about-grid">
           <div class="about-card"><strong>Location:</strong> Dhaka, Bangladesh</div>
           <div class="about-card"><strong>Education:</strong> BSc in Computer Science</div>
           <div class="about-card"><strong>Availability:</strong> Open to opportunities</div>
-          <div class="about-card"><strong>Contact:</strong> <a id="contact-email" href="mailto:tanvirahmed123000@gmail.com">tanvirahmed123000@gmail.com</a> <button id="copy-email" class="btn outline small" title="Copy email">Copy</button></div>
+          <div class="about-card">
+            <strong>Contact:</strong> 
+            <a id="contact-email" href="mailto:tanvirahmed123000@gmail.com">tanvirahmed123000@gmail.com</a> 
+            <button id="copy-email" class="btn outline small" title="Copy email">Copy</button>
+          </div>
         </div>
       </div>
     </section>
@@ -77,21 +119,23 @@
 
     <section id="projects" class="section">
       <div class="container">
-        <h2>Featured Projects</h2>
+        <h2>Projects</h2>
         <p class="lead">Some of my recent work</p>
         <div id="projects-list" class="projects-minimal" aria-live="polite"></div>
       </div>
     </section>
 
     <section id="resume" class="section">
-      <div class="container resume-wrap">
+      <div class="container">
         <h2>Resume</h2>
+        <p class="lead">View or download my resume</p>
         <div class="resume-actions">
-          <a class="btn primary" href="Tanvir_Resume.pdf" target="_blank">Open Resume (PDF)</a>
-          <a class="btn outline" href="Tanvir_Resume.pdf" download>Download</a>
-        </div>
-        <div class="resume-embed">
-          <iframe src="Tanvir_Resume.pdf" title="Resume" frameborder="0"></iframe>
+          <a class="btn primary" href="Tanvir_Resume.pdf" target="_blank">
+            <i class="fas fa-external-link-alt"></i> View Resume
+          </a>
+          <a class="btn outline" href="Tanvir_Resume.pdf" download>
+            <i class="fas fa-download"></i> Download PDF
+          </a>
         </div>
       </div>
     </section>
@@ -117,32 +161,33 @@
   <footer class="site-footer">
     <div class="container">
       <div class="footer-content">
-        <p>&copy; 2025 Tanvir Talha — Built with care.</p>
+        <div class="footer-info">
+          <h3>Tanvir Ahmed</h3>
+          <p>Full-Stack Developer & AI Enthusiast</p>
+        </div>
+        
         <div class="footer-social">
-          <a href="https://github.com/tanvir-talha058" target="_blank" class="footer-link">
-            <i class="fab fa-github"></i> GitHub
+          <a href="https://github.com/tanvir-talha058" target="_blank" class="footer-link" title="GitHub">
+            <i class="fab fa-github"></i>
           </a>
-          <a href="https://www.linkedin.com/in/tanvir-talha058" target="_blank" class="footer-link">
-            <i class="fab fa-linkedin"></i> LinkedIn
+          <a href="https://www.linkedin.com/in/tanvir-talha058" target="_blank" class="footer-link" title="LinkedIn">
+            <i class="fab fa-linkedin"></i>
           </a>
-          <a href="mailto:tanvirahmed123000@gmail.com" class="footer-link">
-            <i class="fas fa-envelope"></i> Email
+          <a href="mailto:tanvirahmed123000@gmail.com" class="footer-link" title="Email">
+            <i class="fas fa-envelope"></i>
           </a>
+          <a href="Tanvir_Resume.pdf" target="_blank" class="footer-link" title="Resume">
+            <i class="fas fa-file-pdf"></i>
+          </a>
+        </div>
+        
+        <div class="footer-bottom">
+          <p>&copy; 2025 Tanvir Ahmed</p>
         </div>
       </div>
     </div>
   </footer>
 
   <script src="assets/script.js"></script>
-  
-  <!-- SVG Gradients for skill circles -->
-  <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" aria-hidden="true">
-    <defs>
-      <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" style="stop-color:#38bdf8;stop-opacity:1" />
-        <stop offset="100%" style="stop-color:#7c3aed;stop-opacity:1" />
-      </linearGradient>
-    </defs>
-  </svg>
 </body>
 </html>
