@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tanvir Talha | Portfolio</title>
+  <title>Tanvir Ahmed | Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet" href="assets/styles.css">
-  <meta name="description" content="Portfolio of Tanvir Talha — projects, skills, resume and contact.">
+  <meta name="description" content="Portfolio of Tanvir Ahmed — projects, skills, resume and contact.">
   <link rel="icon" href="assets/profile.png">
 </head>
 <body>
@@ -30,8 +31,7 @@
   <main>
     <section id="home" class="hero">
       <div class="container hero-inner">
-        <div class="hero-left">
-          <div class="avatar">TT</div>
+        <div class="hero-content">
           <h1 class="headline">Hi, I'm <span class="accent">Tanvir</span>.</h1>
           <p class="subhead">I build fast, reliable web apps and delightful user experiences.</p>
           <div class="roles"><span id="typed"></span><span class="cursor">|</span></div>
@@ -40,32 +40,16 @@
             <a class="btn outline" href="Tanvir_Resume.pdf" target="_blank">Download Resume</a>
           </div>
           <div class="social">
-            <a href="https://www.linkedin.com/in/tanvir-talha058" target="_blank">LinkedIn</a>
-            <a href="#contact">Contact</a>
+            <a href="https://github.com/tanvir-talha058" target="_blank" class="social-link github">
+              <i class="fab fa-github"></i> GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/tanvir-talha058" target="_blank" class="social-link linkedin">
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+            <a href="#contact" class="social-link contact">
+              <i class="fas fa-envelope"></i> Contact
+            </a>
           </div>
-        </div>
-        <div class="hero-right">
-          <div class="illustration-wrap">
-            <img src="assets/illustration.svg" alt="Illustration" class="illustration" />
-            <div class="badge-grid">
-              <button class="badge" data-badge="performance">Performance</button>
-              <button class="badge" data-badge="design">Polished UI</button>
-              <button class="badge" data-badge="accessibility">Accessibility</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <svg class="hero-wave" viewBox="0 0 1440 120" preserveAspectRatio="none"><path d="M0,40 C360,120 1080,0 1440,60 L1440 120 L0 120 Z" fill="rgba(255,255,255,0.85)"></path></svg>
-    </section>
-
-    <section id="visuals" class="section">
-      <div class="container">
-        <h2>Visuals & Gallery</h2>
-        <p class="lead">Vector illustrations, screenshots and visual assets. Click a thumbnail to expand and navigate.</p>
-        <div class="gallery-grid" id="gallery-grid">
-          <img src="assets/project-thumb-1.svg" alt="Project thumbnail 1" class="gallery-thumb" data-index="0">
-          <img src="assets/project-thumb-2.svg" alt="Project thumbnail 2" class="gallery-thumb" data-index="1">
-          <img src="assets/project-thumb-3.svg" alt="Project thumbnail 3" class="gallery-thumb" data-index="2">
         </div>
       </div>
     </section>
@@ -86,23 +70,16 @@
     <section id="skills" class="section">
       <div class="container">
         <h2>Skills</h2>
-        <div id="skills-list" class="skills-grid"></div>
+        <p class="lead">Technologies I work with</p>
+        <div id="skills-list" class="skills-simple"></div>
       </div>
     </section>
 
     <section id="projects" class="section">
       <div class="container">
         <h2>Featured Projects</h2>
-        <div class="project-tools" aria-hidden="false">
-          <div class="filters" role="toolbar" aria-label="Project filters">
-            <button class="filter-btn active" data-filter="all">All</button>
-            <button class="filter-btn" data-filter="AI">AI</button>
-            <button class="filter-btn" data-filter="Mobile">Mobile / Web</button>
-            <button class="filter-btn" data-filter="CV">Computer Vision</button>
-            <button class="filter-btn" data-filter="Game">Game</button>
-          </div>
-        </div>
-        <div id="projects-list" class="projects-grid" aria-live="polite"></div>
+        <p class="lead">Some of my recent work</p>
+        <div id="projects-list" class="projects-minimal" aria-live="polite"></div>
       </div>
     </section>
 
@@ -139,28 +116,33 @@
 
   <footer class="site-footer">
     <div class="container">
-      <p>&copy; 2025 Tanvir Talha — Built with care.</p>
+      <div class="footer-content">
+        <p>&copy; 2025 Tanvir Talha — Built with care.</p>
+        <div class="footer-social">
+          <a href="https://github.com/tanvir-talha058" target="_blank" class="footer-link">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+          <a href="https://www.linkedin.com/in/tanvir-talha058" target="_blank" class="footer-link">
+            <i class="fab fa-linkedin"></i> LinkedIn
+          </a>
+          <a href="mailto:tanvirahmed123000@gmail.com" class="footer-link">
+            <i class="fas fa-envelope"></i> Email
+          </a>
+        </div>
+      </div>
     </div>
   </footer>
 
-  <!-- Project modal -->
-  <div id="project-modal" class="modal" aria-hidden="true">
-    <div class="modal-panel">
-      <button id="modal-close" class="modal-close" aria-label="Close">×</button>
-      <div id="modal-content"></div>
-    </div>
-  </div>
-
-  <!-- Visuals lightbox -->
-  <div id="lightbox" class="lightbox" aria-hidden="true">
-    <button id="lightbox-close" class="modal-close" aria-label="Close">×</button>
-    <img id="lightbox-img" src="" alt="" />
-    <div class="lightbox-nav">
-      <button id="lightbox-prev">◀</button>
-      <button id="lightbox-next">▶</button>
-    </div>
-  </div>
-
   <script src="assets/script.js"></script>
+  
+  <!-- SVG Gradients for skill circles -->
+  <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" aria-hidden="true">
+    <defs>
+      <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#38bdf8;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#7c3aed;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+  </svg>
 </body>
 </html>

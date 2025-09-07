@@ -1,149 +1,641 @@
-// Interactive portfolio script
+// Enhanced interactive portfolio script
 document.addEventListener('DOMContentLoaded', () => {
-  // Data populated from Tanvir's resume (extracted and lightly normalized)
+  // Loading animation
+  const loadingScreen = document.createElement('div');
+  loadingScreen.className = 'loading-screen';
+  loadingScreen.innerHTML = `
+    <div class="loading-content">
+      <div class="loading-spinner"></div>
+      <p>Loading Portfolio...</p>
+    </div>
+  `;
+  document.body.appendChild(loadingScreen);
+  
+  // Hide loading screen after content loads
+  setTimeout(() => {
+    loadingScreen.classList.add('fade-out');
+    setTimeout(() => loadingScreen.remove(), 500);
+  }, 1200);
+
+  // Scroll progress indicator
+  const createScrollProgress = () => {
+    const progressBar = document.createElement('div');
+    progressBar.className = 'scroll-progress';
+    document.body.appendChild(progressBar);
+    
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      progressBar.style.width = scrolled + '%';
+    });
+  };
+  createScrollProgress();
+
+  // Smooth scroll navigation with enhanced feedback
+  const navLinks = document.querySelectorAll('.nav a[href^="#"]');
+  const sections = document.querySelectorAll('section[id]');
+  
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = link.getAttribute('href').substring(1);
+      const target = document.getElementById(targetId);
+      if (target) {
+        // Add click feedback
+        link.classList.add('clicked');
+        setTimeout(() => link.classList.remove('clicked'), 300);
+        
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Enhanced active navigation tracking with smooth transitions
+  const updateActiveNav = () => {
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 100;
+      if (window.scrollY >= sectionTop) {
+        current = section.getAttribute('id');
+      }
+    });
+    
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${current}`) {
+        link.classList.add('active');
+      }
+    });
+  };
+
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        updateActiveNav();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  // Enhanced skills with interactive filtering
   const skills = [
-    { name: 'Python', level: 90 },
-    { name: 'JavaScript', level: 92 },
-    { name: 'HTML5', level: 98 },
-    { name: 'CSS3', level: 94 },
-    { name: 'C', level: 75 },
-    { name: 'C++', level: 75 },
-    { name: 'Java', level: 70 },
-    { name: 'NumPy', level: 85 },
-    { name: 'Pandas', level: 85 },
-    { name: 'Matplotlib', level: 80 },
-    { name: 'OpenCV', level: 82 },
-    { name: 'scikit-learn', level: 80 },
-    { name: 'TensorFlow', level: 75 },
-    { name: 'Keras', level: 75 },
-    { name: 'PyTorch', level: 70 },
-    { name: 'Pygame', level: 72 },
-    { name: 'PHP', level: 70 },
-    { name: 'MySQL', level: 80 },
-    { name: 'Flutter', level: 78 },
-    { name: 'Firebase', level: 78 },
-    { name: 'Git', level: 88 },
-    { name: 'Linux', level: 75 },
-    { name: 'Figma', level: 70 },
-    { name: 'UI/UX Design', level: 70 }
+    { name: 'Python', category: 'backend' },
+    { name: 'JavaScript', category: 'frontend' },
+    { name: 'HTML5', category: 'frontend' },
+    { name: 'CSS3', category: 'frontend' },
+    { name: 'React', category: 'frontend' },
+    { name: 'Node.js', category: 'backend' },
+    { name: 'MongoDB', category: 'database' },
+    { name: 'PostgreSQL', category: 'database' },
+    { name: 'Git', category: 'tools' },
+    { name: 'Docker', category: 'tools' },
+    { name: 'AWS', category: 'cloud' },
+    { name: 'TensorFlow', category: 'ai' },
+    { name: 'OpenCV', category: 'ai' },
+    { name: 'Flutter', category: 'mobile' },
+    { name: 'Firebase', category: 'cloud' },
+    { name: 'PHP', category: 'backend' },
+    { name: 'MySQL', category: 'database' },
+    { name: 'Linux', category: 'tools' }
   ];
 
-  // Projects extracted from resume (descriptions and tech stacks preserved where available)
+  // Enhanced projects with better interaction
   const projects = [
-    { id:1, title:'Edu-Buddy AI Assistant', tag:'AI', short:'Voice-activated assistant for students with reminders and study help.', desc:'Edu-Buddy is a voice-activated assistant that can set reminders, help with study schedules and answer common academic queries. Built with speech I/O and a lightweight local DB UI.', tech:['Python','SpeechRecognition','Google Text-to-Speech','SQLite','Tkinter'], demo:'#' },
-    { id:2, title:'AgroKart BD', tag:'Mobile / Web', short:'Marketplace connecting farmers and consumers with a Flutter mobile app and responsive web portal.', desc:'Developed both a mobile app (Flutter) and a responsive web application to connect farmers directly with customers, including product listings and order management.', tech:['Flutter','Dart','Firebase','HTML','CSS','JavaScript','PHP','MySQL'], demo:'#' },
-    { id:3, title:'Hand Gesture Virtual Mouse', tag:'Computer Vision', short:'Control the cursor using hand gestures via webcam.', desc:'A real-time hand-gesture based virtual mouse that maps detected hand positions to cursor movement and mouse events for touchless control.', tech:['Python','OpenCV','MediaPipe','PyAutoGUI'], demo:'#' },
-    { id:4, title:'Cross-Platform Task Manager', tag:'Tool', short:'Lightweight cross-platform task/process manager for desktop.', desc:'A cross-platform task manager utility built in Python to inspect and manage processes (works on Windows/Linux/macOS).', tech:['Python','psutil'], demo:'#' },
-    { id:5, title:'Automation Tool for Local Garment', tag:'Automation', short:'Selenium-based GUI to automate bulk web form submissions from Excel.', desc:'Python GUI that uploads Excel sheets and automates data-entry on target websites by letting users map fields and triggers via a simple Tkinter interface.', tech:['Python','Selenium','Tkinter'], demo:'#' },
-    { id:6, title:'Lie Detector (ML)', tag:'Research / ML', short:'Prototype lie detection using audio/visual signal features and ML.', desc:'Built a prototype that analyzes behavioral/physiological signals (voice stress, facial cues) to predict truthfulness using supervised ML techniques.', tech:['Python','scikit-learn','OpenCV','librosa','SpeechRecognition','Google Text-to-Speech'], demo:'#' },
-    { id:7, title:'4 in a Row (AI)', tag:'Game / AI', short:'Two-player strategy game with AI using Minimax and alpha-beta pruning.', desc:'Implemented gameplay and an AI opponent using Minimax with alpha-beta pruning to provide competitive play and learning opportunities.', tech:['Python','Pygame','Minimax','Alpha-Beta'], demo:'#' },
-    { id:8, title:'Maze Rival', tag:'Game', short:'Competitive maze-solving game with dynamic levels and multiplayer.', desc:'A competitive maze game featuring dynamic levels and real-time multiplayer mechanics to boost problem-solving skills.', tech:['Python','Pygame','BFS/DFS','A*'], demo:'#' }
+    {
+      id: 1,
+      title: 'Edu-Buddy AI Assistant',
+      tag: 'AI',
+      description: 'Voice-activated assistant for students with reminders and study help. Built with speech recognition and natural language processing.',
+      tech: ['Python', 'SpeechRecognition', 'Google TTS', 'SQLite', 'Tkinter'],
+      demo: '#',
+      github: '#',
+      featured: true
+    },
+    {
+      id: 2,
+      title: 'AgroKart BD',
+      tag: 'Web/Mobile',
+      description: 'Marketplace connecting farmers and consumers with a Flutter mobile app and responsive web portal.',
+      tech: ['Flutter', 'Dart', 'Firebase', 'HTML5', 'CSS3', 'JavaScript', 'PHP'],
+      demo: '#',
+      github: '#',
+      featured: true
+    },
+    {
+      id: 3,
+      title: 'Hand Gesture Virtual Mouse',
+      tag: 'Computer Vision',
+      description: 'Real-time hand-gesture based virtual mouse that maps detected hand positions to cursor movement.',
+      tech: ['Python', 'OpenCV', 'TensorFlow', 'TensorFlow'],
+      demo: '#',
+      github: '#',
+      featured: false
+    },
+    {
+      id: 4,
+      title: 'Cross-Platform Task Manager',
+      tag: 'Tool',
+      description: 'Lightweight cross-platform task/process manager for desktop environments.',
+      tech: ['Python', 'Node.js', 'React'],
+      demo: '#',
+      github: '#',
+      featured: false
+    },
+    {
+      id: 5,
+      title: 'Automation Tool for Garment Industry',
+      tag: 'Automation',
+      description: 'Selenium-based GUI to automate bulk web form submissions from Excel data.',
+      tech: ['Python', 'JavaScript', 'HTML5'],
+      demo: '#',
+      github: '#',
+      featured: false
+    },
+    {
+      id: 6,
+      title: 'AI Lie Detector',
+      tag: 'Machine Learning',
+      description: 'Prototype lie detection using audio/visual signal features and machine learning.',
+      tech: ['Python', 'TensorFlow', 'OpenCV'],
+      demo: '#',
+      github: '#',
+      featured: true
+    }
   ];
 
-  // Render skills
-  const skillsList = document.getElementById('skills-list');
-  skills.forEach((s, i) => {
-    const el = document.createElement('div');
-    el.className = 'skill-pill fade-up';
-    el.innerHTML = `<div class="skill-name">${s.name}</div><div class="skill-bar"><div class="skill-fill" style="--fill:${s.level}%"></div></div>`;
-    skillsList.appendChild(el);
-    // animate later when in view
-  });
+  // Enhanced skills rendering with filtering
+  const skillsContainer = document.getElementById('skills-list');
+  if (skillsContainer) {
+    // Add filter controls
+    const filterContainer = document.createElement('div');
+    filterContainer.className = 'skills-filter-container';
+    filterContainer.innerHTML = `
+      <div class="skill-filters">
+        <button class="skill-filter-btn active" data-filter="all">All</button>
+        <button class="skill-filter-btn" data-filter="frontend">Frontend</button>
+        <button class="skill-filter-btn" data-filter="backend">Backend</button>
+        <button class="skill-filter-btn" data-filter="database">Database</button>
+        <button class="skill-filter-btn" data-filter="tools">Tools</button>
+        <button class="skill-filter-btn" data-filter="cloud">Cloud</button>
+        <button class="skill-filter-btn" data-filter="ai">AI/ML</button>
+        <button class="skill-filter-btn" data-filter="mobile">Mobile</button>
+      </div>
+    `;
+    
+    skillsContainer.parentNode.insertBefore(filterContainer, skillsContainer);
+    
+    // Clear existing content and render enhanced skills
+    skillsContainer.innerHTML = '';
+    
+    skills.forEach((skill, index) => {
+      const skillEl = document.createElement('div');
+      skillEl.className = `skill-simple fade-up skill-${skill.category}`;
+      skillEl.innerHTML = `
+        <div class="skill-name">${skill.name}</div>
+        <div class="skill-category">${skill.category}</div>
+      `;
+      skillsContainer.appendChild(skillEl);
+      
+      // Add staggered animation delay
+      skillEl.style.animationDelay = `${index * 0.1}s`;
+      
+      // Add hover effect
+      skillEl.addEventListener('mouseenter', () => {
+        skillEl.style.transform = 'scale(1.05)';
+      });
+      skillEl.addEventListener('mouseleave', () => {
+        skillEl.style.transform = 'scale(1)';
+      });
+    });
 
-  // Render projects
-  const projectsList = document.getElementById('projects-list');
-  projects.forEach(p => {
-    const card = document.createElement('div');
-    card.className = 'project-card fade-up';
-    card.setAttribute('data-id', p.id);
-    card.setAttribute('tabindex', '0');
-    card.innerHTML = `<div class="project-title"><strong>${p.title}</strong> <span class="project-tag">${p.tag}</span></div><div class="project-meta">${p.short}</div>`;
-    projectsList.appendChild(card);
-    card.addEventListener('click', () => openProjectModal(p));
-    // keyboard enter/space -> open
-    card.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); openProjectModal(p); } });
-  });
+    // Add filter functionality
+    const filterBtns = filterContainer.querySelectorAll('.skill-filter-btn');
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filter = btn.dataset.filter;
+        
+        // Update active button
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        // Filter skills
+        const skillItems = skillsContainer.querySelectorAll('.skill-simple');
+        skillItems.forEach(item => {
+          if (filter === 'all' || item.classList.contains(`skill-${filter}`)) {
+            item.style.display = 'flex';
+            item.style.opacity = '0';
+            setTimeout(() => item.style.opacity = '1', 100);
+          } else {
+            item.style.opacity = '0';
+            setTimeout(() => item.style.display = 'none', 300);
+          }
+        });
 
-  // Project filtering
-  const filterButtons = document.querySelectorAll('.filter-btn');
-  function applyFilter(tag){
-    const cards = document.querySelectorAll('#projects-list .project-card');
-    cards.forEach(c=>{ const p = projects.find(x=>String(x.id)===c.dataset.id); if(!p) return; if(tag==='all' || p.tag.includes(tag) || p.tag===tag) { c.style.display='block'; } else { c.style.display='none'; } });
+        // Add button feedback
+        btn.style.transform = 'scale(0.95)';
+        setTimeout(() => btn.style.transform = 'scale(1)', 150);
+      });
+    });
   }
-  filterButtons.forEach(b=>b.addEventListener('click', ()=>{ filterButtons.forEach(x=>x.classList.remove('active')); b.classList.add('active'); applyFilter(b.dataset.filter); }));
 
-  // Copy email button
-  const copyBtn = document.getElementById('copy-email');
-  const copyStatus = document.getElementById('copy-status');
-  if(copyBtn){ copyBtn.addEventListener('click', async ()=>{ const email = document.getElementById('contact-email').textContent.trim(); try{ await navigator.clipboard.writeText(email); copyStatus.textContent = 'Email copied to clipboard'; setTimeout(()=>copyStatus.textContent='',2800); }catch(e){ copyStatus.textContent='Press Ctrl+C to copy: '+email; } }); }
+  // Enhanced projects rendering with interactions
+  const projectsContainer = document.getElementById('projects-list');
+  if (projectsContainer) {
+    // Add project controls
+    const controlsContainer = document.createElement('div');
+    controlsContainer.className = 'projects-controls';
+    controlsContainer.innerHTML = `
+      <div class="project-filters">
+        <button class="project-filter-btn active" data-filter="all">All Projects</button>
+        <button class="project-filter-btn" data-filter="featured">Featured</button>
+        <button class="project-filter-btn" data-filter="AI">AI Projects</button>
+        <button class="project-filter-btn" data-filter="Web/Mobile">Web/Mobile</button>
+      </div>
+      <div class="project-view-toggle">
+        <button class="view-btn active" data-view="card">Card View</button>
+        <button class="view-btn" data-view="list">List View</button>
+      </div>
+    `;
+    
+    projectsContainer.parentNode.insertBefore(controlsContainer, projectsContainer);
+    
+    // Clear and render enhanced projects
+    projectsContainer.innerHTML = '';
+    
+    function renderProjects(projectsToShow = projects, viewType = 'card') {
+      projectsContainer.innerHTML = '';
+      projectsContainer.className = `projects-container ${viewType}-view`;
+      
+      projectsToShow.forEach((project, index) => {
+        const projectEl = document.createElement('div');
+        projectEl.className = `project-minimal fade-up ${project.featured ? 'featured-project' : ''} project-${project.tag.toLowerCase().replace(/[^a-z0-9]/g, '')}`;
+        projectEl.innerHTML = `
+          <div class="project-header">
+            <h3>${project.title}</h3>
+            <div class="project-badges">
+              <span class="project-tag">${project.tag}</span>
+              ${project.featured ? '<span class="featured-badge">Featured</span>' : ''}
+            </div>
+          </div>
+          <p class="project-description">${project.description}</p>
+          <div class="tech-minimal">
+            ${project.tech.slice(0, 4).map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+            ${project.tech.length > 4 ? `<span class="tech-more">+${project.tech.length - 4} more</span>` : ''}
+          </div>
+          <div class="project-actions">
+            <button class="project-action-btn demo-btn" data-action="demo">
+              <i class="fas fa-external-link-alt"></i> Demo
+            </button>
+            <button class="project-action-btn code-btn" data-action="code">
+              <i class="fab fa-github"></i> Code
+            </button>
+            <button class="project-action-btn details-btn" data-action="details" data-id="${project.id}">
+              <i class="fas fa-info-circle"></i> Details
+            </button>
+          </div>
+        `;
+        projectsContainer.appendChild(projectEl);
+        
+        // Add staggered animation delay
+        projectEl.style.animationDelay = `${index * 0.2}s`;
+        
+        // Add enhanced interactions
+        const actionBtns = projectEl.querySelectorAll('.project-action-btn');
+        actionBtns.forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const action = btn.dataset.action;
+            
+            // Visual feedback
+            btn.style.transform = 'scale(0.95)';
+            setTimeout(() => btn.style.transform = 'scale(1)', 150);
+            
+            // Handle actions
+            if (action === 'demo') {
+              showNotification('🚀 Demo will be available soon!', 'info');
+            } else if (action === 'code') {
+              showNotification('💻 GitHub repository coming soon!', 'info');
+            } else if (action === 'details') {
+              showProjectModal(project);
+            }
+          });
+        });
+        
+        // Add hover effects
+        projectEl.addEventListener('mouseenter', () => {
+          projectEl.style.transform = 'translateY(-5px)';
+        });
+        projectEl.addEventListener('mouseleave', () => {
+          projectEl.style.transform = 'translateY(0)';
+        });
+      });
+    }
+    
+    // Initial render
+    renderProjects();
+    
+    // Filter functionality
+    const filterBtns = controlsContainer.querySelectorAll('.project-filter-btn');
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filter = btn.dataset.filter;
+        
+        // Update active button
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        // Filter projects
+        let filteredProjects = projects;
+        if (filter === 'featured') {
+          filteredProjects = projects.filter(p => p.featured);
+        } else if (filter !== 'all') {
+          filteredProjects = projects.filter(p => p.tag === filter);
+        }
+        
+        renderProjects(filteredProjects);
+        
+        // Button feedback
+        btn.style.transform = 'scale(0.95)';
+        setTimeout(() => btn.style.transform = 'scale(1)', 150);
+      });
+    });
+    
+    // View toggle functionality
+    const viewBtns = controlsContainer.querySelectorAll('.view-btn');
+    viewBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const view = btn.dataset.view;
+        
+        // Update active button
+        viewBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        // Re-render with new view
+        renderProjects(projects, view);
+        
+        // Button feedback
+        btn.style.transform = 'scale(0.95)';
+        setTimeout(() => btn.style.transform = 'scale(1)', 150);
+      });
+    });
+  }
+
+  // Utility functions for enhanced interactivity
+  function showNotification(message, type = 'info') {
+    // Remove existing notifications
+    const existing = document.querySelector('.notification');
+    if (existing) existing.remove();
+    
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.innerHTML = `
+      <div class="notification-content">
+        <span class="notification-message">${message}</span>
+        <button class="notification-close">&times;</button>
+      </div>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Auto hide after 3 seconds
+    setTimeout(() => {
+      notification.classList.add('fade-out');
+      setTimeout(() => notification.remove(), 300);
+    }, 3000);
+    
+    // Close button
+    notification.querySelector('.notification-close').addEventListener('click', () => {
+      notification.classList.add('fade-out');
+      setTimeout(() => notification.remove(), 300);
+    });
+  }
+  
+  function showProjectModal(project) {
+    // Remove existing modal
+    const existing = document.querySelector('.project-modal');
+    if (existing) existing.remove();
+    
+    const modal = document.createElement('div');
+    modal.className = 'project-modal';
+    modal.innerHTML = `
+      <div class="modal-overlay">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2>${project.title}</h2>
+            <button class="modal-close">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div class="project-badges">
+              <span class="project-tag">${project.tag}</span>
+              ${project.featured ? '<span class="featured-badge">Featured</span>' : ''}
+            </div>
+            <p class="project-full-description">${project.description}</p>
+            <div class="project-tech-full">
+              <h4>Technologies Used:</h4>
+              <div class="tech-grid">
+                ${project.tech.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+              </div>
+            </div>
+            <div class="project-links">
+              <button class="project-link-btn demo-link">
+                <i class="fas fa-external-link-alt"></i> View Demo
+              </button>
+              <button class="project-link-btn github-link">
+                <i class="fab fa-github"></i> View Code
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+    
+    document.body.appendChild(modal);
+    
+    // Close modal functionality
+    const closeModal = () => {
+      modal.classList.add('fade-out');
+      setTimeout(() => modal.remove(), 300);
+    };
+    
+    modal.querySelector('.modal-close').addEventListener('click', closeModal);
+    modal.querySelector('.modal-overlay').addEventListener('click', (e) => {
+      if (e.target === modal.querySelector('.modal-overlay')) closeModal();
+    });
+    
+    // Link buttons
+    modal.querySelector('.demo-link').addEventListener('click', () => {
+      showNotification('🚀 Demo will be available soon!', 'info');
+    });
+    
+    modal.querySelector('.github-link').addEventListener('click', () => {
+      showNotification('💻 GitHub repository coming soon!', 'info');
+    });
+    
+    // ESC key to close
+    const handleEsc = (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+        document.removeEventListener('keydown', handleEsc);
+      }
+    };
+    document.addEventListener('keydown', handleEsc);
+  }
 
   // Typing effect for roles
   const typedEl = document.getElementById('typed');
   const roles = ['Frontend Developer', 'Full-stack Enthusiast', 'Problem Solver', 'UI/UX Lover'];
   let roleIdx = 0, charIdx = 0;
-  function tick(){
+  
+  function tick() {
     const current = roles[roleIdx];
     typedEl.textContent = current.slice(0, charIdx);
     charIdx++;
-    if(charIdx > current.length){
-      setTimeout(()=>{charIdx=0;roleIdx = (roleIdx+1)%roles.length;},800);
+    
+    if (charIdx > current.length) {
+      setTimeout(() => {
+        charIdx = 0;
+        roleIdx = (roleIdx + 1) % roles.length;
+      }, 800);
     }
     setTimeout(tick, 70);
   }
   tick();
 
-  // Scroll reveal for elements with .fade-up
-  const observer = new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        entry.target.classList.add('reveal');
-        // trigger skill bar animation
-        if(entry.target.querySelector('.skill-fill')){
-          const fill = entry.target.querySelector('.skill-fill');
-          const pct = getComputedStyle(fill).getPropertyValue('--fill') || '80%';
-          fill.style.width = pct.trim();
+  // Scroll animations
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate');
+        
+        // Special animation for skills
+        if (entry.target.classList.contains('skill-simple')) {
+          setTimeout(() => {
+            entry.target.classList.add('animate');
+          }, Math.random() * 300);
         }
       }
     });
-  },{threshold:0.15});
-  document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
+  }, observerOptions);
 
-  // Modal
-  const modal = document.getElementById('project-modal');
-  const modalContent = document.getElementById('modal-content');
-  const modalClose = document.getElementById('modal-close');
-  modalClose.addEventListener('click', closeModal);
-  modal.addEventListener('click', (e)=>{if(e.target===modal) closeModal();});
-  function openProjectModal(p){
-    modal.setAttribute('aria-hidden','false');
-    modalContent.innerHTML = `<h3>${p.title}</h3><p>${p.desc}</p><p class="project-meta">Demo: <a href="${p.demo}" target="_blank">View</a></p>`;
-  }
-  function closeModal(){modal.setAttribute('aria-hidden','true');modalContent.innerHTML='';}
+  // Observe all fade-up elements
+  document.querySelectorAll('.fade-up').forEach(el => {
+    observer.observe(el);
+  });
 
-  // Nav toggle (mobile)
+  // Mobile navigation toggle
   const navToggle = document.getElementById('nav-toggle');
   const nav = document.getElementById('site-nav');
-  navToggle.addEventListener('click', ()=>nav.classList.toggle('show'));
+  
+  navToggle.addEventListener('click', () => {
+    nav.classList.toggle('show');
+  });
 
-  // Contact form - lightweight local handling
+  // Close mobile nav when clicking on links
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      nav.classList.remove('show');
+    });
+  });
+
+  // Enhanced contact form handling
   const contactForm = document.getElementById('contact-form');
   const formStatus = document.getElementById('form-status');
-  contactForm.addEventListener('submit', (e)=>{
-    e.preventDefault();
-    const data = new FormData(contactForm);
-    formStatus.textContent = 'Sending...';
-    // Simulate network
-    setTimeout(()=>{ formStatus.textContent = 'Thanks — I received your message and will reply soon.'; contactForm.reset(); }, 900);
-  });
-
-  // Mailto fallback
-  const mailBtn = document.getElementById('mailto-btn');
-  mailBtn.addEventListener('click', ()=>{
-    const form = new FormData(contactForm);
-    const sub = encodeURIComponent('Portfolio contact from ' + (form.get('name') || 'visitor'));
-    const body = encodeURIComponent((form.get('message')||'') + '\n\nFrom: ' + (form.get('email')||''));
-    window.location.href = `mailto:your-email@example.com?subject=${sub}&body=${body}`;
-  });
+  
+  if (contactForm) {
+    // Add real-time validation
+    const inputs = contactForm.querySelectorAll('input, textarea');
+    inputs.forEach(input => {
+      input.addEventListener('blur', () => {
+        validateField(input);
+      });
+      
+      input.addEventListener('input', () => {
+        if (input.classList.contains('error')) {
+          validateField(input);
+        }
+      });
+    });
+    
+    function validateField(field) {
+      const value = field.value.trim();
+      let isValid = true;
+      let errorMessage = '';
+      
+      if (field.hasAttribute('required') && !value) {
+        isValid = false;
+        errorMessage = 'This field is required';
+      } else if (field.type === 'email' && value && !isValidEmail(value)) {
+        isValid = false;
+        errorMessage = 'Please enter a valid email address';
+      }
+      
+      // Remove existing error
+      const existingError = field.parentNode.querySelector('.field-error');
+      if (existingError) existingError.remove();
+      
+      if (!isValid) {
+        field.classList.add('error');
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'field-error';
+        errorDiv.textContent = errorMessage;
+        field.parentNode.appendChild(errorDiv);
+      } else {
+        field.classList.remove('error');
+      }
+      
+      return isValid;
+    }
+    
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+    
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      // Validate all fields
+      let allValid = true;
+      inputs.forEach(input => {
+        if (!validateField(input)) {
+          allValid = false;
+        }
+      });
+      
+      if (!allValid) {
+        showNotification('Please fix the errors in the form', 'error');
+        return;
+      }
+      
+      // Show loading state
+      const submitBtn = contactForm.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Sending...';
+      submitBtn.disabled = true;
+      
+      // Simulate form submission
+      setTimeout(() => {
+        showNotification('🎉 Thanks for your message! I\'ll get back to you soon.', 'success');
+        contactForm.reset();
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+        
+        // Clear any error states
+        inputs.forEach(input => {
+          input.classList.remove('error');
+          const errorDiv = input.parentNode.querySelector('.field-error');
+          if (errorDiv) errorDiv.remove();
+        });
+      }, 1500);
+    });
+  }
 
 });
 
@@ -169,6 +661,11 @@ document.addEventListener('DOMContentLoaded', () => {
   lbClose.addEventListener('click', close);
   lbNext.addEventListener('click', next);
   lbPrev.addEventListener('click', prev);
+
+  // Basic focus: move focus into lightbox when opened
+  const firstFocusable = lbClose; // simple
+  const lastFocusable = lbNext;
+  lightbox.addEventListener('transitionend', ()=>{ if(lightbox.getAttribute('aria-hidden')==='false'){ firstFocusable.focus(); } });
 
   window.addEventListener('keydown', (e)=>{ if(lightbox.getAttribute('aria-hidden')==='false'){ if(e.key==='Escape') close(); if(e.key==='ArrowRight') next(); if(e.key==='ArrowLeft') prev(); } });
 
