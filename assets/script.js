@@ -520,28 +520,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Copy email functionality
-  const copyEmailBtn = document.getElementById('copy-email');
-  const contactEmail = document.getElementById('contact-email');
-  
-  if (copyEmailBtn && contactEmail) {
-    copyEmailBtn.addEventListener('click', async () => {
-      try {
-        const email = contactEmail.textContent;
-        await navigator.clipboard.writeText(email);
-        showNotification('📧 Email copied to clipboard!', 'success');
-        
-        // Visual feedback
-        copyEmailBtn.textContent = 'Copied!';
-        setTimeout(() => {
-          copyEmailBtn.textContent = 'Copy';
-        }, 2000);
-      } catch (err) {
-        showNotification('❌ Failed to copy email', 'error');
-      }
-    });
-  }
-
   // mailto button functionality
   const mailtoBtn = document.getElementById('mailto-btn');
   if (mailtoBtn) {

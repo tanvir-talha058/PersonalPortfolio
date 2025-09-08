@@ -1062,6 +1062,36 @@ code, pre, .code {
   margin: 0;
 }
 
+.footer-email {
+  margin-top: 15px;
+}
+
+.email-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 8px 16px;
+  border: 1px solid rgba(0, 212, 170, 0.3);
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  background: rgba(0, 212, 170, 0.05);
+}
+
+.email-link:hover {
+  background: rgba(0, 212, 170, 0.1);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(0, 212, 170, 0.2);
+}
+
+.email-link i {
+  font-size: 1rem;
+}
+
 .footer-social {
   display: flex;
   gap: 20px;
