@@ -396,13 +396,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('animate');
-        
         // Special animation for skills
         if (entry.target.classList.contains('skill-simple')) {
           setTimeout(() => {
             entry.target.classList.add('animate');
           }, Math.random() * 300);
+        } else {
+          entry.target.classList.add('animate');
         }
       }
     });
