@@ -27,6 +27,25 @@ body{
   line-height: 1.6;
   -webkit-font-smoothing:antialiased;
   text-align: center;
+  font-weight: 400;
+}
+
+/* Minimal Typography System */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+
+h3, h4 {
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+code, pre, .code {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 400;
 }
 
 .container{
@@ -53,13 +72,15 @@ body{
   padding:16px 0;
 }
 .brand{
+  font-family: 'Inter', sans-serif;
   font-weight:700;
-  font-size:1.25rem;
+  font-size:1.3rem;
   background: var(--gradient-2);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-decoration:none;
+  letter-spacing: -0.02em;
 }
 #nav-toggle{
   display:none;
@@ -80,7 +101,9 @@ body{
   border-radius:8px;
   transition: all 0.3s ease;
   position:relative;
+  font-family: 'Inter', sans-serif;
   font-weight: 500;
+  letter-spacing: -0.01em;
   overflow: hidden;
 }
 .nav a::before {
@@ -147,7 +170,9 @@ body{
   font-size:3.5rem;
   margin:0 0 24px;
   color: var(--text-bright);
-  font-weight:800;
+  font-family: 'Inter', sans-serif;
+  font-weight:700;
+  letter-spacing: -0.04em;
   text-shadow: 0 4px 20px rgba(0, 212, 170, 0.3);
   animation: slideInDown 0.8s ease-out;
 }
@@ -164,7 +189,11 @@ body{
 }
 .subhead{
   color:var(--text);
-  font-size:1.3rem;
+  font-family: 'Inter', sans-serif;
+  font-size:1.25rem;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
   margin:0 0 24px;
   animation: slideInUp 0.8s ease-out 0.2s both;
 }
@@ -181,14 +210,17 @@ body{
   -webkit-background-clip:text;
   background-clip:text;
   color:transparent;
-  font-weight:600;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight:400;
   margin-bottom:40px;
-  font-size:1.2rem;
+  font-size:1.1rem;
   padding: 12px 24px;
   border: 2px solid var(--accent);
   border-radius: 50px;
   max-width: fit-content;
   margin-left: auto;
+  margin-right: auto;
+  letter-spacing: 0.5px;
   margin-right: auto;
   animation: slideInUp 0.8s ease-out 0.4s both;
 }
@@ -293,6 +325,7 @@ body{
   display:inline-block;
   padding:14px 32px;
   border-radius:25px;
+  font-family: 'Inter', sans-serif;
   font-weight:600;
   text-decoration:none;
   border:none;
@@ -356,8 +389,8 @@ body{
   text-align: center;
 }
 .section h2{
-  font-family:'Space Grotesk',sans-serif;
-  font-size:2.8rem;
+  font-family: 'Inter', sans-serif;
+  font-size:2.5rem;
   background: var(--gradient-2);
   -webkit-background-clip:text;
   background-clip:text;
@@ -365,6 +398,7 @@ body{
   margin:0 0 24px;
   text-align:center;
   font-weight: 700;
+  letter-spacing: -0.03em;
   text-shadow: 0 4px 20px rgba(0, 212, 170, 0.3);
 }
 .lead{
