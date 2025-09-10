@@ -287,7 +287,8 @@ code, pre, .code {
 .roles{
   display:flex;
   align-items:center;
-  justify-content:inner center;
+  /* Fix invalid justify-content value */
+  justify-content:center;
   gap:8px;
   background: var(--gradient-2);
   -webkit-background-clip:text;
@@ -304,7 +305,6 @@ code, pre, .code {
   margin-left: auto;
   margin-right: auto;
   letter-spacing: 0.5px;
-  margin-right: auto;
   animation: slideInUp 0.8s ease-out 0.4s both;
 }
 .cursor{
@@ -402,6 +402,30 @@ code, pre, .code {
   .subhead{font-size:1.1rem}
   .roles{font-size:1rem}
   .hero-cta{flex-direction:column;align-items:center}
+}
+/* Extra small devices */
+@media (max-width:600px){
+  .roles{padding:10px 20px;font-size:0.95rem}
+  .hero{padding:50px 0}
+  .project-minimal{padding:22px}
+  .skill-simple{padding:16px}
+  .expertise-item{padding:24px 18px}
+  .contact-form{gap:16px}
+  .contact-form input, .contact-form textarea{padding:14px 16px;font-size:0.95rem}
+}
+@media (max-width:480px){
+  .headline{font-size:2rem}
+  .subhead{font-size:1rem;margin-bottom:20px}
+  .section{padding:50px 0}
+  .section h2{font-size:1.8rem;margin-bottom:20px}
+  .lead{font-size:1.05rem;margin-bottom:36px}
+  .resume-actions .btn{padding:14px 24px;font-size:1rem}
+  .project-links{flex-direction:row;flex-wrap:wrap}
+  .project-link{flex:1 1 48%;min-width:130px}
+  .expertise-grid{gap:20px}
+  .expertise-item h4{font-size:1.1rem}
+  .expertise-item p{font-size:0.85rem}
+  .skills-simple{gap:14px}
 }
 /* Buttons */
 .btn{
@@ -1284,15 +1308,40 @@ code, pre, .code {
     top:100%;
     left:0;
     right:0;
-    background:var(--card);
+    background: linear-gradient(145deg, rgba(15,23,36,0.97), rgba(26,31,58,0.95));
     flex-direction:column;
-    padding:20px;
-    border-radius:0 0 12px 12px;
-    box-shadow:0 8px 24px rgba(0,0,0,0.3);
+    padding:20px 24px 28px;
+    border-radius:0 0 20px 20px;
+    box-shadow:0 18px 40px -8px rgba(0,0,0,0.55);
+    border:1px solid rgba(0,212,170,0.15);
+    gap:6px;
   }
   .nav.show{display:flex}
-  .nav a{padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.05)}
+  .nav a{padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.06);border-radius:0;background:transparent;box-shadow:none;transform:none}
   .nav a:last-child{border-bottom:none}
+  body.no-scroll{overflow:hidden}
+  #nav-toggle[aria-expanded="true"]{background:rgba(0,212,170,0.15);border-color:var(--accent)}
+}
+
+/* Utility / Minor spacing fixes */
+.about-story p, .about-values p{margin-top:0}
+.expertise-grid{margin-top:24px}
+.project-minimal h3{line-height:1.25}
+.project-minimal p{margin-top:0}
+.contact-form textarea{resize:vertical;min-height:140px}
+
+/* Improve tap targets on mobile */
+@media (max-width:768px){
+  .nav a{font-size:1rem;padding:14px 0}
+  .footer-link{width:48px;height:48px}
+}
+
+/* Accessibility focus outlines */
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* Prevent animation jank on very small screens */
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important}
 }
 
 /* Enhanced Interactive Features */
