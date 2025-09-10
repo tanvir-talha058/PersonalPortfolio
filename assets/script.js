@@ -1,5 +1,33 @@
 // Enhanced interactive portfolio script
 document.addEventListener('DOMContentLoaded', () => {
+  // Theme persistence and toggle
+  const root = document.documentElement;
+  const themeCheckbox = document.getElementById('theme-checkbox');
+  const storedTheme = localStorage.getItem('theme');
+  const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+
+  function applyTheme(mode) {
+    if (mode === 'light') {
+      root.classList.add('light-theme');
+      document.body.classList.add('light-theme');
+      if (themeCheckbox) themeCheckbox.checked = true;
+    } else {
+      root.classList.remove('light-theme');
+      document.body.classList.remove('light-theme');
+      if (themeCheckbox) themeCheckbox.checked = false;
+    }
+  }
+
+  let activeTheme = storedTheme || (prefersLight ? 'light' : 'dark');
+  applyTheme(activeTheme);
+
+  if (themeCheckbox) {
+    themeCheckbox.addEventListener('change', () => {
+      activeTheme = themeCheckbox.checked ? 'light' : 'dark';
+      applyTheme(activeTheme);
+      localStorage.setItem('theme', activeTheme);
+    });
+  }
   // Loading animation
   const loadingScreen = document.createElement('div');
   loadingScreen.className = 'loading-screen';
