@@ -1,5 +1,25 @@
 // Enhanced interactive portfolio script
 document.addEventListener('DOMContentLoaded', () => {
+  // Mobile viewport handling
+  const setVH = () => {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  };
+  
+  setVH();
+  window.addEventListener('resize', setVH);
+  window.addEventListener('orientationchange', () => {
+    setTimeout(setVH, 100);
+  });
+  
+  // Detect mobile device
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  
+  if (isMobile || isTouch) {
+    document.body.classList.add('mobile-device');
+  }
+  
   // Theme persistence and toggle
   const root = document.documentElement;
   const themeCheckbox = document.getElementById('theme-checkbox');
@@ -441,25 +461,77 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(el);
   });
 
-  // Mobile navigation toggle
+  // Enhanced Mobile navigation toggle
   const navToggle = document.getElementById('nav-toggle');
   const nav = document.getElementById('site-nav');
   
+  // Mobile-specific touch handling
+  let touchStartY = 0;
+  let touchEndY = 0;
+  
   navToggle.addEventListener('click', () => {
-  const expanded = nav.classList.toggle('show');
-  navToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-  document.body.classList.toggle('no-scroll', expanded);
+    const expanded = nav.classList.toggle('show');
+    navToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    document.body.classList.toggle('no-scroll', expanded);
+    
+    // Add haptic feedback if available
+    if (navigator.vibrate) {
+      navigator.vibrate(50);
+    }
+    
+    // Animate toggle button
+    navToggle.style.transform = expanded ? 'rotate(90deg)' : 'rotate(0deg)';
   });
 
-  // Close mobile nav when clicking on links
-  navLinks.forEach(link => {
+  // Close nav on swipe up (mobile gesture)
+  nav.addEventListener('touchstart', (e) => {
+    touchStartY = e.changedTouches[0].screenY;
+  });
+  
+  nav.addEventListener('touchend', (e) => {
+    touchEndY = e.changedTouches[0].screenY;
+    const swipeDistance = touchStartY - touchEndY;
+    
+    if (swipeDistance > 100) { // Swipe up
+      nav.classList.remove('show');
+      navToggle.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('no-scroll');
+      navToggle.style.transform = 'rotate(0deg)';
+    }
+  });
+
+  // Close mobile nav when clicking on links with enhanced feedback
+  navLinks.forEach((link, index) => {
     link.addEventListener('click', () => {
       if (nav.classList.contains('show')) {
-        nav.classList.remove('show');
-        navToggle.setAttribute('aria-expanded', 'false');
-        document.body.classList.remove('no-scroll');
+        // Add staggered close animation
+        link.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          nav.classList.remove('show');
+          navToggle.setAttribute('aria-expanded', 'false');
+          document.body.classList.remove('no-scroll');
+          navToggle.style.transform = 'rotate(0deg)';
+          link.style.transform = '';
+        }, 150);
+        
+        // Haptic feedback
+        if (navigator.vibrate) {
+          navigator.vibrate(30);
+        }
       }
     });
+  });
+  
+  // Close nav when clicking outside
+  document.addEventListener('click', (e) => {
+    if (nav.classList.contains('show') && 
+        !nav.contains(e.target) && 
+        !navToggle.contains(e.target)) {
+      nav.classList.remove('show');
+      navToggle.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('no-scroll');
+      navToggle.style.transform = 'rotate(0deg)';
+    }
   });
 
   // Enhanced contact form handling
@@ -597,7 +669,65 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+  
+  // Mobile loading screen
+  if (isMobileDevice()) {
+    showMobileLoader();
+    
+    // Hide loader after content loads
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        hideMobileLoader();
+      }, 500);
+    });
+  }
+  
+  // Mobile scroll indicator
+  if (window.innerWidth <= 768) {
+    addScrollIndicator();
+  }
 
 });
+
+// Mobile loading screen functions
+function showMobileLoader() {
+  const loader = document.createElement('div');
+  loader.className = 'mobile-loading';
+  loader.innerHTML = '<div class="loading-spinner"></div>';
+  document.body.appendChild(loader);
+}
+
+function hideMobileLoader() {
+  const loader = document.querySelector('.mobile-loading');
+  if (loader) {
+    loader.classList.add('fade-out');
+    setTimeout(() => {
+      loader.remove();
+    }, 500);
+  }
+}
+
+// Add scroll indicator for mobile
+function addScrollIndicator() {
+  const indicator = document.createElement('div');
+  indicator.className = 'mobile-scroll-indicator';
+  indicator.innerHTML = '↓';
+  document.body.appendChild(indicator);
+  
+  // Hide indicator after scroll
+  let scrollTimeout;
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 100) {
+      indicator.style.display = 'none';
+    }
+    
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      if (window.scrollY <= 100) {
+        indicator.style.display = 'block';
+      }
+    }, 1000);
+  });
+}
 
 
