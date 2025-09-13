@@ -1493,25 +1493,72 @@ body.light-theme .skill-filter-btn.active {
 }
 
 .project-minimal{
-  background: var(--card);
-  border: 2px solid rgba(138, 43, 226, 0.3);
+  background: linear-gradient(135deg, 
+    rgba(100, 255, 218, 0.05) 0%, 
+    rgba(78, 205, 196, 0.04) 50%, 
+    rgba(138, 43, 226, 0.03) 100%);
+  border: 2px solid transparent;
+  background-clip: padding-box;
   padding: 28px;
   border-radius: 16px;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   cursor: pointer;
   position: relative;
   overflow: hidden;
   backdrop-filter: blur(10px);
-  box-shadow: var(--shadow-card);
+  box-shadow: 
+    0 8px 32px rgba(0, 212, 170, 0.08),
+    0 4px 16px rgba(78, 205, 196, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
   text-align: left;
   display: flex;
   flex-direction: column;
 }
 
+.project-minimal::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(135deg, 
+    #00d4aa 0%, 
+    #4ecdc4 25%, 
+    #45b7d1 50%, 
+    #8A2BE2 75%, 
+    #00d4aa 100%);
+  background-size: 400% 400%;
+  border-radius: 18px;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  animation: gradientShift 4s ease infinite;
+}
+
 .project-minimal:hover{
   transform: translateY(-8px) scale(1.02);
-  border-color: var(--accent-2);
-  box-shadow: 0 20px 40px rgba(138, 43, 226, 0.3);
+  box-shadow: 
+    0 20px 40px rgba(0, 212, 170, 0.2),
+    0 15px 30px rgba(78, 205, 196, 0.15),
+    0 10px 20px rgba(138, 43, 226, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.project-minimal:hover::before {
+  opacity: 1;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .project-minimal h3{
