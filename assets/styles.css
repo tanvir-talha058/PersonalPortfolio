@@ -173,13 +173,6 @@ body.light-theme .slider {
   border-color: #ccc;
 }
 
-@media(max-width:768px){
-  .theme-switch-wrapper { 
-    top: 18px;
-    right: 65px; /* Position next to hamburger */
-  }
-}
-
 *{box-sizing:border-box}
 html,body{height:100%}
 
@@ -188,8 +181,19 @@ html,body{height:100%}
   height: calc(var(--vh, 1vh) * 100);
 }
 
-/* Prevent zoom on input focus for mobile */
-@media screen and (max-width: 768px) {
+/* Improve scrolling performance on mobile */
+* {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Mobile styles for 768px and below */
+@media(max-width:768px){
+  .theme-switch-wrapper { 
+    top: 18px;
+    right: 65px; /* Position next to hamburger */
+  }
+  
+  /* Prevent zoom on input focus */
   input[type="text"],
   input[type="email"],
   input[type="number"],
@@ -1238,11 +1242,6 @@ code, pre, .code {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-3px); }
 }
 
 .skill-simple:hover{
@@ -3607,6 +3606,12 @@ body.light-theme .cta-btn.secondary:hover {
   margin: 0 auto 20px;
 }
 
+.mobile-loading .loading-spinner {
+  width: 60px;
+  height: 60px;
+  margin: 0;
+}
+
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -3636,7 +3641,7 @@ body.light-theme .cta-btn.secondary:hover {
   left: 0;
   width: 100%;
   height: 100%;
-  background: var(--bg-gradient);
+  background: var(--bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3650,27 +3655,13 @@ body.light-theme .cta-btn.secondary:hover {
   pointer-events: none;
 }
 
-.loading-spinner {
-  width: 60px;
-  height: 60px;
-  border: 3px solid rgba(0, 255, 255, 0.2);
-  border-top: 3px solid var(--accent-color);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
 /* Mobile scroll indicator */
 .mobile-scroll-indicator {
   position: fixed;
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  color: var(--accent-color);
+  color: var(--accent);
   animation: bounce 2s infinite;
   z-index: 100;
   font-size: 24px;
@@ -3709,9 +3700,9 @@ body.light-theme .cta-btn.secondary:hover {
 /* High contrast mode support */
 @media (prefers-contrast: high) {
   :root {
-    --text-color: #ffffff;
-    --bg-color: #000000;
-    --accent-color: #00ffff;
+    --text: #ffffff;
+    --bg: #000000;
+    --accent: #00ffff;
   }
 }
 

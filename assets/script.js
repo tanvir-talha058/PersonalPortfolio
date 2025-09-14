@@ -671,7 +671,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   
   // Mobile loading screen
-  if (isMobileDevice()) {
+  if (isMobile || isTouch) {
     showMobileLoader();
     
     // Hide loader after content loads
