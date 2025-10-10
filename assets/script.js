@@ -1,16 +1,28 @@
 // Enhanced interactive portfolio script
 document.addEventListener('DOMContentLoaded', () => {
-  // Mobile viewport handling
+  // Enhanced mobile viewport handling
   const setVH = () => {
-    const vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
+    try {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    } catch (error) {
+      console.warn('Could not set viewport height:', error);
+    }
   };
   
   setVH();
   window.addEventListener('resize', setVH);
   window.addEventListener('orientationchange', () => {
-    setTimeout(setVH, 100);
+    setTimeout(setVH, 150);
   });
+  
+  // Prevent iOS zoom on input focus
+  if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+    const viewport = document.querySelector('meta[name="viewport"]');
+    if (viewport) {
+      viewport.content = 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no';
+    }
+  }
   
   // Detect mobile device
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -24,7 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const root = document.documentElement;
   const themeCheckbox = document.getElementById('theme-checkbox');
   const storedTheme = localStorage.getItem('theme');
-  const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
 
   function applyTheme(mode) {
     if (mode === 'light') {
@@ -38,7 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  let activeTheme = storedTheme || (prefersLight ? 'light' : 'dark');
+  // Default to dark mode if no stored preference
+  let activeTheme = storedTheme || 'dark';
   applyTheme(activeTheme);
 
   if (themeCheckbox) {
@@ -67,16 +79,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Scroll progress indicator
   const createScrollProgress = () => {
-    const progressBar = document.createElement('div');
-    progressBar.className = 'scroll-progress';
-    document.body.appendChild(progressBar);
-    
-    window.addEventListener('scroll', () => {
-      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = (winScroll / height) * 100;
-      progressBar.style.width = scrolled + '%';
-    });
+    try {
+      const progressBar = document.createElement('div');
+      progressBar.className = 'scroll-progress';
+      document.body.appendChild(progressBar);
+      
+      window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        if (height > 0) {
+          const scrolled = (winScroll / height) * 100;
+          progressBar.style.width = Math.min(100, Math.max(0, scrolled)) + '%';
+        }
+      });
+    } catch (error) {
+      console.warn('Could not create scroll progress bar:', error);
+    }
   };
   createScrollProgress();
 
@@ -367,7 +385,6 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Add a small notification for user feedback
             const linkType = link.classList.contains('github-link') ? 'GitHub' : 'Demo';
-            console.log(`Opening ${linkType} link: ${link.href}`);
           });
         });
         
@@ -435,35 +452,47 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   tick();
 
-  // Scroll animations
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  };
+  // Scroll animations with error handling
+  if ('IntersectionObserver' in window) {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        // Special animation for skills
-        if (entry.target.classList.contains('skill-simple')) {
-          setTimeout(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Special animation for skills
+          if (entry.target.classList.contains('skill-simple')) {
+            setTimeout(() => {
+              entry.target.classList.add('animate');
+            }, Math.random() * 300);
+          } else {
             entry.target.classList.add('animate');
-          }, Math.random() * 300);
-        } else {
-          entry.target.classList.add('animate');
+          }
         }
-      }
+      });
+    }, observerOptions);
+
+    // Observe all fade-up elements
+    document.querySelectorAll('.fade-up').forEach(el => {
+      observer.observe(el);
     });
-  }, observerOptions);
+  } else {
+    // Fallback for browsers without IntersectionObserver
+    document.querySelectorAll('.fade-up').forEach(el => {
+      el.classList.add('animate');
+    });
+  }
 
-  // Observe all fade-up elements
-  document.querySelectorAll('.fade-up').forEach(el => {
-    observer.observe(el);
-  });
-
-  // Enhanced Mobile navigation toggle
+  // Enhanced Mobile navigation toggle with error handling
   const navToggle = document.getElementById('nav-toggle');
   const nav = document.getElementById('site-nav');
+  
+  if (!navToggle || !nav) {
+    console.warn('Navigation elements not found');
+    return;
+  }
   
   // Mobile-specific touch handling
   let touchStartY = 0;
