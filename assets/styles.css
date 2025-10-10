@@ -217,6 +217,22 @@ body{
   -webkit-font-smoothing:antialiased;
   text-align: center;
   font-weight: 400;
+  -webkit-tap-highlight-color: rgba(0, 212, 170, 0.2);
+}
+
+/* Enhanced button and link interactions */
+button, .btn, .project-link, .social-link, .nav a {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: rgba(0, 212, 170, 0.2);
+}
+
+/* Focus styles for better accessibility */
+button:focus, .btn:focus, .project-link:focus, .social-link:focus, .nav a:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 /* Minimal Formal Typography System */
@@ -703,50 +719,63 @@ code, pre, .code {
 
 @media(max-width:768px){
   .hero{
-    padding:100px 0 80px;
-    min-height:90vh;
+    padding:120px 0 80px;
+    min-height:100vh;
     display:flex;
     align-items:center;
   }
   
   .headline{
     font-size:2.8rem;
-    margin-bottom:20px;
+    margin-bottom:24px;
     line-height: 1.1;
+    padding: 0 20px;
   }
   
   .subhead{
     font-size:1.15rem;
-    margin-bottom:20px;
-    padding: 0 10px;
+    margin-bottom:24px;
+    padding: 0 20px;
     line-height: 1.5;
   }
   
   .roles{
     font-size:1rem; 
     padding: 12px 24px;
-    margin-bottom:32px;
+    margin-bottom:36px;
     border-width: 1px;
   }
   
   .hero-cta{
-    gap: 14px;
-    flex-direction: row;
-    justify-content: center;
-    margin-bottom: 32px;
+    gap: 16px;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 40px;
+    padding: 0 20px;
   }
   
   .hero-cta .btn {
-    padding: 16px 28px;
-    font-size: 0.95rem;
+    padding: 18px 32px;
+    font-size: 1rem;
     font-weight: 700;
-    min-width: 140px;
+    min-width: 180px;
+    width: 100%;
+    max-width: 280px;
+    /* Enhanced touch targets */
+    min-height: 48px;
   }
   
   .social {
-    gap: 12px;
+    gap: 16px;
     flex-wrap: wrap;
     justify-content: center;
+    padding: 0 20px;
+  }
+  
+  .social-link {
+    min-width: 48px;
+    min-height: 48px;
+    padding: 12px;
   }
   
   .social-link {
@@ -1704,25 +1733,33 @@ body.light-theme .skill-filter-btn.active {
 @media(max-width:768px){
   .projects-minimal{
     grid-template-columns:1fr;
-    gap:20px;
+    gap:24px;
+    padding: 0 20px;
   }
   .project-minimal{
-    padding:20px;
+    padding:24px;
+    border-radius: 20px;
   }
   .project-links {
-    flex-direction: row;
-    gap: 10px;
-    margin-top: 20px;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 24px;
   }
   .project-link {
-    font-size: 0.8rem;
-    padding: 8px 14px;
-    flex: 1;
+    font-size: 1rem;
+    padding: 16px 24px;
+    min-height: 48px;
+    width: 100%;
     justify-content: center;
-    min-width: 0;
   }
+  
+  .project-link:active {
+    transform: translateY(-2px) scale(0.98);
+    transition: transform 0.1s ease;
+  }
+  
   .project-link i {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 }
 
@@ -3356,19 +3393,24 @@ body.light-theme .cta-btn.secondary:hover {
   }
   
   .nav a{
-    padding:18px 32px;
+    padding:20px 32px;
     border:2px solid rgba(0,212,170,0.2);
     border-radius:15px;
     background:rgba(0,212,170,0.05);
     backdrop-filter: blur(10px);
     font-size:1.1rem;
     font-weight:600;
-    width:200px;
+    width:220px;
+    min-height:48px;
     text-align:center;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     transform: translateY(20px);
     opacity: 0;
     animation: slideInNavItem 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    /* Enhanced touch targets */
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .nav a:nth-child(1) { animation-delay: 0.1s; }
@@ -3666,6 +3708,7 @@ body.light-theme .cta-btn.secondary:hover {
   z-index: 100;
   font-size: 24px;
   display: none;
+  pointer-events: none;
 }
 
 @media (max-width: 768px) {
