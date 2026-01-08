@@ -146,52 +146,57 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Core skills based on actual projects and experience
+  // Core skills based on resume
   const skills = [
-    // Programming Languages
+    // Languages
     { name: 'Python', category: 'languages' },
+    { name: 'C', category: 'languages' },
+    { name: 'C++', category: 'languages' },
+    { name: 'Java', category: 'languages' },
     { name: 'JavaScript', category: 'languages' },
     { name: 'Dart', category: 'languages' },
     { name: 'PHP', category: 'languages' },
     { name: 'SQL', category: 'languages' },
     
-    // Frontend Technologies
-    { name: 'HTML5', category: 'frontend' },
-    { name: 'CSS3', category: 'frontend' },
-    { name: 'React', category: 'frontend' },
-    { name: 'Bootstrap', category: 'frontend' },
+    // AI / ML & Libraries
+    { name: 'TensorFlow', category: 'aiml' },
+    { name: 'PyTorch', category: 'aiml' },
+    { name: 'scikit-learn', category: 'aiml' },
+    { name: 'Keras', category: 'aiml' },
+    { name: 'OpenCV', category: 'aiml' },
+    { name: 'Mediapipe', category: 'aiml' },
+    { name: 'NumPy', category: 'aiml' },
+    { name: 'Pandas', category: 'aiml' },
+    { name: 'Selenium', category: 'aiml' },
+    { name: 'Tkinter', category: 'aiml' },
+    { name: 'Matplotlib', category: 'aiml' },
+    { name: 'Seaborn', category: 'aiml' },
     
-    // Backend Technologies
-    { name: 'Node.js', category: 'backend' },
-    { name: 'Django', category: 'backend' },
-    { name: 'Flask', category: 'backend' },
-    { name: 'REST APIs', category: 'backend' },
+    // Web / Mobile / Tools
+    { name: 'Flutter', category: 'webtools' },
+    { name: 'Firebase', category: 'webtools' },
+    { name: 'HTML', category: 'webtools' },
+    { name: 'CSS', category: 'webtools' },
+    { name: 'PHP', category: 'webtools' },
+    { name: 'Git', category: 'webtools' },
+    { name: 'GitHub', category: 'webtools' },
+    { name: 'VS Code', category: 'webtools' },
+    { name: 'Figma', category: 'webtools' },
+    { name: 'Google Colab', category: 'webtools' },
+    { name: 'Kaggle', category: 'webtools' },
     
-    // Databases
-    { name: 'SQLite', category: 'database' },
-    { name: 'Firebase', category: 'database' },
-    { name: 'MySQL', category: 'database' },
-    
-    // Mobile Development
-    { name: 'Flutter', category: 'mobile' },
-    { name: 'Android', category: 'mobile' },
-    
-    // AI & Machine Learning
-    { name: 'TensorFlow', category: 'ai' },
-    { name: 'OpenCV', category: 'ai' },
-    { name: 'Computer Vision', category: 'ai' },
-    { name: 'Speech Recognition', category: 'ai' },
-    
-    // Tools & Technologies
-    { name: 'Git', category: 'tools' },
-    { name: 'GitHub', category: 'tools' },
-    { name: 'VS Code', category: 'tools' },
-    { name: 'Android Studio', category: 'tools' },
-    { name: 'Tkinter', category: 'tools' },
-    
-    // Other Technologies
-    { name: 'Selenium', category: 'other' },
-    { name: 'Google TTS', category: 'other' }
+    // Concepts & Domains
+    { name: 'Machine Learning', category: 'concepts' },
+    { name: 'Deep Learning', category: 'concepts' },
+    { name: 'Computer Vision', category: 'concepts' },
+    { name: 'Image/Video Processing', category: 'concepts' },
+    { name: 'NLP', category: 'concepts' },
+    { name: 'Object Tracking', category: 'concepts' },
+    { name: 'IoT', category: 'concepts' },
+    { name: 'Automation', category: 'concepts' },
+    { name: 'Human-Computer Interaction', category: 'concepts' },
+    { name: 'Data Visualization', category: 'concepts' },
+    { name: 'Big Data', category: 'concepts' }
   ];
 
   // Enhanced projects with better interaction
@@ -263,35 +268,59 @@ document.addEventListener('DOMContentLoaded', () => {
   if (skillsContainer) {
     // Skill icons mapping for professional look
     const skillIcons = {
+      // Languages
       'Python': 'fab fa-python',
+      'C': 'fas fa-code',
+      'C++': 'fas fa-code',
+      'Java': 'fab fa-java',
       'JavaScript': 'fab fa-js-square',
-      'Dart': 'fas fa-code',
+      'Dart': 'fas fa-bullseye',
       'PHP': 'fab fa-php',
       'SQL': 'fas fa-database',
-      'HTML5': 'fab fa-html5',
-      'CSS3': 'fab fa-css3-alt',
-      'React': 'fab fa-react',
-      'Bootstrap': 'fab fa-bootstrap',
-      'Node.js': 'fab fa-node-js',
-      'Django': 'fas fa-server',
-      'Flask': 'fas fa-flask',
-      'REST APIs': 'fas fa-plug',
-      'SQLite': 'fas fa-database',
-      'Firebase': 'fas fa-fire',
-      'MySQL': 'fas fa-database',
-      'Flutter': 'fas fa-mobile-alt',
-      'Android': 'fab fa-android',
+      // AI/ML & Libraries
       'TensorFlow': 'fas fa-brain',
+      'PyTorch': 'fas fa-fire-alt',
+      'scikit-learn': 'fas fa-cogs',
+      'Keras': 'fas fa-layer-group',
       'OpenCV': 'fas fa-eye',
-      'Computer Vision': 'fas fa-camera',
-      'Speech Recognition': 'fas fa-microphone',
+      'Mediapipe': 'fas fa-hand-paper',
+      'NumPy': 'fas fa-calculator',
+      'Pandas': 'fas fa-table',
+      'Selenium': 'fas fa-robot',
+      'Tkinter': 'fas fa-desktop',
+      'Matplotlib': 'fas fa-chart-line',
+      'Seaborn': 'fas fa-chart-area',
+      // Web / Mobile / Tools
+      'Flutter': 'fas fa-mobile-alt',
+      'Firebase': 'fas fa-fire',
+      'HTML': 'fab fa-html5',
+      'CSS': 'fab fa-css3-alt',
       'Git': 'fab fa-git-alt',
       'GitHub': 'fab fa-github',
       'VS Code': 'fas fa-code',
-      'Android Studio': 'fab fa-android',
-      'Tkinter': 'fas fa-desktop',
-      'Selenium': 'fas fa-robot',
-      'Google TTS': 'fas fa-volume-up'
+      'Figma': 'fab fa-figma',
+      'Google Colab': 'fas fa-laptop-code',
+      'Kaggle': 'fab fa-kaggle',
+      // Concepts & Domains
+      'Machine Learning': 'fas fa-brain',
+      'Deep Learning': 'fas fa-network-wired',
+      'Computer Vision': 'fas fa-camera',
+      'Image/Video Processing': 'fas fa-photo-video',
+      'NLP': 'fas fa-language',
+      'Object Tracking': 'fas fa-crosshairs',
+      'IoT': 'fas fa-microchip',
+      'Automation': 'fas fa-cog',
+      'Human-Computer Interaction': 'fas fa-user-cog',
+      'Data Visualization': 'fas fa-chart-pie',
+      'Big Data': 'fas fa-database'
+    };
+
+    // Category display names
+    const categoryNames = {
+      'languages': 'Languages',
+      'aiml': 'AI/ML & Libraries',
+      'webtools': 'Web/Mobile/Tools',
+      'concepts': 'Concepts & Domains'
     };
 
     // Add filter controls
@@ -301,13 +330,9 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="skill-filters">
         <button class="skill-filter-btn active" data-filter="all">All</button>
         <button class="skill-filter-btn" data-filter="languages">Languages</button>
-        <button class="skill-filter-btn" data-filter="frontend">Frontend</button>
-        <button class="skill-filter-btn" data-filter="backend">Backend</button>
-        <button class="skill-filter-btn" data-filter="database">Database</button>
-        <button class="skill-filter-btn" data-filter="mobile">Mobile</button>
-        <button class="skill-filter-btn" data-filter="ai">AI/ML</button>
-        <button class="skill-filter-btn" data-filter="tools">Tools</button>
-        <button class="skill-filter-btn" data-filter="other">Other</button>
+        <button class="skill-filter-btn" data-filter="aiml">AI/ML & Libraries</button>
+        <button class="skill-filter-btn" data-filter="webtools">Web/Mobile/Tools</button>
+        <button class="skill-filter-btn" data-filter="concepts">Concepts & Domains</button>
       </div>
     `;
     
@@ -318,12 +343,13 @@ document.addEventListener('DOMContentLoaded', () => {
     
     skills.forEach((skill, index) => {
       const icon = skillIcons[skill.name] || 'fas fa-code';
+      const displayCategory = categoryNames[skill.category] || skill.category;
       const skillEl = document.createElement('div');
       skillEl.className = `skill-simple skill-${skill.category}`;
       skillEl.innerHTML = `
         <div class="skill-icon"><i class="${icon}" aria-hidden="true"></i></div>
         <div class="skill-name">${skill.name}</div>
-        <div class="skill-category">${skill.category}</div>
+        <div class="skill-category">${displayCategory}</div>
       `;
       skillsContainer.appendChild(skillEl);
       
