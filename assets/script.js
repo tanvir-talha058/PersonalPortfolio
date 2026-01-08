@@ -759,4 +759,85 @@ function addScrollIndicator() {
   });
 }
 
+// ===== Back to Top Button =====
+const initBackToTop = () => {
+  const backToTopBtn = document.getElementById('back-to-top');
+  if (!backToTopBtn) return;
+
+  // Show/hide button based on scroll position
+  const toggleBackToTop = () => {
+    if (window.scrollY > 400) {
+      backToTopBtn.classList.add('visible');
+    } else {
+      backToTopBtn.classList.remove('visible');
+    }
+  };
+
+  // Scroll to top when clicked
+  backToTopBtn.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+
+  // Keyboard support
+  backToTopBtn.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  });
+
+  // Throttle scroll event for performance
+  let scrollThrottle = false;
+  window.addEventListener('scroll', () => {
+    if (!scrollThrottle) {
+      requestAnimationFrame(() => {
+        toggleBackToTop();
+        scrollThrottle = false;
+      });
+      scrollThrottle = true;
+    }
+  });
+
+  // Initial check
+  toggleBackToTop();
+};
+
+initBackToTop();
+
+// ===== Enhanced Keyboard Navigation for Theme Toggle =====
+const initThemeKeyboardNav = () => {
+  const themeSwitch = document.querySelector('.theme-switch');
+  const themeCheckbox = document.getElementById('theme-checkbox');
+  
+  if (!themeSwitch || !themeCheckbox) return;
+
+  // Allow keyboard toggle with Enter or Space
+  themeSwitch.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      themeCheckbox.checked = !themeCheckbox.checked;
+      themeCheckbox.dispatchEvent(new Event('change'));
+    }
+  });
+
+  // Make the label focusable
+  themeSwitch.setAttribute('tabindex', '0');
+  themeSwitch.setAttribute('role', 'switch');
+  themeSwitch.setAttribute('aria-checked', themeCheckbox.checked);
+  themeSwitch.setAttribute('aria-label', 'Toggle light/dark theme');
+
+  // Update aria-checked when theme changes
+  themeCheckbox.addEventListener('change', () => {
+    themeSwitch.setAttribute('aria-checked', themeCheckbox.checked);
+  });
+};
+
+initThemeKeyboardNav();
+
 
