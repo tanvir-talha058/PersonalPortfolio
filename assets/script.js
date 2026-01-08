@@ -261,6 +261,39 @@ document.addEventListener('DOMContentLoaded', () => {
   // Enhanced skills rendering with filtering
   const skillsContainer = document.getElementById('skills-list');
   if (skillsContainer) {
+    // Skill icons mapping for professional look
+    const skillIcons = {
+      'Python': 'fab fa-python',
+      'JavaScript': 'fab fa-js-square',
+      'Dart': 'fas fa-code',
+      'PHP': 'fab fa-php',
+      'SQL': 'fas fa-database',
+      'HTML5': 'fab fa-html5',
+      'CSS3': 'fab fa-css3-alt',
+      'React': 'fab fa-react',
+      'Bootstrap': 'fab fa-bootstrap',
+      'Node.js': 'fab fa-node-js',
+      'Django': 'fas fa-server',
+      'Flask': 'fas fa-flask',
+      'REST APIs': 'fas fa-plug',
+      'SQLite': 'fas fa-database',
+      'Firebase': 'fas fa-fire',
+      'MySQL': 'fas fa-database',
+      'Flutter': 'fas fa-mobile-alt',
+      'Android': 'fab fa-android',
+      'TensorFlow': 'fas fa-brain',
+      'OpenCV': 'fas fa-eye',
+      'Computer Vision': 'fas fa-camera',
+      'Speech Recognition': 'fas fa-microphone',
+      'Git': 'fab fa-git-alt',
+      'GitHub': 'fab fa-github',
+      'VS Code': 'fas fa-code',
+      'Android Studio': 'fab fa-android',
+      'Tkinter': 'fas fa-desktop',
+      'Selenium': 'fas fa-robot',
+      'Google TTS': 'fas fa-volume-up'
+    };
+
     // Add filter controls
     const filterContainer = document.createElement('div');
     filterContainer.className = 'skills-filter-container';
@@ -284,24 +317,22 @@ document.addEventListener('DOMContentLoaded', () => {
     skillsContainer.innerHTML = '';
     
     skills.forEach((skill, index) => {
+      const icon = skillIcons[skill.name] || 'fas fa-code';
       const skillEl = document.createElement('div');
-      skillEl.className = `skill-simple fade-up skill-${skill.category}`;
+      skillEl.className = `skill-simple skill-${skill.category}`;
       skillEl.innerHTML = `
+        <div class="skill-icon"><i class="${icon}" aria-hidden="true"></i></div>
         <div class="skill-name">${skill.name}</div>
         <div class="skill-category">${skill.category}</div>
       `;
       skillsContainer.appendChild(skillEl);
       
-      // Add staggered animation delay
-      skillEl.style.animationDelay = `${index * 0.1}s`;
-      
-      // Add hover effect
-      skillEl.addEventListener('mouseenter', () => {
-        skillEl.style.transform = 'scale(1.05)';
-      });
-      skillEl.addEventListener('mouseleave', () => {
-        skillEl.style.transform = 'scale(1)';
-      });
+      // Add staggered animation
+      skillEl.style.opacity = '0';
+      setTimeout(() => {
+        skillEl.classList.add('animate');
+        skillEl.style.opacity = '1';
+      }, index * 50);
     });
 
     // Add filter functionality
@@ -314,22 +345,23 @@ document.addEventListener('DOMContentLoaded', () => {
         filterBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         
-        // Filter skills
+        // Filter skills with smooth animation
         const skillItems = skillsContainer.querySelectorAll('.skill-simple');
-        skillItems.forEach(item => {
+        skillItems.forEach((item, i) => {
           if (filter === 'all' || item.classList.contains(`skill-${filter}`)) {
             item.style.display = 'flex';
             item.style.opacity = '0';
-            setTimeout(() => item.style.opacity = '1', 100);
+            item.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+              item.style.opacity = '1';
+              item.style.transform = 'translateY(0)';
+            }, i * 30);
           } else {
             item.style.opacity = '0';
-            setTimeout(() => item.style.display = 'none', 300);
+            item.style.transform = 'translateY(-10px)';
+            setTimeout(() => item.style.display = 'none', 200);
           }
         });
-
-        // Add button feedback
-        btn.style.transform = 'scale(0.95)';
-        setTimeout(() => btn.style.transform = 'scale(1)', 150);
       });
     });
   }
