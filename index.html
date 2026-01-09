@@ -29,10 +29,30 @@
   <!-- Preconnect & Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="assets/styles.css" as="style">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet" href="assets/styles.css">
   <link rel="icon" href="assets/profile.png">
+  
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Tanvir Ahmed",
+    "url": "https://tanvir-talha058.github.io/",
+    "image": "https://tanvir-talha058.github.io/assets/profile.png",
+    "jobTitle": "Full-Stack Developer & AI Enthusiast",
+    "description": "Full-Stack Developer specializing in AI, Machine Learning, and Web Development",
+    "email": "tanvirahmed123000@gmail.com",
+    "sameAs": [
+      "https://github.com/tanvir-talha058",
+      "https://www.linkedin.com/in/tanvir-talha058"
+    ],
+    "knowsAbout": ["Full-Stack Development", "AI", "Machine Learning", "Python", "Flutter", "React", "Web Development"]
+  }
+  </script>
 </head>
 <body>
   <!-- Skip to main content for accessibility -->
@@ -40,7 +60,9 @@
   <header class="site-header">
     <div class="container nav-wrap">
       <a class="brand" href="#home">Tanvir Ahmed</a>
-      <button id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+      <button id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span class="hamburger-icon" aria-hidden="true"></span>
+      </button>
       <nav id="site-nav" class="nav">
         <a href="#home">Home</a>
         <a href="#about">About</a>
@@ -73,7 +95,7 @@
           <div class="roles"><span id="typed"></span><span class="cursor">|</span></div>
           <div class="hero-cta">
             <a class="btn primary" href="#projects">See Projects</a>
-            <a class="btn outline" href="Tanvir Ahmed Resume v3.pdf" target="_blank" rel="noopener noreferrer">Download Resume</a>
+            <a class="btn outline" href="Tanvir Ahmed Resume v4.pdf" target="_blank" rel="noopener noreferrer">Download Resume</a>
           </div>
           <div class="social">
             <a href="https://github.com/tanvir-talha058" target="_blank" rel="noopener noreferrer" class="social-link github" aria-label="Visit my GitHub profile">
@@ -262,9 +284,12 @@
       <div class="container">
         <h2>Contact</h2>
   <form id="contact-form" class="contact-form">
-          <input type="text" name="name" placeholder="Your name" required>
-          <input type="email" name="email" placeholder="Your email" required>
-          <textarea name="message" placeholder="Message" rows="5" required></textarea>
+          <label for="contact-name" class="sr-only">Your name</label>
+          <input type="text" id="contact-name" name="name" placeholder="Your name" required>
+          <label for="contact-email" class="sr-only">Your email</label>
+          <input type="email" id="contact-email" name="email" placeholder="Your email" required>
+          <label for="contact-message" class="sr-only">Message</label>
+          <textarea id="contact-message" name="message" placeholder="Message" rows="5" required></textarea>
           <div class="form-actions">
             <button type="submit" class="btn primary">Send Message</button>
             <button type="button" id="mailto-btn" class="btn outline">Send via Email</button>
@@ -317,6 +342,6 @@
     <i class="fas fa-arrow-up" aria-hidden="true"></i>
   </button>
 
-  <script src="assets/script.js" defer></script>
+  <script src="assets/script.js"></script>
 </body>
 </html>
