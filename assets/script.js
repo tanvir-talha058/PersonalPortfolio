@@ -9,13 +9,13 @@ document.addEventListener('DOMContentLoaded', () => {
       console.warn('Could not set viewport height:', error);
     }
   };
-  
+
   setVH();
   window.addEventListener('resize', setVH);
   window.addEventListener('orientationchange', () => {
     setTimeout(setVH, 150);
   });
-  
+
   // Prevent iOS zoom on input focus
   if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
     const viewport = document.querySelector('meta[name="viewport"]');
@@ -23,15 +23,15 @@ document.addEventListener('DOMContentLoaded', () => {
       viewport.content = 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no';
     }
   }
-  
+
   // Detect mobile device
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-  
+
   if (isMobile || isTouch) {
     document.body.classList.add('mobile-device');
   }
-  
+
   // Theme persistence and toggle
   const root = document.documentElement;
   const themeCheckbox = document.getElementById('theme-checkbox');
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
     </div>
   `;
   document.body.appendChild(loadingScreen);
-  
+
   // Hide loading screen after content loads
   setTimeout(() => {
     loadingScreen.classList.add('fade-out');
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const progressBar = document.createElement('div');
       progressBar.className = 'scroll-progress';
       document.body.appendChild(progressBar);
-      
+
       window.addEventListener('scroll', () => {
         const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
         const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -98,10 +98,163 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   createScrollProgress();
 
+  // Skills data
+  const skills = [
+    // Languages
+    { name: 'Python', category: 'language', icon: 'fab fa-python', level: 95 },
+    { name: 'JavaScript', category: 'language', icon: 'fab fa-js', level: 90 },
+    { name: 'C++', category: 'language', icon: 'fas fa-code', level: 85 },
+    { name: 'Dart', category: 'language', icon: 'fas fa-bullseye', level: 88 },
+    { name: 'Java', category: 'language', icon: 'fab fa-java', level: 80 },
+
+    // AI & Data Science
+    { name: 'TensorFlow', category: 'ai', icon: 'fas fa-brain', level: 90 },
+    { name: 'PyTorch', category: 'ai', icon: 'fas fa-fire-alt', level: 85 },
+    { name: 'OpenCV', category: 'ai', icon: 'fas fa-eye', level: 92 },
+    { name: 'Pandas', category: 'ai', icon: 'fas fa-table', level: 88 },
+    { name: 'NumPy', category: 'ai', icon: 'fas fa-calculator', level: 88 },
+
+    // Frameworks & Tools
+    { name: 'Flutter', category: 'mobile', icon: 'fas fa-mobile-alt', level: 92 },
+    { name: 'React', category: 'frontend', icon: 'fab fa-react', level: 85 },
+    { name: 'Node.js', category: 'backend', icon: 'fab fa-node', level: 80 },
+    { name: 'Selenium', category: 'tools', icon: 'fas fa-robot', level: 85 },
+    { name: 'Git', category: 'tools', icon: 'fab fa-git-alt', level: 90 },
+    { name: 'Firebase', category: 'cloud', icon: 'fas fa-fire', level: 88 },
+    { name: 'Docker', category: 'tools', icon: 'fab fa-docker', level: 75 }
+  ];
+
+  // Projects data from Resume
+  const projects = [
+    {
+      title: 'Edu-Buddy AI Assistant',
+      description: 'Voice-activated assistant for students with reminders and study help. Built with speech recognition and natural language processing.',
+      tags: ['Python', 'SpeechRecognition', 'Google TTS', 'Tkinter'],
+      icon: 'fas fa-robot',
+      color: '#3b82f6',
+      github: 'https://github.com/tanvir-talha058/edu-buddy-ai'
+    },
+    {
+      title: 'AgroKart BD',
+      description: 'Marketplace connecting farmers and consumers with a Flutter mobile app and responsive web portal.',
+      tags: ['Flutter', 'Dart', 'Firebase', 'PHP', 'MySQL'],
+      icon: 'fas fa-shopping-basket',
+      color: '#10b981',
+      github: 'https://github.com/tanvir-talha058/agrokart-bd'
+    },
+    {
+      title: 'Hand Gesture Virtual Mouse',
+      description: 'Real-time hand-gesture based virtual mouse that maps detected hand positions to cursor movement.',
+      tags: ['Python', 'OpenCV', 'TensorFlow', 'MediaPipe'],
+      icon: 'fas fa-mouse',
+      color: '#8b5cf6',
+      github: 'https://github.com/tanvir-talha058/hand-gesture-mouse'
+    },
+    {
+      title: 'Cross-Platform Task Manager',
+      description: 'Lightweight cross-platform task/process manager for desktop environments, monitoring system resources.',
+      tags: ['Python', 'Node.js', 'React', 'Electron'],
+      icon: 'fas fa-tasks',
+      color: '#f59e0b',
+      github: 'https://github.com/tanvir-talha058/task-manager'
+    },
+    {
+      title: 'Garment Automation Tool',
+      description: 'Selenium-based GUI application to automate bulk web form submissions from Excel data for the garment industry.',
+      tags: ['Python', 'Selenium', 'Pandas', 'Tkinter'],
+      icon: 'fas fa-tshirt',
+      color: '#ec4899',
+      github: 'https://github.com/tanvir-talha058/garment-automation'
+    },
+    {
+      title: 'AI Lie Detector',
+      description: 'Prototype lie detection system using audio/visual signal features and machine learning analysis.',
+      tags: ['Python', 'TensorFlow', 'OpenCV', 'Librosa'],
+      icon: 'fas fa-user-secret',
+      color: '#ef4444',
+      github: 'https://github.com/tanvir-talha058/ai-lie-detector'
+    }
+  ];
+
+  // Render skills
+  const renderSkills = () => {
+    const skillsList = document.getElementById('skills-list');
+    if (!skillsList) return;
+
+    const skillsHTML = skills.map(skill => `
+      <div class="skill-card" data-category="${skill.category}">
+        <div class="skill-icon">
+          <i class="${skill.icon}"></i>
+        </div>
+        <div class="skill-info">
+          <h3 class="skill-name">${skill.name}</h3>
+          <div class="skill-progress">
+            <div class="skill-progress-bar" style="width: ${skill.level}%"></div>
+          </div>
+          <span class="skill-level">${skill.level}%</span>
+        </div>
+      </div>
+    `).join('');
+
+    skillsList.innerHTML = skillsHTML;
+
+    // Animate progress bars
+    setTimeout(() => {
+      const progressBars = skillsList.querySelectorAll('.skill-progress-bar');
+      progressBars.forEach(bar => {
+        const width = bar.style.width;
+        bar.style.width = '0%';
+        setTimeout(() => {
+          bar.style.transition = 'width 1s ease-out';
+          bar.style.width = width;
+        }, 100);
+      });
+    }, 200);
+  };
+
+  // Render projects
+  const renderProjects = () => {
+    const projectsList = document.getElementById('projects-list');
+    if (!projectsList) return;
+
+    const projectsHTML = projects.map((project, index) => `
+      <div class="project-card" style="--delay: ${index * 0.1}s">
+        <div class="project-icon" style="background: linear-gradient(135deg, ${project.color}, ${project.color}aa)">
+          <i class="${project.icon}"></i>
+        </div>
+        <div class="project-content">
+          <h3 class="project-title">${project.title}</h3>
+          <p class="project-description">${project.description}</p>
+          <div class="project-tags">
+            ${project.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+          </div>
+          <div class="project-actions">
+            ${project.github ? `
+              <a href="${project.github}" target="_blank" rel="noopener noreferrer" class="btn-text">
+                <i class="fab fa-github"></i> View Code
+              </a>
+            ` : ''}
+            ${project.demo ? `
+              <a href="${project.demo}" target="_blank" rel="noopener noreferrer" class="btn-text">
+                <i class="fas fa-external-link-alt"></i> Live Demo
+              </a>
+            ` : ''}
+          </div>
+        </div>
+      </div>
+    `).join('');
+
+    projectsList.innerHTML = projectsHTML;
+  };
+
+  // Initialize rendering
+  renderSkills();
+  renderProjects();
+
   // Smooth scroll navigation with enhanced feedback
   const navLinks = document.querySelectorAll('.nav a[href^="#"]');
   const sections = document.querySelectorAll('section[id]');
-  
+
   navLinks.forEach(link => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
@@ -111,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Add click feedback
         link.classList.add('clicked');
         setTimeout(() => link.classList.remove('clicked'), 300);
-        
+
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     });
@@ -126,7 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
         current = section.getAttribute('id');
       }
     });
-    
+
     navLinks.forEach(link => {
       link.classList.remove('active');
       if (link.getAttribute('href') === `#${current}`) {
@@ -146,485 +299,91 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Core skills based on resume
-  const skills = [
-    // Languages
-    { name: 'Python', category: 'languages' },
-    { name: 'C', category: 'languages' },
-    { name: 'C++', category: 'languages' },
-    { name: 'Java', category: 'languages' },
-    { name: 'JavaScript', category: 'languages' },
-    { name: 'Dart', category: 'languages' },
-    { name: 'PHP', category: 'languages' },
-    { name: 'SQL', category: 'languages' },
-    
-    // AI / ML & Libraries
-    { name: 'TensorFlow', category: 'aiml' },
-    { name: 'PyTorch', category: 'aiml' },
-    { name: 'scikit-learn', category: 'aiml' },
-    { name: 'Keras', category: 'aiml' },
-    { name: 'OpenCV', category: 'aiml' },
-    { name: 'Mediapipe', category: 'aiml' },
-    { name: 'NumPy', category: 'aiml' },
-    { name: 'Pandas', category: 'aiml' },
-    { name: 'Selenium', category: 'aiml' },
-    { name: 'Tkinter', category: 'aiml' },
-    { name: 'Matplotlib', category: 'aiml' },
-    { name: 'Seaborn', category: 'aiml' },
-    
-    // Web / Mobile / Tools
-    { name: 'Flutter', category: 'webtools' },
-    { name: 'Firebase', category: 'webtools' },
-    { name: 'HTML', category: 'webtools' },
-    { name: 'CSS', category: 'webtools' },
-    { name: 'PHP', category: 'webtools' },
-    { name: 'Git', category: 'webtools' },
-    { name: 'GitHub', category: 'webtools' },
-    { name: 'VS Code', category: 'webtools' },
-    { name: 'Figma', category: 'webtools' },
-    { name: 'Google Colab', category: 'webtools' },
-    { name: 'Kaggle', category: 'webtools' },
-    
-    // Concepts & Domains
-    { name: 'Machine Learning', category: 'concepts' },
-    { name: 'Deep Learning', category: 'concepts' },
-    { name: 'Computer Vision', category: 'concepts' },
-    { name: 'Image/Video Processing', category: 'concepts' },
-    { name: 'NLP', category: 'concepts' },
-    { name: 'Object Tracking', category: 'concepts' },
-    { name: 'IoT', category: 'concepts' },
-    { name: 'Automation', category: 'concepts' },
-    { name: 'Human-Computer Interaction', category: 'concepts' },
-    { name: 'Data Visualization', category: 'concepts' },
-    { name: 'Big Data', category: 'concepts' }
-  ];
 
-  // Enhanced projects with better interaction
-  const projects = [
-    {
-      id: 1,
-      title: 'Edu-Buddy AI Assistant',
-      tag: 'AI',
-      description: 'Voice-activated assistant for students with reminders and study help. Built with speech recognition and natural language processing.',
-      tech: ['Python', 'SpeechRecognition', 'Google TTS', 'SQLite', 'Tkinter'],
-      demo: 'https://github.com/tanvir-talha058/edu-buddy-ai',
-      github: 'https://github.com/tanvir-talha058/edu-buddy-ai',
-      featured: true
-    },
-    {
-      id: 2,
-      title: 'AgroKart BD',
-      tag: 'Web/Mobile',
-      description: 'Marketplace connecting farmers and consumers with a Flutter mobile app and responsive web portal.',
-      tech: ['Flutter', 'Dart', 'Firebase', 'HTML5', 'CSS3', 'JavaScript', 'PHP'],
-      demo: 'https://github.com/tanvir-talha058/agrokart-bd',
-      github: 'https://github.com/tanvir-talha058/agrokart-bd',
-      featured: true
-    },
-    {
-      id: 3,
-      title: 'Hand Gesture Virtual Mouse',
-      tag: 'Computer Vision',
-      description: 'Real-time hand-gesture based virtual mouse that maps detected hand positions to cursor movement.',
-      tech: ['Python', 'OpenCV', 'TensorFlow'],
-      demo: 'https://github.com/tanvir-talha058/hand-gesture-mouse',
-      github: 'https://github.com/tanvir-talha058/hand-gesture-mouse',
-      featured: false
-    },
-    {
-      id: 4,
-      title: 'Cross-Platform Task Manager',
-      tag: 'Tool',
-      description: 'Lightweight cross-platform task/process manager for desktop environments.',
-      tech: ['Python', 'Node.js', 'React'],
-      demo: 'https://github.com/tanvir-talha058/task-manager',
-      github: 'https://github.com/tanvir-talha058/task-manager',
-      featured: false
-    },
-    {
-      id: 5,
-      title: 'Automation Tool for Garment Industry',
-      tag: 'Automation',
-      description: 'Selenium-based GUI to automate bulk web form submissions from Excel data.',
-      tech: ['Python', 'Selenium', 'JavaScript', 'HTML5'],
-      demo: 'https://github.com/tanvir-talha058/garment-automation',
-      github: 'https://github.com/tanvir-talha058/garment-automation',
-      featured: false
-    },
-    {
-      id: 6,
-      title: 'AI Lie Detector',
-      tag: 'Machine Learning',
-      description: 'Prototype lie detection using audio/visual signal features and machine learning.',
-      tech: ['Python', 'TensorFlow', 'OpenCV'],
-      demo: 'https://github.com/tanvir-talha058/ai-lie-detector',
-      github: 'https://github.com/tanvir-talha058/ai-lie-detector',
-      featured: true
-    }
-  ];
 
-  // Enhanced skills rendering with filtering
-  const skillsContainer = document.getElementById('skills-list');
-  if (skillsContainer) {
-    // Skill icons mapping for professional look
-    const skillIcons = {
-      // Languages
-      'Python': 'fab fa-python',
-      'C': 'fas fa-code',
-      'C++': 'fas fa-code',
-      'Java': 'fab fa-java',
-      'JavaScript': 'fab fa-js-square',
-      'Dart': 'fas fa-bullseye',
-      'PHP': 'fab fa-php',
-      'SQL': 'fas fa-database',
-      // AI/ML & Libraries
-      'TensorFlow': 'fas fa-brain',
-      'PyTorch': 'fas fa-fire-alt',
-      'scikit-learn': 'fas fa-cogs',
-      'Keras': 'fas fa-layer-group',
-      'OpenCV': 'fas fa-eye',
-      'Mediapipe': 'fas fa-hand-paper',
-      'NumPy': 'fas fa-calculator',
-      'Pandas': 'fas fa-table',
-      'Selenium': 'fas fa-robot',
-      'Tkinter': 'fas fa-desktop',
-      'Matplotlib': 'fas fa-chart-line',
-      'Seaborn': 'fas fa-chart-area',
-      // Web / Mobile / Tools
-      'Flutter': 'fas fa-mobile-alt',
-      'Firebase': 'fas fa-fire',
-      'HTML': 'fab fa-html5',
-      'CSS': 'fab fa-css3-alt',
-      'Git': 'fab fa-git-alt',
-      'GitHub': 'fab fa-github',
-      'VS Code': 'fas fa-code',
-      'Figma': 'fab fa-figma',
-      'Google Colab': 'fas fa-laptop-code',
-      'Kaggle': 'fab fa-kaggle',
-      // Concepts & Domains
-      'Machine Learning': 'fas fa-brain',
-      'Deep Learning': 'fas fa-network-wired',
-      'Computer Vision': 'fas fa-camera',
-      'Image/Video Processing': 'fas fa-photo-video',
-      'NLP': 'fas fa-language',
-      'Object Tracking': 'fas fa-crosshairs',
-      'IoT': 'fas fa-microchip',
-      'Automation': 'fas fa-cog',
-      'Human-Computer Interaction': 'fas fa-user-cog',
-      'Data Visualization': 'fas fa-chart-pie',
-      'Big Data': 'fas fa-database'
-    };
 
-    // Category display names
-    const categoryNames = {
-      'languages': 'Languages',
-      'aiml': 'AI/ML & Libraries',
-      'webtools': 'Web/Mobile/Tools',
-      'concepts': 'Concepts & Domains'
-    };
-
-    // Add filter controls
-    const filterContainer = document.createElement('div');
-    filterContainer.className = 'skills-filter-container';
-    filterContainer.innerHTML = `
-      <div class="skill-filters">
-        <button class="skill-filter-btn active" data-filter="all">All</button>
-        <button class="skill-filter-btn" data-filter="languages">Languages</button>
-        <button class="skill-filter-btn" data-filter="aiml">AI/ML & Libraries</button>
-        <button class="skill-filter-btn" data-filter="webtools">Web/Mobile/Tools</button>
-        <button class="skill-filter-btn" data-filter="concepts">Concepts & Domains</button>
-      </div>
-    `;
-    
-    skillsContainer.parentNode.insertBefore(filterContainer, skillsContainer);
-    
-    // Clear existing content and render enhanced skills
-    skillsContainer.innerHTML = '';
-    
-    skills.forEach((skill, index) => {
-      const icon = skillIcons[skill.name] || 'fas fa-code';
-      const displayCategory = categoryNames[skill.category] || skill.category;
-      const skillEl = document.createElement('div');
-      skillEl.className = `skill-simple skill-${skill.category}`;
-      skillEl.innerHTML = `
-        <div class="skill-icon"><i class="${icon}" aria-hidden="true"></i></div>
-        <div class="skill-name">${skill.name}</div>
-        <div class="skill-category">${displayCategory}</div>
-      `;
-      skillsContainer.appendChild(skillEl);
-      
-      // Add staggered animation
-      skillEl.style.opacity = '0';
-      setTimeout(() => {
-        skillEl.classList.add('animate');
-        skillEl.style.opacity = '1';
-      }, index * 50);
-    });
-
-    // Add filter functionality
-    const filterBtns = filterContainer.querySelectorAll('.skill-filter-btn');
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const filter = btn.dataset.filter;
-        
-        // Update active button
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        
-        // Filter skills with smooth animation
-        const skillItems = skillsContainer.querySelectorAll('.skill-simple');
-        skillItems.forEach((item, i) => {
-          if (filter === 'all' || item.classList.contains(`skill-${filter}`)) {
-            item.style.display = 'flex';
-            item.style.opacity = '0';
-            item.style.transform = 'translateY(20px)';
-            setTimeout(() => {
-              item.style.opacity = '1';
-              item.style.transform = 'translateY(0)';
-            }, i * 30);
-          } else {
-            item.style.opacity = '0';
-            item.style.transform = 'translateY(-10px)';
-            setTimeout(() => item.style.display = 'none', 200);
-          }
-        });
-      });
-    });
-  }
-
-  // Enhanced projects rendering with interactions
-  const projectsContainer = document.getElementById('projects-list');
-  if (projectsContainer) {
-    // Clear and render enhanced projects
-    projectsContainer.innerHTML = '';
-    
-    function renderProjects(projectsToShow = projects) {
-      projectsContainer.innerHTML = '';
-      projectsContainer.className = 'projects-minimal';
-      
-      projectsToShow.forEach((project, index) => {
-        const projectEl = document.createElement('div');
-        projectEl.className = `project-minimal fade-up ${project.featured ? 'featured-project' : ''} project-${project.tag.toLowerCase().replace(/[^a-z0-9]/g, '')}`;
-        projectEl.innerHTML = `
-          <div class="project-header">
-            <h3>${project.title}</h3>
-            <div class="project-badges">
-              <span class="project-tag">${project.tag}</span>
-              ${project.featured ? '<span class="featured-badge">Featured</span>' : ''}
-            </div>
-          </div>
-          <p class="project-description">${project.description}</p>
-          <div class="tech-minimal">
-            ${project.tech.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
-          </div>
-          <div class="project-links">
-            <a href="${project.github}" target="_blank" class="project-link github-link">
-              <i class="fab fa-github"></i> Code
-            </a>
-            <a href="${project.demo}" target="_blank" class="project-link demo-link">
-              <i class="fas fa-external-link-alt"></i> View
-            </a>
-          </div>
-        `;
-        projectsContainer.appendChild(projectEl);
-        
-        // Add staggered animation delay
-        projectEl.style.animationDelay = `${index * 0.2}s`;
-        
-        // Add button click feedback
-        const projectLinks = projectEl.querySelectorAll('.project-link');
-        projectLinks.forEach(link => {
-          link.addEventListener('click', (e) => {
-            // Visual feedback
-            link.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-              link.style.transform = '';
-            }, 150);
-            
-            // Add a small notification for user feedback
-            const linkType = link.classList.contains('github-link') ? 'GitHub' : 'Demo';
-          });
-        });
-        
-        // Add hover effects to the card
-        projectEl.addEventListener('mouseenter', () => {
-          projectEl.style.transform = 'translateY(-5px)';
-        });
-        projectEl.addEventListener('mouseleave', () => {
-          projectEl.style.transform = 'translateY(0)';
-        });
-      });
-    }
-    
-    // Initial render
-    renderProjects();
-  }
-
-  // Utility functions for enhanced interactivity
-  function showNotification(message, type = 'info') {
-    // Remove existing notifications
-    const existing = document.querySelector('.notification');
-    if (existing) existing.remove();
-    
-    const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
-    notification.innerHTML = `
-      <div class="notification-content">
-        <span class="notification-message">${message}</span>
-        <button class="notification-close">&times;</button>
-      </div>
-    `;
-    
-    document.body.appendChild(notification);
-    
-    // Auto hide after 3 seconds
-    setTimeout(() => {
-      notification.classList.add('fade-out');
-      setTimeout(() => notification.remove(), 300);
-    }, 3000);
-    
-    // Close button
-    notification.querySelector('.notification-close').addEventListener('click', () => {
-      notification.classList.add('fade-out');
-      setTimeout(() => notification.remove(), 300);
-    });
-  }
-
-  // Typing effect for roles
-  const typedEl = document.getElementById('typed');
-  const roles = ['Frontend Developer', 'Full-stack Enthusiast', 'Problem Solver', 'UI/UX Lover'];
-  let roleIdx = 0, charIdx = 0;
-  
-  function tick() {
-    const current = roles[roleIdx];
-    typedEl.textContent = current.slice(0, charIdx);
-    charIdx++;
-    
-    if (charIdx > current.length) {
-      setTimeout(() => {
-        charIdx = 0;
-        roleIdx = (roleIdx + 1) % roles.length;
-      }, 800);
-    }
-    setTimeout(tick, 70);
-  }
-  tick();
-
-  // Scroll animations with error handling
-  if ('IntersectionObserver' in window) {
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          // Special animation for skills
-          if (entry.target.classList.contains('skill-simple')) {
-            setTimeout(() => {
-              entry.target.classList.add('animate');
-            }, Math.random() * 300);
-          } else {
-            entry.target.classList.add('animate');
-          }
-        }
-      });
-    }, observerOptions);
-
-    // Observe all fade-up elements
-    document.querySelectorAll('.fade-up').forEach(el => {
-      observer.observe(el);
-    });
-  } else {
-    // Fallback for browsers without IntersectionObserver
-    document.querySelectorAll('.fade-up').forEach(el => {
-      el.classList.add('animate');
-    });
-  }
 
   // Enhanced Mobile navigation toggle with error handling
   const navToggle = document.getElementById('nav-toggle');
   const nav = document.getElementById('site-nav');
-  
-  if (!navToggle || !nav) {
-    console.warn('Navigation elements not found');
-    return;
-  }
-  
-  // Mobile-specific touch handling
-  let touchStartY = 0;
-  let touchEndY = 0;
-  
-  navToggle.addEventListener('click', () => {
-    const expanded = nav.classList.toggle('show');
-    navToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-    document.body.classList.toggle('no-scroll', expanded);
-    
-    // Add haptic feedback if available
-    if (navigator.vibrate) {
-      navigator.vibrate(50);
-    }
-    
-    // Animate toggle button
-    navToggle.style.transform = expanded ? 'rotate(90deg)' : 'rotate(0deg)';
-  });
 
-  // Close nav on swipe up (mobile gesture)
-  nav.addEventListener('touchstart', (e) => {
-    touchStartY = e.changedTouches[0].screenY;
-  });
-  
-  nav.addEventListener('touchend', (e) => {
-    touchEndY = e.changedTouches[0].screenY;
-    const swipeDistance = touchStartY - touchEndY;
-    
-    if (swipeDistance > 100) { // Swipe up
-      nav.classList.remove('show');
-      navToggle.setAttribute('aria-expanded', 'false');
-      document.body.classList.remove('no-scroll');
-      navToggle.style.transform = 'rotate(0deg)';
-    }
-  });
+  if (navToggle && nav) {
+    // Only set up navigation if elements exist
 
-  // Close mobile nav when clicking on links with enhanced feedback
-  navLinks.forEach((link, index) => {
-    link.addEventListener('click', () => {
-      if (nav.classList.contains('show')) {
-        // Add staggered close animation
-        link.style.transform = 'scale(0.95)';
-        setTimeout(() => {
-          nav.classList.remove('show');
-          navToggle.setAttribute('aria-expanded', 'false');
-          document.body.classList.remove('no-scroll');
-          navToggle.style.transform = 'rotate(0deg)';
-          link.style.transform = '';
-        }, 150);
-        
-        // Haptic feedback
-        if (navigator.vibrate) {
-          navigator.vibrate(30);
-        }
+    // Mobile-specific touch handling
+    let touchStartY = 0;
+    let touchEndY = 0;
+
+    navToggle.addEventListener('click', () => {
+      const expanded = nav.classList.toggle('show');
+      navToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      document.body.classList.toggle('no-scroll', expanded);
+
+      // Add haptic feedback if available
+      if (navigator.vibrate) {
+        navigator.vibrate(50);
+      }
+
+      // Animate toggle button
+      navToggle.style.transform = expanded ? 'rotate(90deg)' : 'rotate(0deg)';
+    });
+
+    // Close nav on swipe up (mobile gesture)
+    nav.addEventListener('touchstart', (e) => {
+      touchStartY = e.changedTouches[0].screenY;
+    });
+
+    nav.addEventListener('touchend', (e) => {
+      touchEndY = e.changedTouches[0].screenY;
+      const swipeDistance = touchStartY - touchEndY;
+
+      if (swipeDistance > 100) { // Swipe up
+        nav.classList.remove('show');
+        navToggle.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('no-scroll');
+        navToggle.style.transform = 'rotate(0deg)';
       }
     });
-  });
-  
-  // Close nav when clicking outside
-  document.addEventListener('click', (e) => {
-    if (nav.classList.contains('show') && 
-        !nav.contains(e.target) && 
+
+    // Close mobile nav when clicking on links with enhanced feedback
+    navLinks.forEach((link, index) => {
+      link.addEventListener('click', () => {
+        if (nav.classList.contains('show')) {
+          // Add staggered close animation
+          link.style.transform = 'scale(0.95)';
+          setTimeout(() => {
+            nav.classList.remove('show');
+            navToggle.setAttribute('aria-expanded', 'false');
+            document.body.classList.remove('no-scroll');
+            navToggle.style.transform = 'rotate(0deg)';
+            link.style.transform = '';
+          }, 150);
+
+          // Haptic feedback
+          if (navigator.vibrate) {
+            navigator.vibrate(30);
+          }
+        }
+      });
+    });
+
+    // Close nav when clicking outside
+    document.addEventListener('click', (e) => {
+      if (nav.classList.contains('show') &&
+        !nav.contains(e.target) &&
         !navToggle.contains(e.target)) {
-      nav.classList.remove('show');
-      navToggle.setAttribute('aria-expanded', 'false');
-      document.body.classList.remove('no-scroll');
-      navToggle.style.transform = 'rotate(0deg)';
-    }
-  });
+        nav.classList.remove('show');
+        navToggle.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('no-scroll');
+        navToggle.style.transform = 'rotate(0deg)';
+      }
+    });
+  } // End of navigation setup
 
   // Enhanced contact form handling
   const contactForm = document.getElementById('contact-form');
   const formStatus = document.getElementById('form-status');
-  
+
   if (contactForm) {
     // Add real-time validation
     const inputs = contactForm.querySelectorAll('input, textarea');
@@ -632,19 +391,19 @@ document.addEventListener('DOMContentLoaded', () => {
       input.addEventListener('blur', () => {
         validateField(input);
       });
-      
+
       input.addEventListener('input', () => {
         if (input.classList.contains('error')) {
           validateField(input);
         }
       });
     });
-    
+
     function validateField(field) {
       const value = field.value.trim();
       let isValid = true;
       let errorMessage = '';
-      
+
       if (field.hasAttribute('required') && !value) {
         isValid = false;
         errorMessage = 'This field is required';
@@ -652,11 +411,11 @@ document.addEventListener('DOMContentLoaded', () => {
         isValid = false;
         errorMessage = 'Please enter a valid email address';
       }
-      
+
       // Remove existing error
       const existingError = field.parentNode.querySelector('.field-error');
       if (existingError) existingError.remove();
-      
+
       if (!isValid) {
         field.classList.add('error');
         const errorDiv = document.createElement('div');
@@ -666,17 +425,17 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         field.classList.remove('error');
       }
-      
+
       return isValid;
     }
-    
+
     function isValidEmail(email) {
       return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     }
-    
+
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      
+
       // Validate all fields
       let allValid = true;
       inputs.forEach(input => {
@@ -684,25 +443,25 @@ document.addEventListener('DOMContentLoaded', () => {
           allValid = false;
         }
       });
-      
+
       if (!allValid) {
         showNotification('Please fix the errors in the form', 'error');
         return;
       }
-      
+
       // Show loading state
       const submitBtn = contactForm.querySelector('button[type="submit"]');
       const originalText = submitBtn.textContent;
       submitBtn.textContent = 'Sending...';
       submitBtn.disabled = true;
-      
+
       // Simulate form submission
       setTimeout(() => {
         showNotification('🎉 Thanks for your message! I\'ll get back to you soon.', 'success');
         contactForm.reset();
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
-        
+
         // Clear any error states
         inputs.forEach(input => {
           input.classList.remove('error');
@@ -729,38 +488,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.addEventListener('scroll', () => {
     const currentScrollY = window.scrollY;
-    
+
     // Add scrolled class when scrolling down
     if (currentScrollY > 50) {
       header.classList.add('scrolled');
     } else {
       header.classList.remove('scrolled');
     }
-    
+
     lastScrollY = currentScrollY;
 
-    // Active nav link highlighting
-    let current = '';
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.clientHeight;
-      if (currentScrollY >= (sectionTop - 200)) {
-        current = section.getAttribute('id');
-      }
-    });
 
-    navLinks.forEach(link => {
-      link.classList.remove('active');
-      if (link.getAttribute('href') === `#${current}`) {
-        link.classList.add('active');
-      }
-    });
   });
-  
+
   // Mobile loading screen
   if (isMobile || isTouch) {
     showMobileLoader();
-    
+
     // Hide loader after content loads
     window.addEventListener('load', () => {
       setTimeout(() => {
@@ -768,7 +512,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 500);
     });
   }
-  
+
   // Mobile scroll indicator
   if (window.innerWidth <= 768) {
     addScrollIndicator();
@@ -800,14 +544,14 @@ function addScrollIndicator() {
   indicator.className = 'mobile-scroll-indicator';
   indicator.innerHTML = '↓';
   document.body.appendChild(indicator);
-  
+
   // Hide indicator after scroll
   let scrollTimeout;
   window.addEventListener('scroll', () => {
     if (window.scrollY > 100) {
       indicator.style.display = 'none';
     }
-    
+
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(() => {
       if (window.scrollY <= 100) {
@@ -872,7 +616,7 @@ initBackToTop();
 const initThemeKeyboardNav = () => {
   const themeSwitch = document.querySelector('.theme-switch');
   const themeCheckbox = document.getElementById('theme-checkbox');
-  
+
   if (!themeSwitch || !themeCheckbox) return;
 
   // Allow keyboard toggle with Enter or Space
@@ -897,5 +641,231 @@ const initThemeKeyboardNav = () => {
 };
 
 initThemeKeyboardNav();
+
+// ===== ENHANCED INTERACTIVE FEATURES ===== 
+
+// 1. Scroll Reveal Animation System
+const initScrollReveal = () => {
+  const revealElements = document.querySelectorAll('.section, .project-card, .skill-card, .about-box');
+
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }, index * 100);
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+  });
+
+  revealElements.forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    revealObserver.observe(el);
+  });
+};
+
+// 2. Magnetic Button Effect
+const initMagneticButtons = () => {
+  const buttons = document.querySelectorAll('.btn, .project-link, .social-link');
+
+  buttons.forEach(button => {
+    button.addEventListener('mousemove', (e) => {
+      const rect = button.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+
+      button.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+    });
+
+    button.addEventListener('mouseleave', () => {
+      button.style.transform = 'translate(0, 0)';
+    });
+  });
+};
+
+// 3. Ripple Effect on Click
+const createRipple = (event, element) => {
+  const circle = document.createElement('span');
+  const diameter = Math.max(element.clientWidth, element.clientHeight);
+  const radius = diameter / 2;
+
+  const rect = element.getBoundingClientRect();
+  circle.style.width = circle.style.height = `${diameter}px`;
+  circle.style.left = `${event.clientX - rect.left - radius}px`;
+  circle.style.top = `${event.clientY - rect.top - radius}px`;
+  circle.classList.add('ripple');
+
+  const ripple = element.getElementsByClassName('ripple')[0];
+  if (ripple) {
+    ripple.remove();
+  }
+
+  element.appendChild(circle);
+
+  setTimeout(() => circle.remove(), 600);
+};
+
+const initRippleEffect = () => {
+  const rippleElements = document.querySelectorAll('.btn, .project-link, .social-link, .nav a');
+
+  rippleElements.forEach(element => {
+    element.style.position = 'relative';
+    element.style.overflow = 'hidden';
+
+    element.addEventListener('click', (e) => {
+      createRipple(e, element);
+    });
+  });
+};
+
+// 4. 3D Tilt Effect for Project Cards
+const init3DTilt = () => {
+  const cards = document.querySelectorAll('.project-card, .about-box');
+
+  cards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const rotateX = (y - centerY) / 10;
+      const rotateY = (centerX - x) / 10;
+
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+    });
+
+    card.style.transition = 'transform 0.2s ease';
+  });
+};
+
+// 5. Smooth Parallax Effect
+// 5. Smooth Parallax Effect - Simplified to avoid layout shifts
+const initParallax = () => {
+  const heroSection = document.querySelector('.hero');
+  if (!heroSection) return;
+
+  window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    // Only animate the hero background/content slightly
+    if (scrolled < window.innerHeight) {
+      heroSection.style.transform = `translateY(${scrolled * 0.4}px)`;
+      heroSection.style.opacity = 1 - (scrolled / window.innerHeight);
+    }
+  });
+};
+
+// 6. Enhanced Cursor Trail (Desktop Only)
+const initCursorTrail = () => {
+  if (window.innerWidth < 768) return; // Skip on mobile
+
+  const cursor = document.createElement('div');
+  cursor.className = 'custom-cursor';
+  document.body.appendChild(cursor);
+
+  const cursorDot = document.createElement('div');
+  cursorDot.className = 'custom-cursor-dot';
+  document.body.appendChild(cursorDot);
+
+  let mouseX = 0, mouseY = 0;
+  let cursorX = 0, cursorY = 0;
+  let dotX = 0, dotY = 0;
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+
+  const animateCursor = () => {
+    // Smooth following animation
+    cursorX += (mouseX - cursorX) * 0.1;
+    cursorY += (mouseY - cursorY) * 0.1;
+    dotX += (mouseX - dotX) * 0.2;
+    dotY += (mouseY - dotY) * 0.2;
+
+    cursor.style.left = cursorX + 'px';
+    cursor.style.top = cursorY + 'px';
+    cursorDot.style.left = dotX + 'px';
+    cursorDot.style.top = dotY + 'px';
+
+    requestAnimationFrame(animateCursor);
+  };
+
+  animateCursor();
+
+  // Expand cursor on hover
+  const hoverElements = document.querySelectorAll('a, button, .btn, .project-link');
+  hoverElements.forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+      cursor.style.borderColor = 'var(--accent)';
+    });
+
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+      cursor.style.borderColor = 'rgba(0, 212, 170, 0.5)';
+    });
+  });
+};
+
+// 7. Floating Particles Background
+const initParticles = () => {
+  const particlesContainer = document.createElement('div');
+  particlesContainer.className = 'particles-container';
+  document.body.insertBefore(particlesContainer, document.body.firstChild);
+
+  for (let i = 0; i < 30; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.animationDelay = Math.random() * 5 + 's';
+    particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+    particlesContainer.appendChild(particle);
+  }
+};
+
+
+
+
+
+
+// Initialize all enhancements
+document.addEventListener('DOMContentLoaded', () => {
+  // Check if device supports advanced features
+  const supportsIntersectionObserver = 'IntersectionObserver' in window;
+  const isDesktop = window.innerWidth >= 768;
+
+  if (supportsIntersectionObserver) {
+    initScrollReveal();
+  }
+
+  if (isDesktop) {
+    initMagneticButtons();
+    init3DTilt();
+    initCursorTrail();
+  }
+
+  initRippleEffect();
+  initParticles();
+
+  // Delay parallax for better performance
+  setTimeout(() => {
+    if (isDesktop) initParallax();
+  }, 1000);
+});
+
 
 
