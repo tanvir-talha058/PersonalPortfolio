@@ -181,35 +181,43 @@ document.addEventListener('DOMContentLoaded', () => {
     const skillsList = document.getElementById('skills-list');
     if (!skillsList) return;
 
-    const skillsHTML = skills.map(skill => `
-      <div class="skill-card" data-category="${skill.category}">
-        <div class="skill-icon">
-          <i class="${skill.icon}"></i>
-        </div>
-        <div class="skill-info">
-          <h3 class="skill-name">${skill.name}</h3>
-          <div class="skill-progress">
-            <div class="skill-progress-bar" style="width: ${skill.level}%"></div>
-          </div>
-          <span class="skill-level">${skill.level}%</span>
+    // Group skills by category
+    const categories = {
+      language: 'Languages',
+      frontend: 'Frontend',
+      backend: 'Backend',
+      mobile: 'Mobile App',
+      ai: 'AI & Data Science',
+      cloud: 'Cloud & DevOps',
+      tools: 'Tools & Others'
+    };
+
+    const groupedSkills = skills.reduce((acc, skill) => {
+      if (!acc[skill.category]) acc[skill.category] = [];
+      acc[skill.category].push(skill);
+      return acc;
+    }, {});
+
+    const skillsHTML = Object.entries(groupedSkills).map(([categoryKey, categorySkills]) => {
+      // Map category key to display name, or capitalize if not found
+      const categoryName = categories[categoryKey] || categoryKey.charAt(0).toUpperCase() + categoryKey.slice(1);
+
+      return `
+      <div class="skill-category-card">
+        <h3 class="category-header">${categoryName}</h3>
+        <div class="skill-tags">
+          ${categorySkills.map(skill => `
+            <div class="skill-pill">
+              <i class="${skill.icon}"></i>
+              <span>${skill.name}</span>
+            </div>
+          `).join('')}
         </div>
       </div>
-    `).join('');
+    `}).join('');
 
     skillsList.innerHTML = skillsHTML;
-
-    // Animate progress bars
-    setTimeout(() => {
-      const progressBars = skillsList.querySelectorAll('.skill-progress-bar');
-      progressBars.forEach(bar => {
-        const width = bar.style.width;
-        bar.style.width = '0%';
-        setTimeout(() => {
-          bar.style.transition = 'width 1s ease-out';
-          bar.style.width = width;
-        }, 100);
-      });
-    }, 200);
+    // Removed progress bar animation logic as it's no longer needed
   };
 
   // Render projects
@@ -219,8 +227,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const projectsHTML = projects.map((project, index) => `
       <div class="project-card" style="--delay: ${index * 0.1}s">
-        <div class="project-icon" style="background: linear-gradient(135deg, ${project.color}, ${project.color}aa)">
-          <i class="${project.icon}"></i>
+        <div class="project-header">
+            <div class="project-icon" style="background: linear-gradient(135deg, ${project.color}, ${project.color}aa)">
+            <i class="${project.icon}"></i>
+            </div>
         </div>
         <div class="project-content">
           <h3 class="project-title">${project.title}</h3>
@@ -230,12 +240,12 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
           <div class="project-actions">
             ${project.github ? `
-              <a href="${project.github}" target="_blank" rel="noopener noreferrer" class="btn-text">
-                <i class="fab fa-github"></i> View Code
+              <a href="${project.github}" target="_blank" rel="noopener noreferrer" class="btn small outline">
+                <i class="fab fa-github"></i> Code
               </a>
             ` : ''}
             ${project.demo ? `
-              <a href="${project.demo}" target="_blank" rel="noopener noreferrer" class="btn-text">
+              <a href="${project.demo}" target="_blank" rel="noopener noreferrer" class="btn small primary">
                 <i class="fas fa-external-link-alt"></i> Live Demo
               </a>
             ` : ''}
