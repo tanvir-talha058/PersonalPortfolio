@@ -99,6 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
   createScrollProgress();
 
   // Skills data
+  // Skills data
   const skills = [
     // Languages
     { name: 'Python', category: 'language', icon: 'fab fa-python', level: 95 },
@@ -106,6 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { name: 'C++', category: 'language', icon: 'fas fa-code', level: 85 },
     { name: 'Dart', category: 'language', icon: 'fas fa-bullseye', level: 88 },
     { name: 'Java', category: 'language', icon: 'fab fa-java', level: 80 },
+    { name: 'C', category: 'language', icon: 'fas fa-c', level: 85 },
 
     // AI & Data Science
     { name: 'TensorFlow', category: 'ai', icon: 'fas fa-brain', level: 90 },
@@ -113,30 +115,61 @@ document.addEventListener('DOMContentLoaded', () => {
     { name: 'OpenCV', category: 'ai', icon: 'fas fa-eye', level: 92 },
     { name: 'Pandas', category: 'ai', icon: 'fas fa-table', level: 88 },
     { name: 'NumPy', category: 'ai', icon: 'fas fa-calculator', level: 88 },
+    { name: 'Machine Learning', category: 'ai', icon: 'fas fa-robot', level: 90 },
+
+    // Web Technologies
+    { name: 'HTML5', category: 'frontend', icon: 'fab fa-html5', level: 95 },
+    { name: 'CSS3', category: 'frontend', icon: 'fab fa-css3-alt', level: 92 },
+    { name: 'Tailwind CSS', category: 'frontend', icon: 'fas fa-wind', level: 90 },
+    { name: 'Bootstrap', category: 'frontend', icon: 'fab fa-bootstrap', level: 88 },
 
     // Frameworks & Tools
     { name: 'Flutter', category: 'mobile', icon: 'fas fa-mobile-alt', level: 92 },
     { name: 'React', category: 'frontend', icon: 'fab fa-react', level: 85 },
     { name: 'Node.js', category: 'backend', icon: 'fab fa-node', level: 80 },
+    { name: 'Express.js', category: 'backend', icon: 'fas fa-server', level: 82 },
     { name: 'Selenium', category: 'tools', icon: 'fas fa-robot', level: 85 },
     { name: 'Git', category: 'tools', icon: 'fab fa-git-alt', level: 90 },
+    { name: 'GitHub', category: 'tools', icon: 'fab fa-github', level: 90 },
     { name: 'Firebase', category: 'cloud', icon: 'fas fa-fire', level: 88 },
-    { name: 'Docker', category: 'tools', icon: 'fab fa-docker', level: 75 }
+    { name: 'Docker', category: 'tools', icon: 'fab fa-docker', level: 75 },
+
+    // Databases
+    { name: 'PostgreSQL', category: 'backend', icon: 'fas fa-database', level: 85 },
+    { name: 'MySQL', category: 'backend', icon: 'fas fa-database', level: 85 },
+    { name: 'MongoDB', category: 'backend', icon: 'fas fa-envira', level: 78 }
   ];
 
   // Projects data from Resume
+  // Projects data from Resume
   const projects = [
+    {
+      title: 'Dorm-Ease — AI Smart Dorm',
+      description: 'AI-based room assignment system using student preferences and regression models with a fully responsive dashboard. Includes real-time analytics.',
+      tags: ['Node.js', 'PostgreSQL', 'Machine Learning', 'Bootstrap'],
+      icon: 'fas fa-home',
+      color: '#3b82f6',
+      github: 'https://github.com/tanvir-talha058/dorm-ease'
+    },
+    {
+      title: 'Automator — Low Code Engine',
+      description: 'Rule-based automation engine for automated behaviors and configurable triggers using Puppeteer and Node.js.',
+      tags: ['Node.js', 'Puppeteer', 'PostgreSQL', 'Tailwind CSS'],
+      icon: 'fas fa-cogs',
+      color: '#ef4444',
+      github: 'https://github.com/tanvir-talha058/automator'
+    },
     {
       title: 'Edu-Buddy AI Assistant',
       description: 'Voice-activated assistant for students with reminders and study help. Built with speech recognition and natural language processing.',
       tags: ['Python', 'SpeechRecognition', 'Google TTS', 'Tkinter'],
       icon: 'fas fa-robot',
-      color: '#3b82f6',
+      color: '#8b5cf6',
       github: 'https://github.com/tanvir-talha058/edu-buddy-ai'
     },
     {
       title: 'AgroKart BD',
-      description: 'Marketplace connecting farmers and consumers with a Flutter mobile app and responsive web portal.',
+      description: 'Marketplace connecting farmers and consumers with a Flutter mobile app and responsive web portal. Features order management and auth.',
       tags: ['Flutter', 'Dart', 'Firebase', 'PHP', 'MySQL'],
       icon: 'fas fa-shopping-basket',
       color: '#10b981',
@@ -144,16 +177,24 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
       title: 'Hand Gesture Virtual Mouse',
-      description: 'Real-time hand-gesture based virtual mouse that maps detected hand positions to cursor movement.',
-      tags: ['Python', 'OpenCV', 'TensorFlow', 'MediaPipe'],
+      description: 'Real-time hand-gesture based virtual mouse that maps detected hand positions to cursor movement with low latency.',
+      tags: ['Python', 'OpenCV', 'MediaPipe', 'PyAutoGUI'],
       icon: 'fas fa-mouse',
-      color: '#8b5cf6',
+      color: '#6366f1',
       github: 'https://github.com/tanvir-talha058/hand-gesture-mouse'
     },
     {
+      title: 'Bangladesh Crime Analytics',
+      description: 'Real-time crime tracking platform using web scraping from 18+ national news sources with interactive maps.',
+      tags: ['Node.js', 'Leaflet.js', 'Web Scraping', 'Chart.js'],
+      icon: 'fas fa-map-marked-alt',
+      color: '#f43f5e',
+      github: 'https://github.com/tanvir-talha058/bd-crime-map'
+    },
+    {
       title: 'Cross-Platform Task Manager',
-      description: 'Lightweight cross-platform task/process manager for desktop environments, monitoring system resources.',
-      tags: ['Python', 'Node.js', 'React', 'Electron'],
+      description: 'Lightweight cross-platform task/process manager for desktop environments, monitoring CPU/memory usage.',
+      tags: ['Python', 'psutil', 'Tkinter', 'Desktop App'],
       icon: 'fas fa-tasks',
       color: '#f59e0b',
       github: 'https://github.com/tanvir-talha058/task-manager'
@@ -161,18 +202,18 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       title: 'Garment Automation Tool',
       description: 'Selenium-based GUI application to automate bulk web form submissions from Excel data for the garment industry.',
-      tags: ['Python', 'Selenium', 'Pandas', 'Tkinter'],
+      tags: ['Python', 'Selenium', 'Pandas', 'Excel Automation'],
       icon: 'fas fa-tshirt',
       color: '#ec4899',
       github: 'https://github.com/tanvir-talha058/garment-automation'
     },
     {
-      title: 'AI Lie Detector',
-      description: 'Prototype lie detection system using audio/visual signal features and machine learning analysis.',
-      tags: ['Python', 'TensorFlow', 'OpenCV', 'Librosa'],
-      icon: 'fas fa-user-secret',
-      color: '#ef4444',
-      github: 'https://github.com/tanvir-talha058/ai-lie-detector'
+      title: 'Automatic Water Dispenser',
+      description: 'Touchless dispenser logic controlled by IR sensors and transistor switching for hygienic water delivery.',
+      tags: ['IoT', 'C++', 'Embedded Systems', 'IR Sensors'],
+      icon: 'fas fa-tint',
+      color: '#06b6d4',
+      github: null
     }
   ];
 
