@@ -416,13 +416,10 @@ pre,
   }
 
   .theme-switch-wrapper {
-    top: 18px;
-    right: 70px;
+    /* Auto layout handled by flexbox */
   }
 
   #nav-toggle {
-    right: 16px;
-    top: 18px;
     width: 40px;
     height: 40px;
   }
@@ -438,8 +435,7 @@ pre,
   }
 
   .theme-switch-wrapper {
-    top: 16px;
-    right: 60px;
+    /* Auto layout handled by flexbox */
   }
 
   .theme-switch {
@@ -457,8 +453,6 @@ pre,
   }
 
   #nav-toggle {
-    right: 14px;
-    top: 16px;
     width: 36px;
     height: 36px;
     font-size: 1rem;
