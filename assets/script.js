@@ -226,7 +226,8 @@ document.addEventListener('DOMContentLoaded', () => {
       readTime: '5 min read',
       category: 'Career',
       icon: 'fas fa-brain',
-      color: '#8b5cf6'
+      color: '#8b5cf6',
+      slug: 'my-journey-into-ai-machine-learning'
     },
     {
       title: 'Building Scalable Full-Stack Applications',
@@ -235,7 +236,8 @@ document.addEventListener('DOMContentLoaded', () => {
       readTime: '7 min read',
       category: 'Development',
       icon: 'fas fa-layer-group',
-      color: '#3b82f6'
+      color: '#3b82f6',
+      slug: 'building-scalable-full-stack-applications'
     },
     {
       title: 'The Importance of Clean Code',
@@ -244,7 +246,8 @@ document.addEventListener('DOMContentLoaded', () => {
       readTime: '4 min read',
       category: 'Best Practices',
       icon: 'fas fa-code',
-      color: '#10b981'
+      color: '#10b981',
+      slug: 'the-importance-of-clean-code'
     },
     {
       title: 'Lessons from My First Open Source Contribution',
@@ -253,7 +256,8 @@ document.addEventListener('DOMContentLoaded', () => {
       readTime: '6 min read',
       category: 'Open Source',
       icon: 'fab fa-github',
-      color: '#f59e0b'
+      color: '#f59e0b',
+      slug: 'lessons-from-my-first-open-source-contribution'
     }
   ];
 
@@ -353,28 +357,33 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const blogHTML = blogPosts.map((post, index) => `
-      <article class="blog-card" style="--delay: ${index * 0.1}s">
-        <div class="blog-card-header">
-          <div class="blog-icon" style="background: linear-gradient(135deg, ${post.color}, ${post.color}aa)">
-            <i class="${post.icon}"></i>
+      <a href="blog.html?post=${post.slug}" class="blog-card-link">
+        <article class="blog-card" style="--delay: ${index * 0.1}s">
+          <div class="blog-card-header">
+            <div class="blog-icon" style="background: linear-gradient(135deg, ${post.color}, ${post.color}aa)">
+              <i class="${post.icon}"></i>
+            </div>
+            <span class="blog-category" style="color: ${post.color}">${post.category}</span>
           </div>
-          <span class="blog-category" style="color: ${post.color}">${post.category}</span>
-        </div>
-        <div class="blog-card-content">
-          <h3 class="blog-title">${post.title}</h3>
-          <p class="blog-excerpt">${post.excerpt}</p>
-          <div class="blog-meta">
-            <span class="blog-date">
-              <i class="far fa-calendar-alt"></i>
-              ${formatDate(post.date)}
-            </span>
-            <span class="blog-read-time">
-              <i class="far fa-clock"></i>
-              ${post.readTime}
+          <div class="blog-card-content">
+            <h3 class="blog-title">${post.title}</h3>
+            <p class="blog-excerpt">${post.excerpt}</p>
+            <div class="blog-meta">
+              <span class="blog-date">
+                <i class="far fa-calendar-alt"></i>
+                ${formatDate(post.date)}
+              </span>
+              <span class="blog-read-time">
+                <i class="far fa-clock"></i>
+                ${post.readTime}
+              </span>
+            </div>
+            <span class="read-more-link">
+              Read more <i class="fas fa-arrow-right"></i>
             </span>
           </div>
-        </div>
-      </article>
+        </article>
+      </a>
     `).join('');
 
     blogPostsList.innerHTML = blogHTML;

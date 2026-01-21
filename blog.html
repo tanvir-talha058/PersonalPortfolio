@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0e27">
+  <title>Blog | Tanvir Ahmed</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Thoughts, experiences, and lessons from my journey in tech - Tanvir Ahmed's Blog">
+  <meta name="author" content="Tanvir Ahmed">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://tanvir-talha058.github.io/blog.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://tanvir-talha058.github.io/blog.html">
+  <meta property="og:title" content="Blog | Tanvir Ahmed">
+  <meta property="og:description" content="Thoughts, experiences, and lessons from my journey in tech">
+  <meta property="og:image" content="https://tanvir-talha058.github.io/assets/profile.png">
+
+  <!-- Preconnect & Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="icon" href="assets/profile.png">
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html">Tanvir Ahmed</a>
+      <button id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span class="hamburger-icon" aria-hidden="true"></span>
+      </button>
+      <nav id="site-nav" class="nav">
+        <a href="index.html#home">Home</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#skills">Skills</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#blog" class="active">Blog</a>
+        <a href="index.html#resume">Resume</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+
+      <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="theme-checkbox" title="Toggle color theme">
+          <input type="checkbox" id="theme-checkbox" />
+          <div class="slider">
+            <div class="icon-container">
+              <i class="fas fa-sun"></i>
+              <i class="fas fa-moon"></i>
+            </div>
+          </div>
+        </label>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" role="main">
+    <article class="blog-post-page">
+      <div class="container">
+        <!-- Back to blog link -->
+        <a href="index.html#blog" class="back-link">
+          <i class="fas fa-arrow-left"></i>
+          Back to Blog
+        </a>
+
+        <!-- Post Header -->
+        <header class="post-header" id="post-header">
+          <div class="post-meta-top">
+            <span class="post-category" id="post-category">Loading...</span>
+            <span class="post-date" id="post-date"></span>
+          </div>
+          <h1 class="post-title" id="post-title">Loading...</h1>
+          <div class="post-meta-bottom">
+            <div class="author-info">
+              <img src="assets/profile.png" alt="Tanvir Ahmed" class="author-avatar">
+              <div class="author-details">
+                <span class="author-name">Tanvir Ahmed</span>
+                <span class="author-role">Full-Stack Developer & AI Engineer</span>
+              </div>
+            </div>
+            <span class="post-read-time" id="post-read-time">
+              <i class="far fa-clock"></i>
+              <span></span>
+            </span>
+          </div>
+        </header>
+
+        <!-- Post Content -->
+        <div class="post-content" id="post-content">
+          <div class="loading-post">
+            <div class="loading-spinner"></div>
+            <p>Loading article...</p>
+          </div>
+        </div>
+
+        <!-- Post Footer -->
+        <footer class="post-footer">
+          <div class="share-section">
+            <h4>Share this article</h4>
+            <div class="share-buttons">
+              <a href="#" id="share-twitter" class="share-btn twitter" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a href="#" id="share-linkedin" class="share-btn linkedin" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <button class="share-btn copy" id="copy-link" title="Copy link">
+                <i class="fas fa-link"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="post-navigation">
+            <a href="index.html#blog" class="btn outline">
+              <i class="fas fa-th-large"></i>
+              All Posts
+            </a>
+          </div>
+        </footer>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-info">
+          <h3>Tanvir Ahmed</h3>
+          <p>Full-Stack Developer & AI Engineer</p>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2026 Tanvir Ahmed</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button id="back-to-top" class="back-to-top" aria-label="Back to top" title="Back to top">
+    <i class="fas fa-arrow-up" aria-hidden="true"></i>
+  </button>
+
+  <script src="assets/blog-post.js"></script>
+</body>
+
+</html>
