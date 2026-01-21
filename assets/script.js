@@ -217,6 +217,46 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   ];
 
+  // Blog posts data
+  const blogPosts = [
+    {
+      title: 'My Journey into AI & Machine Learning',
+      excerpt: 'How I transitioned from traditional programming to exploring the fascinating world of artificial intelligence and what I learned along the way.',
+      date: '2026-01-15',
+      readTime: '5 min read',
+      category: 'Career',
+      icon: 'fas fa-brain',
+      color: '#8b5cf6'
+    },
+    {
+      title: 'Building Scalable Full-Stack Applications',
+      excerpt: 'Key lessons learned from developing production-ready applications — from architecture decisions to deployment strategies.',
+      date: '2026-01-08',
+      readTime: '7 min read',
+      category: 'Development',
+      icon: 'fas fa-layer-group',
+      color: '#3b82f6'
+    },
+    {
+      title: 'The Importance of Clean Code',
+      excerpt: 'Why writing maintainable, readable code matters more than clever solutions, and how it impacts team productivity.',
+      date: '2025-12-20',
+      readTime: '4 min read',
+      category: 'Best Practices',
+      icon: 'fas fa-code',
+      color: '#10b981'
+    },
+    {
+      title: 'Lessons from My First Open Source Contribution',
+      excerpt: 'What I learned from contributing to open source projects and why every developer should try it at least once.',
+      date: '2025-12-10',
+      readTime: '6 min read',
+      category: 'Open Source',
+      icon: 'fab fa-github',
+      color: '#f59e0b'
+    }
+  ];
+
   // Render skills
   const renderSkills = () => {
     const skillsList = document.getElementById('skills-list');
@@ -298,9 +338,52 @@ document.addEventListener('DOMContentLoaded', () => {
     projectsList.innerHTML = projectsHTML;
   };
 
+  // Render blog posts
+  const renderBlogPosts = () => {
+    const blogPostsList = document.getElementById('blog-posts');
+    if (!blogPostsList) return;
+
+    const formatDate = (dateStr) => {
+      const date = new Date(dateStr);
+      return date.toLocaleDateString('en-US', { 
+        year: 'numeric', 
+        month: 'short', 
+        day: 'numeric' 
+      });
+    };
+
+    const blogHTML = blogPosts.map((post, index) => `
+      <article class="blog-card" style="--delay: ${index * 0.1}s">
+        <div class="blog-card-header">
+          <div class="blog-icon" style="background: linear-gradient(135deg, ${post.color}, ${post.color}aa)">
+            <i class="${post.icon}"></i>
+          </div>
+          <span class="blog-category" style="color: ${post.color}">${post.category}</span>
+        </div>
+        <div class="blog-card-content">
+          <h3 class="blog-title">${post.title}</h3>
+          <p class="blog-excerpt">${post.excerpt}</p>
+          <div class="blog-meta">
+            <span class="blog-date">
+              <i class="far fa-calendar-alt"></i>
+              ${formatDate(post.date)}
+            </span>
+            <span class="blog-read-time">
+              <i class="far fa-clock"></i>
+              ${post.readTime}
+            </span>
+          </div>
+        </div>
+      </article>
+    `).join('');
+
+    blogPostsList.innerHTML = blogHTML;
+  };
+
   // Initialize rendering
   renderSkills();
   renderProjects();
+  renderBlogPosts();
 
   // Smooth scroll navigation with enhanced feedback
   const navLinks = document.querySelectorAll('.nav a[href^="#"]');
