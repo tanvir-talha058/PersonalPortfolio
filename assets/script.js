@@ -523,6 +523,38 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   } // End of navigation setup
 
+  // Notification helper function
+  function showNotification(message, type = 'info') {
+    // Remove existing notification if any
+    const existingNotification = document.querySelector('.notification');
+    if (existingNotification) existingNotification.remove();
+
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.innerHTML = `
+      <span>${message}</span>
+      <button class="notification-close" aria-label="Close">&times;</button>
+    `;
+    document.body.appendChild(notification);
+
+    // Trigger animation
+    setTimeout(() => notification.classList.add('show'), 10);
+
+    // Close button handler
+    notification.querySelector('.notification-close').addEventListener('click', () => {
+      notification.classList.remove('show');
+      setTimeout(() => notification.remove(), 300);
+    });
+
+    // Auto-dismiss after 5 seconds
+    setTimeout(() => {
+      if (notification.parentNode) {
+        notification.classList.remove('show');
+        setTimeout(() => notification.remove(), 300);
+      }
+    }, 5000);
+  }
+
   // Enhanced contact form handling
   const contactForm = document.getElementById('contact-form');
   const formStatus = document.getElementById('form-status');
@@ -643,18 +675,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   });
-
-  // Mobile loading screen
-  if (isMobile || isTouch) {
-    showMobileLoader();
-
-    // Hide loader after content loads
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        hideMobileLoader();
-      }, 500);
-    });
-  }
 
   // Mobile scroll indicator
   if (window.innerWidth <= 768) {
