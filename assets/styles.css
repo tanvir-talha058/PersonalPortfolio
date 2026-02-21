@@ -7137,3 +7137,73 @@ main,
 .no-scroll {
   overflow: hidden !important;
 }
+
+/* ===== MOBILE FRIENDLY REFINEMENTS ===== */
+img,
+video,
+iframe,
+embed {
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  .nav-wrap {
+    flex-wrap: wrap;
+    row-gap: 12px;
+  }
+
+  .brand {
+    max-width: 70vw;
+  }
+
+  .headline,
+  .post-title,
+  .blog-title,
+  .project-title {
+    overflow-wrap: anywhere;
+  }
+
+  .roles {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .post-meta-top {
+    flex-wrap: wrap;
+  }
+
+  .post-content {
+    padding: 0 4px;
+  }
+
+  .post-content blockquote {
+    padding: 1.1em 1.25em;
+  }
+
+  .post-content pre {
+    padding: 1.1em;
+  }
+
+  .share-buttons {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav {
+    padding: 28px 16px;
+  }
+
+  .post-content {
+    font-size: 0.95rem;
+  }
+
+  .post-content h2 {
+    margin-top: 2em;
+  }
+
+  .post-content ul,
+  .post-content ol {
+    padding-left: 1.1em;
+  }
+}
