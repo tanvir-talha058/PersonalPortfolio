@@ -465,10 +465,6 @@ pre,
     padding: 0 16px;
   }
 
-  .theme-switch-wrapper {
-    /* Auto layout handled by flexbox */
-  }
-
   #nav-toggle {
     width: 40px;
     height: 40px;
@@ -482,10 +478,6 @@ pre,
 @media(max-width:480px) {
   .container {
     padding: 0 14px;
-  }
-
-  .theme-switch-wrapper {
-    /* Auto layout handled by flexbox */
   }
 
   .theme-switch {
