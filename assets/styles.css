@@ -1750,7 +1750,7 @@ body.light-theme .tag {
 
 .blog-meta {
   display: flex;
-  gap: 16px;
+  gap: 12px;
   font-size: 0.8rem;
   color: var(--muted);
   margin-top: auto;
@@ -1766,6 +1766,17 @@ body.light-theme .tag {
 
 .blog-meta i {
   font-size: 0.85rem;
+  color: var(--accent);
+}
+
+.blog-status.planned {
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: rgba(226, 232, 240, 0.06);
+  border: 1px solid rgba(148, 163, 184, 0.4);
   color: var(--accent);
 }
 

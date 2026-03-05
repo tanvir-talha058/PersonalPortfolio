@@ -24,9 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Detect mobile device
+  // Detect mobile device / motion preferences
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (isMobile || isTouch) {
     document.body.classList.add('mobile-device');
@@ -221,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const blogPosts = [
     {
       title: 'My Journey into AI & Machine Learning',
-      excerpt: 'How I transitioned from traditional programming to exploring the fascinating world of artificial intelligence and what I learned along the way.',
+    excerpt: 'How I transitioned from traditional programming to exploring applied AI and what I learned from building real projects.',
       date: '2026-01-15',
       readTime: '5 min read',
       category: 'Career',
@@ -230,8 +231,8 @@ document.addEventListener('DOMContentLoaded', () => {
       slug: 'my-journey-into-ai-machine-learning'
     },
     {
-      title: 'Building Scalable Full-Stack Applications',
-      excerpt: 'Key lessons learned from developing production-ready applications — from architecture decisions to deployment strategies.',
+    title: 'Building Scalable Full-Stack Applications',
+    excerpt: 'Key lessons learned from developing production-ready applications end-to-end — from architecture decisions to deployment.',
       date: '2026-01-08',
       readTime: '7 min read',
       category: 'Development',
@@ -241,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
       title: 'The Importance of Clean Code',
-      excerpt: 'Why writing maintainable, readable code matters more than clever solutions, and how it impacts team productivity.',
+    excerpt: 'Why writing maintainable, readable code matters more than clever tricks, and how it impacts long-term productivity.',
       date: '2025-12-20',
       readTime: '4 min read',
       category: 'Best Practices',
@@ -251,7 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
       title: 'Lessons from My First Open Source Contribution',
-      excerpt: 'What I learned from contributing to open source projects and why every developer should try it at least once.',
+    excerpt: 'What I learned from contributing to open-source projects and how it improved my problem-solving and communication skills.',
       date: '2025-12-10',
       readTime: '6 min read',
       category: 'Open Source',
@@ -377,6 +378,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <i class="far fa-clock"></i>
                 ${post.readTime}
               </span>
+              <span class="blog-status planned">Planned</span>
             </div>
             <span class="read-more-link">
               Read more <i class="fas fa-arrow-right"></i>
@@ -677,7 +679,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Mobile scroll indicator
-  if (window.innerWidth <= 768) {
+  if (window.innerWidth <= 768 && !prefersReducedMotion) {
     addScrollIndicator();
   }
 
@@ -1010,23 +1012,35 @@ document.addEventListener('DOMContentLoaded', () => {
   // Check if device supports advanced features
   const supportsIntersectionObserver = 'IntersectionObserver' in window;
   const isDesktop = window.innerWidth >= 768;
+  const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const pointerFine = window.matchMedia && window.matchMedia('(pointer: fine)').matches;
 
-  if (supportsIntersectionObserver) {
+  if (supportsIntersectionObserver && !prefersReducedMotion) {
     initScrollReveal();
   }
 
-  if (isDesktop) {
+  // Only enable heavier hover effects on desktop devices with precise pointers
+  if (isDesktop && pointerFine && !prefersReducedMotion) {
     initMagneticButtons();
     init3DTilt();
     initCursorTrail();
   }
 
-  initRippleEffect();
-  initParticles();
+  if (!prefersReducedMotion) {
+    initRippleEffect();
+  }
+
+  // Particles are visual only – keep them off for small screens and reduced motion
+  if (isDesktop && !prefersReducedMotion) {
+    // Defer particles slightly to avoid competing with initial paint
+    window.requestIdleCallback
+      ? window.requestIdleCallback(() => initParticles())
+      : setTimeout(() => initParticles(), 800);
+  }
 
   // Delay parallax for better performance
   setTimeout(() => {
-    if (isDesktop) initParallax();
+    if (isDesktop && !prefersReducedMotion) initParallax();
   }, 1000);
 });
 
