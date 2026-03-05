@@ -414,6 +414,11 @@ pre,
 }
 
 @media(max-width:768px) {
+  body {
+    /* Avoid janky scrolling / zoom issues on mobile */
+    background-attachment: scroll;
+  }
+
   .container {
     padding: 0 20px;
     max-width: 100%;
@@ -3938,6 +3943,7 @@ body.light-theme .cta-btn.secondary:hover {
     backdrop-filter: blur(20px);
     z-index: 1000;
     gap: 20px;
+    overflow-y: auto;
     animation: slideInNav 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
