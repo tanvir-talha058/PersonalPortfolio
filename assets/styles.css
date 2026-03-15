@@ -4538,29 +4538,32 @@ textarea:focus-visible {
 /* ===== Hamburger Icon Styles ===== */
 .hamburger-icon {
   display: block;
-  width: 18px;
-  height: 2px;
-  background: var(--accent);
+  width: 22px;
+  height: 2.5px;
+  background: currentColor;
   position: relative;
-  transition: all 0.3s ease;
+  border-radius: 999px;
+  transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .hamburger-icon::before,
 .hamburger-icon::after {
   content: '';
   position: absolute;
-  width: 18px;
-  height: 2px;
-  background: var(--accent);
-  transition: all 0.3s ease;
+  left: 0;
+  width: 22px;
+  height: 2.5px;
+  background: currentColor;
+  border-radius: 999px;
+  transition: transform 0.3s ease, top 0.3s ease, opacity 0.3s ease;
 }
 
 .hamburger-icon::before {
-  top: -6px;
+  top: -7px;
 }
 
 .hamburger-icon::after {
-  top: 6px;
+  top: 7px;
 }
 
 /* Animate hamburger to X when menu is open */
@@ -7013,7 +7016,44 @@ main,
   /* Ensure nav toggle is visible */
   #nav-toggle {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    color: var(--accent);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 16px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
     z-index: 100;
+  }
+
+  #nav-toggle:hover,
+  #nav-toggle:focus-visible {
+    color: var(--text-bright);
+    background: rgba(0, 212, 170, 0.14);
+    border-color: rgba(0, 212, 170, 0.35);
+  }
+
+  #nav-toggle[aria-expanded="true"] {
+    color: var(--text-bright);
+    background: linear-gradient(135deg, rgba(0, 212, 170, 0.22), rgba(78, 205, 196, 0.18));
+    border-color: rgba(0, 212, 170, 0.4);
+  }
+
+  body.light-theme #nav-toggle {
+    background: rgba(255, 255, 255, 0.88);
+    border-color: rgba(13, 24, 41, 0.08);
+    box-shadow: 0 10px 24px rgba(13, 24, 41, 0.08);
+  }
+
+  body.light-theme #nav-toggle:hover,
+  body.light-theme #nav-toggle:focus-visible,
+  body.light-theme #nav-toggle[aria-expanded="true"] {
+    color: #0d1829;
+    background: rgba(0, 212, 170, 0.12);
+    border-color: rgba(0, 212, 170, 0.28);
   }
 
   /* Mobile Slide-out Menu */
