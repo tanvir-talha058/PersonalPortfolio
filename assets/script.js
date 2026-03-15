@@ -468,9 +468,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (navigator.vibrate) {
         navigator.vibrate(50);
       }
-
-      // Animate toggle button
-      navToggle.style.transform = expanded ? 'rotate(90deg)' : 'rotate(0deg)';
     });
 
     // Close nav on swipe up (mobile gesture)
@@ -486,7 +483,6 @@ document.addEventListener('DOMContentLoaded', () => {
         nav.classList.remove('show');
         navToggle.setAttribute('aria-expanded', 'false');
         document.body.classList.remove('no-scroll');
-        navToggle.style.transform = 'rotate(0deg)';
       }
     });
 
@@ -500,7 +496,6 @@ document.addEventListener('DOMContentLoaded', () => {
             nav.classList.remove('show');
             navToggle.setAttribute('aria-expanded', 'false');
             document.body.classList.remove('no-scroll');
-            navToggle.style.transform = 'rotate(0deg)';
             link.style.transform = '';
           }, 150);
 
@@ -520,7 +515,6 @@ document.addEventListener('DOMContentLoaded', () => {
         nav.classList.remove('show');
         navToggle.setAttribute('aria-expanded', 'false');
         document.body.classList.remove('no-scroll');
-        navToggle.style.transform = 'rotate(0deg)';
       }
     });
   } // End of navigation setup
