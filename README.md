@@ -14,14 +14,13 @@ A responsive personal portfolio website with sections for about, skills, project
 .
 ├── index.html
 ├── blog.html
+├── data/
+│   └── blog.json
 ├── assets/
 │   ├── styles.css
 │   ├── script.js
 │   ├── blog-post.js
-│   ├── images/
-│   ├── css/
-│   └── js/
-└── pages/
+│   └── tanvir-profile.jpg
 ```
 
 ## Getting Started
@@ -32,8 +31,9 @@ A responsive personal portfolio website with sections for about, skills, project
 ## Customization
 - Update content in `index.html` and `blog.html`.
 - Adjust styles in `assets/styles.css`.
-- Edit dynamic data and behavior in `assets/script.js` and `assets/blog-post.js`.
-- Replace images in `assets/images/` and update the references as needed.
+- Edit dynamic behavior in `assets/script.js` and `assets/blog-post.js`.
+- Edit blog card data in `data/blog.json`.
+- Replace images in `assets/` and update the references as needed.
 
 ## Deployment
 You can deploy this site with any static hosting provider (GitHub Pages, Netlify, Vercel). Point the host to the root folder.

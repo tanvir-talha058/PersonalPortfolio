@@ -55,6 +55,55 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem('theme', activeTheme);
     });
   }
+
+  // Hero typewriter roles text
+  const typedEl = document.getElementById('typed');
+  if (typedEl) {
+    const roles = [
+      'Full-Stack Engineer',
+      'AI Product Builder',
+      'Machine Learning Developer',
+      'Flutter App Developer'
+    ];
+
+    // Respect reduced-motion preference by showing a static role.
+    if (prefersReducedMotion) {
+      typedEl.textContent = roles[0];
+    } else {
+      let roleIndex = 0;
+      let charIndex = 0;
+      let deleting = false;
+      typedEl.textContent = '';
+
+      const tickTypewriter = () => {
+        const currentRole = roles[roleIndex];
+
+        if (!deleting) {
+          charIndex += 1;
+          typedEl.textContent = currentRole.slice(0, charIndex);
+        } else {
+          charIndex -= 1;
+          typedEl.textContent = currentRole.slice(0, Math.max(0, charIndex));
+        }
+
+        let delay = deleting ? 45 : 85;
+
+        if (!deleting && charIndex === currentRole.length) {
+          deleting = true;
+          delay = 1200;
+        } else if (deleting && charIndex === 0) {
+          deleting = false;
+          roleIndex = (roleIndex + 1) % roles.length;
+          delay = 260;
+        }
+
+        window.setTimeout(tickTypewriter, delay);
+      };
+
+      window.setTimeout(tickTypewriter, 250);
+    }
+  }
+
   // Loading animation
   const loadingScreen = document.createElement('div');
   loadingScreen.className = 'loading-screen';

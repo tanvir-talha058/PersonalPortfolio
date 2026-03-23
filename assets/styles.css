@@ -6192,7 +6192,49 @@ picture {
     border-radius: 6px;
   }
 }
+
+/* ===== HEADER & HERO FIXES ===== */
+@media (min-width: 769px) {
+  .site-header .nav-wrap {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 14px;
   }
+
+  .site-header .brand {
+    white-space: nowrap;
+  }
+
+  .site-header .nav {
+    min-width: 0;
+    justify-content: center;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .site-header .nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .site-header .nav a {
+    padding: 10px 14px;
+    font-size: 0.92rem;
+  }
+
+  .site-header .theme-switch-wrapper {
+    margin-left: 0;
+  }
+}
+
+#typed {
+  display: inline-block;
+  min-width: 18ch;
+  text-align: left;
+}
+
+@media (max-width: 430px) {
 
   .box-content h3 {
     font-size: 1.25rem;
