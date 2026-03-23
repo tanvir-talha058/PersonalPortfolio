@@ -6097,6 +6097,102 @@ main,
   .box-icon i {
     font-size: 1.3rem;
   }
+}
+
+/* ===== LAZY LOADING STYLES ===== */
+
+/* Base lazy loading styles */
+img[loading="lazy"],
+img[data-src] {
+  display: block;
+  width: 100%;
+  height: auto;
+  background-color: var(--card);
+  border-radius: 8px;
+  transition: opacity 0.4s ease-in-out, filter 0.4s ease-in-out;
+}
+
+/* Loading state - blur effect */
+img.loading {
+  opacity: 0.7;
+  filter: blur(10px);
+}
+
+/* Loaded state - fade in */
+img.loaded {
+  opacity: 1;
+  filter: blur(0);
+}
+
+/* Responsive image optimization */
+img {
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Picture element for WebP support */
+picture {
+  display: block;
+  width: 100%;
+}
+
+/* Image wrapper for aspect ratio preservation */
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--card);
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Skeleton loading placeholder */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--card) 0%,
+    rgba(255, 255, 255, 0.1),
+    var(--card) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Project card image optimization */
+.project-card img,
+.blog-card img {
+  max-height: 400px;
+  object-fit: cover;
+}
+
+/* Mobile optimization for images */
+@media (max-width: 768px) {
+  img[loading="lazy"],
+  img[data-src] {
+    border-radius: 6px;
+  }
+
+  .image-wrapper {
+    border-radius: 6px;
+  }
+}
+  }
 
   .box-content h3 {
     font-size: 1.25rem;
