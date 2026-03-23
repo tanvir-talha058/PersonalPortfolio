@@ -6195,11 +6195,15 @@ picture {
 
 /* ===== HEADER & HERO FIXES ===== */
 @media (min-width: 769px) {
+  .site-header .container {
+    max-width: 1320px;
+  }
+
   .site-header .nav-wrap {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
-    gap: 14px;
+    gap: 10px;
   }
 
   .site-header .brand {
@@ -6209,18 +6213,13 @@ picture {
   .site-header .nav {
     min-width: 0;
     justify-content: center;
-    overflow-x: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-
-  .site-header .nav::-webkit-scrollbar {
-    display: none;
+    overflow: visible;
+    gap: 6px;
   }
 
   .site-header .nav a {
-    padding: 10px 14px;
-    font-size: 0.92rem;
+    padding: 10px 12px;
+    font-size: 0.86rem;
   }
 
   .site-header .theme-switch-wrapper {
