@@ -459,9 +459,30 @@ document.addEventListener('DOMContentLoaded', () => {
   const nav = document.getElementById('site-nav');
   
   if (navToggle && nav) {
+    const setNavOpen = (open) => {
+      nav.classList.toggle('show', open);
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      document.body.classList.toggle('no-scroll', open);
+    };
+
     navToggle.addEventListener('click', () => {
-      nav.classList.toggle('open');
-      navToggle.classList.toggle('open');
+      setNavOpen(!nav.classList.contains('show'));
+    });
+
+    nav.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => setNavOpen(false));
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        setNavOpen(false);
+      }
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!nav.contains(event.target) && !navToggle.contains(event.target)) {
+        setNavOpen(false);
+      }
     });
   }
 

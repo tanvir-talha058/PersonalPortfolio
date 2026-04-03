@@ -1,0 +1,52 @@
+{
+  "posts": [
+    {
+      "title": "My Journey into AI & Machine Learning",
+      "excerpt": "How I transitioned from traditional programming to exploring applied AI and what I learned from building real projects.",
+      "date": "2026-01-15",
+      "readTime": "5 min read",
+      "category": "Career",
+      "icon": "fas fa-brain",
+      "color": "#8b5cf6",
+      "slug": "my-journey-into-ai-machine-learning",
+      "content": "# My Journey into AI & Machine Learning\n\nTransitioning from traditional software development into the world of AI and Machine Learning has been one of the most rewarding experiences of my career...",
+      "tags": ["AI", "Machine Learning", "Career"]
+    },
+    {
+      "title": "Building Scalable Full-Stack Applications",
+      "excerpt": "Key lessons learned from developing production-ready applications end-to-end — from architecture decisions to deployment.",
+      "date": "2026-01-08",
+      "readTime": "7 min read",
+      "category": "Development",
+      "icon": "fas fa-layer-group",
+      "color": "#3b82f6",
+      "slug": "building-scalable-full-stack-applications",
+      "content": "# Building Scalable Full-Stack Applications\n\nOver the past years, I've had the opportunity to architect and build several full-stack applications from scratch...",
+      "tags": ["Architecture", "Full-Stack", "Scalability"]
+    },
+    {
+      "title": "The Importance of Clean Code",
+      "excerpt": "Why writing maintainable, readable code matters more than clever tricks, and how it impacts long-term productivity.",
+      "date": "2025-12-20",
+      "readTime": "4 min read",
+      "category": "Best Practices",
+      "icon": "fas fa-code",
+      "color": "#10b981",
+      "slug": "the-importance-of-clean-code",
+      "content": "# The Importance of Clean Code\n\nClean code is not just about making your code look pretty. It's about writing code that is easy to understand, maintain, and extend...",
+      "tags": ["Code Quality", "Best Practices", "Development"]
+    },
+    {
+      "title": "Lessons from My First Open Source Contribution",
+      "excerpt": "What I learned from contributing to open-source projects and how it improved my problem-solving and communication skills.",
+      "date": "2025-12-10",
+      "readTime": "6 min read",
+      "category": "Open Source",
+      "icon": "fab fa-github",
+      "color": "#f59e0b",
+      "slug": "lessons-from-my-first-open-source-contribution",
+      "content": "# Lessons from My First Open Source Contribution\n\nContributing to open-source projects has been a transformative experience that accelerated my growth as a software engineer...",
+      "tags": ["Open Source", "GitHub", "Community"]
+    }
+  ]
+}

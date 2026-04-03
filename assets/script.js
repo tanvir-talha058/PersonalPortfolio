@@ -16,13 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(setVH, 150);
   });
 
-  // Prevent iOS zoom on input focus
-  if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-    const viewport = document.querySelector('meta[name="viewport"]');
-    if (viewport) {
-      viewport.content = 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no';
-    }
-  }
+  // Keep default browser zoom behavior for accessibility compliance.
 
   // Detect mobile device / motion preferences
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -61,6 +55,55 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem('theme', activeTheme);
     });
   }
+
+  // Hero typewriter roles text
+  const typedEl = document.getElementById('typed');
+  if (typedEl) {
+    const roles = [
+      'Full-Stack Engineer',
+      'AI Product Builder',
+      'Machine Learning Developer',
+      'Flutter App Developer'
+    ];
+
+    // Respect reduced-motion preference by showing a static role.
+    if (prefersReducedMotion) {
+      typedEl.textContent = roles[0];
+    } else {
+      let roleIndex = 0;
+      let charIndex = 0;
+      let deleting = false;
+      typedEl.textContent = '';
+
+      const tickTypewriter = () => {
+        const currentRole = roles[roleIndex];
+
+        if (!deleting) {
+          charIndex += 1;
+          typedEl.textContent = currentRole.slice(0, charIndex);
+        } else {
+          charIndex -= 1;
+          typedEl.textContent = currentRole.slice(0, Math.max(0, charIndex));
+        }
+
+        let delay = deleting ? 45 : 85;
+
+        if (!deleting && charIndex === currentRole.length) {
+          deleting = true;
+          delay = 1200;
+        } else if (deleting && charIndex === 0) {
+          deleting = false;
+          roleIndex = (roleIndex + 1) % roles.length;
+          delay = 260;
+        }
+
+        window.setTimeout(tickTypewriter, delay);
+      };
+
+      window.setTimeout(tickTypewriter, 250);
+    }
+  }
+
   // Loading animation
   const loadingScreen = document.createElement('div');
   loadingScreen.className = 'loading-screen';
@@ -218,49 +261,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   ];
 
-  // Blog posts data
-  const blogPosts = [
-    {
-      title: 'My Journey into AI & Machine Learning',
-    excerpt: 'How I transitioned from traditional programming to exploring applied AI and what I learned from building real projects.',
-      date: '2026-01-15',
-      readTime: '5 min read',
-      category: 'Career',
-      icon: 'fas fa-brain',
-      color: '#8b5cf6',
-      slug: 'my-journey-into-ai-machine-learning'
-    },
-    {
-    title: 'Building Scalable Full-Stack Applications',
-    excerpt: 'Key lessons learned from developing production-ready applications end-to-end — from architecture decisions to deployment.',
-      date: '2026-01-08',
-      readTime: '7 min read',
-      category: 'Development',
-      icon: 'fas fa-layer-group',
-      color: '#3b82f6',
-      slug: 'building-scalable-full-stack-applications'
-    },
-    {
-      title: 'The Importance of Clean Code',
-    excerpt: 'Why writing maintainable, readable code matters more than clever tricks, and how it impacts long-term productivity.',
-      date: '2025-12-20',
-      readTime: '4 min read',
-      category: 'Best Practices',
-      icon: 'fas fa-code',
-      color: '#10b981',
-      slug: 'the-importance-of-clean-code'
-    },
-    {
-      title: 'Lessons from My First Open Source Contribution',
-    excerpt: 'What I learned from contributing to open-source projects and how it improved my problem-solving and communication skills.',
-      date: '2025-12-10',
-      readTime: '6 min read',
-      category: 'Open Source',
-      icon: 'fab fa-github',
-      color: '#f59e0b',
-      slug: 'lessons-from-my-first-open-source-contribution'
+  // Blog posts data - loaded from external JSON
+  let blogPosts = [];
+
+  // Fetch blog data from JSON
+  const loadBlogData = async () => {
+    try {
+      const response = await fetch('data/blog.json');
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      const data = await response.json();
+      blogPosts = data.posts;
+      renderBlogPosts(); // Re-render after loading
+    } catch (error) {
+      console.error('Failed to load blog posts:', error);
+      // Fallback to empty state
+      const blogPostsList = document.getElementById('blog-posts');
+      if (blogPostsList) {
+        blogPostsList.innerHTML = '<p>Blog posts will be available soon.</p>';
+      }
     }
-  ];
+  };
+
+  // Load blog data on page load
+  loadBlogData();
 
   // Render skills
   const renderSkills = () => {
@@ -394,7 +417,79 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize rendering
   renderSkills();
   renderProjects();
-  renderBlogPosts();
+  // Blog posts will be rendered after JSON loads (via loadBlogData)
+
+  // Initialize lazy loading for images
+  const initLazyLoading = () => {
+    // Check if native lazy loading is supported
+    if ('loading' in HTMLImageElement.prototype || 'IntersectionObserver' in window) {
+      setupLazyLoading();
+    }
+  };
+
+  const setupLazyLoading = () => {
+    // Find all images with data-src attribute
+    const lazyImages = document.querySelectorAll('img[data-src], img[loading="lazy"]');
+
+    if (lazyImages.length === 0) return;
+
+    // Create intersection observer for lazy loading
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          
+          // Load the image
+          if (img.dataset.src) {
+            img.src = img.dataset.src;
+          }
+          
+          // Load srcset if available
+          if (img.dataset.srcset) {
+            img.srcset = img.dataset.srcset;
+          }
+
+          // Add loaded class for fade-in animation
+          img.classList.add('loaded');
+          
+          // Stop observing this image
+          observer.unobserve(img);
+        }
+      });
+    }, {
+      rootMargin: '50px', // Start loading 50px before image enters viewport
+      threshold: 0
+    });
+
+    lazyImages.forEach(img => {
+      // Add loading state
+      img.classList.add('loading');
+      
+      // Fallback for browsers without data-src support
+      if (!img.src && img.dataset.src) {
+        img.src = img.dataset.src;
+      }
+      
+      // Start observing
+      imageObserver.observe(img);
+    });
+  };
+
+  // Call lazy loading initialization
+  initLazyLoading();
+
+  // Watch for dynamically added images
+  const observer = new MutationObserver(() => {
+    const newLazyImages = document.querySelectorAll('img[data-src]:not(.loaded)');
+    if (newLazyImages.length > 0) {
+      setupLazyLoading();
+    }
+  });
+
+  observer.observe(document.body, {
+    subtree: true,
+    childList: true
+  });
 
   // Smooth scroll navigation with enhanced feedback
   const navLinks = document.querySelectorAll('.nav a[href^="#"]');
@@ -917,14 +1012,23 @@ const initParallax = () => {
   const heroSection = document.querySelector('.hero');
   if (!heroSection) return;
 
-  window.addEventListener('scroll', () => {
+  let ticking = false;
+
+  const applyParallax = () => {
     const scrolled = window.pageYOffset;
-    // Only animate the hero background/content slightly
     if (scrolled < window.innerHeight) {
       heroSection.style.transform = `translateY(${scrolled * 0.4}px)`;
-      heroSection.style.opacity = 1 - (scrolled / window.innerHeight);
+      heroSection.style.opacity = String(Math.max(0.2, 1 - (scrolled / window.innerHeight)));
     }
-  });
+    ticking = false;
+  };
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(applyParallax);
+      ticking = true;
+    }
+  }, { passive: true });
 };
 
 // 6. Enhanced Cursor Trail (Desktop Only)
