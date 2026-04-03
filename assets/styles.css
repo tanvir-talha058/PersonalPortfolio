@@ -7435,3 +7435,195 @@ embed {
     padding-left: 1.1em;
   }
 }
+
+/* ===== Professional Header / Nav Cleanup (LAST RULES WIN) ===== */
+.site-header {
+  position: sticky !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  transform: none !important;
+  width: 100% !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: rgba(10, 14, 39, 0.82) !important;
+  border-bottom: 1px solid rgba(0, 212, 170, 0.18) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18) !important;
+  backdrop-filter: blur(20px) !important;
+}
+
+.site-header.scrolled {
+  background: rgba(10, 14, 39, 0.92) !important;
+  border-bottom-color: rgba(0, 212, 170, 0.26) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25) !important;
+}
+
+.site-header::before {
+  content: none !important;
+}
+
+.site-header .nav-wrap {
+  justify-content: space-between !important;
+  padding: 12px 0 !important;
+}
+
+/* Keep nav pill styling but ensure it sits nicely inside the full bar */
+.site-header .nav {
+  border-radius: 999px !important;
+}
+
+@media (max-width: 768px) {
+  .site-header {
+    /* Prevent any jump due to older fixed/pill styles */
+    top: 0 !important;
+  }
+}
+
+/* ===== Minimal Professional Header/Nav (FINAL) ===== */
+.site-header {
+  position: sticky !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  transform: none !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  padding: 10px 0 !important;
+  background: transparent !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+.site-header .nav-wrap {
+  width: 100% !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 8px 12px !important;
+  gap: 12px !important;
+  flex-wrap: nowrap !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Remove extra “pill container” look from the nav bar itself */
+.site-header .nav {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  padding: 6px 10px !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(0, 212, 170, 0.18) !important;
+  border-radius: 999px !important;
+  backdrop-filter: none !important;
+  justify-content: flex-end !important;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22) !important;
+}
+
+.site-header .nav a {
+  padding: 8px 12px !important;
+  border-radius: 999px !important;
+  border: 1px solid transparent !important;
+  background: transparent !important;
+  text-decoration: none !important;
+  color: var(--text) !important;
+  font-weight: 650 !important;
+  font-size: 0.92rem !important;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease !important;
+}
+
+/* Compact brand styling (keeps it outside the pill navbar) */
+.site-header .brand {
+  font-size: 1.05rem !important;
+  font-weight: 800 !important;
+  padding: 0 4px !important;
+  margin: 0 !important;
+}
+
+.site-header .nav a:hover {
+  background: rgba(0, 212, 170, 0.10) !important;
+  border-color: rgba(0, 212, 170, 0.25) !important;
+  color: var(--text-bright) !important;
+}
+
+.site-header .nav a.active {
+  background: rgba(0, 212, 170, 0.16) !important;
+  border-color: rgba(0, 212, 170, 0.35) !important;
+  color: var(--bg) !important;
+}
+
+.site-header .nav a::before,
+.site-header .nav a::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* Mobile: keep it clean (simple overlay panel) */
+@media (max-width: 768px) {
+  .site-header {
+    padding: 0 !important;
+  }
+
+  .site-header .nav-wrap {
+    border-radius: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 12px 0 !important;
+  }
+
+  .site-header .nav {
+    position: fixed !important;
+    top: 64px !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    height: auto !important;
+    border-radius: 0 !important;
+    padding: 18px 16px 24px !important;
+    background: rgba(10, 14, 39, 0.96) !important;
+    border-top: 1px solid rgba(0, 212, 170, 0.18) !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    gap: 12px !important;
+    overflow-y: auto !important;
+    backdrop-filter: none !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+    display: none !important;
+  }
+
+  .site-header .nav.show {
+    display: flex !important;
+  }
+
+  .site-header .nav a {
+    width: 100% !important;
+    max-width: 520px !important;
+    margin: 0 auto !important;
+    text-align: center !important;
+    font-size: 1.05rem !important;
+  }
+
+  /* Ensure toggle is visible and not “pill shaped” */
+  #nav-toggle {
+    display: flex !important;
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 12px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(0, 212, 170, 0.25) !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    transform: none !important;
+  }
+}
