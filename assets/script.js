@@ -1090,7 +1090,9 @@ const initParticles = () => {
   particlesContainer.className = 'particles-container';
   document.body.insertBefore(particlesContainer, document.body.firstChild);
 
-  for (let i = 0; i < 30; i++) {
+  // Fewer particles = better perceived performance on real devices
+  const particleCount = 18;
+  for (let i = 0; i < particleCount; i++) {
     const particle = document.createElement('div');
     particle.className = 'particle';
     particle.style.left = Math.random() * 100 + '%';

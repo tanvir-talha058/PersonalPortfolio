@@ -7627,3 +7627,109 @@ embed {
     transform: none !important;
   }
 }
+
+/* ===== Senior UI/UX Polish Patch (LAST) ===== */
+:root {
+  /* Design tokens (fixes invalid ::root token block earlier) */
+  --radius-md: 14px;
+  --radius-pill: 999px;
+  --space-1: 8px;
+  --space-2: 12px;
+  --space-3: 16px;
+  --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.14);
+
+  /* Ensure base theme variables exist even if earlier ::root is ignored */
+  --bg: #0a0e27;
+  --card: #1a1f3a;
+  --accent: #00d4aa;
+  --muted: #8892b0;
+  --glass: rgba(255, 255, 255, 0.05);
+  --text: #e6f1ff;
+  --text-bright: #ffffff;
+  --gradient-2: linear-gradient(135deg, #00d4aa 0%, #4ecdc4 100%);
+}
+
+:root.light-theme {
+  --bg: #f5f7fb;
+  --card: #ffffff;
+  --text: #1a2433;
+  --text-bright: #0d1829;
+  --muted: #556176;
+  --glass: rgba(0, 0, 0, 0.05);
+}
+
+/* Compact, safe-area-aware header */
+.site-header {
+  --header-min-height: 64px;
+  min-height: var(--header-min-height) !important;
+  padding-top: calc(env(safe-area-inset-top) * 1) !important;
+}
+
+.site-header .nav-wrap {
+  min-height: 64px !important;
+}
+
+/* Fluid typography for modern feel */
+.headline {
+  font-size: clamp(1.8rem, 3.8vw, 3.2rem) !important;
+  line-height: 1.1 !important;
+  margin: 0 0 12px !important;
+}
+
+.section h2 {
+  font-size: clamp(1.5rem, 2.3vw, 2.25rem) !important;
+  line-height: 1.2 !important;
+  margin-bottom: 24px !important;
+}
+
+.lead {
+  font-size: clamp(1rem, 1.3vw, 1.15rem) !important;
+}
+
+.subhead {
+  font-size: clamp(1rem, 1.6vw, 1.2rem) !important;
+  line-height: 1.55 !important;
+}
+
+.hero-subtitle,
+.hero-title {
+  font-size: clamp(1.05rem, 2vw, 1.35rem) !important;
+}
+
+/* Legibility: reduce heavy shadow on small screens */
+@media (max-width: 480px) {
+  .headline {
+    text-shadow: none !important;
+  }
+}
+
+/* Strengthen reduced-motion behavior for premium UX */
+@media (prefers-reduced-motion: reduce) {
+  .hero::before {
+    animation: none !important;
+  }
+
+  .headline,
+  .section h2,
+  .subhead {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ===== enchanement.md: Navigation Simplicity & Touch Targets ===== */
+@media (min-width: 769px) {
+  /* Keep header menu lean for desktop (max ~5 items) */
+  .nav a[href="#blog"],
+  .nav a[href="#resume"] {
+    display: none !important;
+  }
+}
+
+/* Ensure consistent touch/interaction size */
+.btn,
+.site-header .nav a,
+#nav-toggle,
+.social-link {
+  min-height: 44px !important;
+}
