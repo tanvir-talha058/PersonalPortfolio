@@ -7874,3 +7874,30 @@ embed {
     transform: translateY(-50%) translateX(18px) !important;
   }
 }
+
+/* ===== FINAL Skills Layout (reduce gaps, improve alignment) ===== */
+.skills-simple {
+  align-items: start;
+}
+
+.skill-category-card {
+  height: auto;
+  align-self: start;
+}
+
+.skill-tags {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  align-items: start;
+}
+
+.skill-pill {
+  width: 100%;
+  justify-content: flex-start;
+}
+
+@media (max-width: 480px) {
+  .skill-tags {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+}

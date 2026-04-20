@@ -142,121 +142,129 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   createScrollProgress();
 
-  // Skills data
-  // Skills data
+  // Skills data (matched to "Skills" section in resume)
   const skills = [
     // Languages
-    { name: 'Python', category: 'language', icon: 'fab fa-python', level: 95 },
-    { name: 'JavaScript', category: 'language', icon: 'fab fa-js', level: 90 },
-    { name: 'C++', category: 'language', icon: 'fas fa-code', level: 85 },
-    { name: 'Dart', category: 'language', icon: 'fas fa-bullseye', level: 88 },
-    { name: 'Java', category: 'language', icon: 'fab fa-java', level: 80 },
-    { name: 'C', category: 'language', icon: 'fas fa-c', level: 85 },
+    { name: 'Python', category: 'language', icon: 'fab fa-python' },
+    { name: 'C', category: 'language', icon: 'fas fa-code' },
+    { name: 'C++', category: 'language', icon: 'fas fa-code' },
+    { name: 'Java', category: 'language', icon: 'fab fa-java' },
+    { name: 'JavaScript', category: 'language', icon: 'fab fa-js' },
+    { name: 'Dart', category: 'language', icon: 'fas fa-code' },
+    { name: 'PHP', category: 'language', icon: 'fab fa-php' },
+    { name: 'SQL', category: 'language', icon: 'fas fa-database' },
 
-    // AI & Data Science
-    { name: 'TensorFlow', category: 'ai', icon: 'fas fa-brain', level: 90 },
-    { name: 'PyTorch', category: 'ai', icon: 'fas fa-fire-alt', level: 85 },
-    { name: 'OpenCV', category: 'ai', icon: 'fas fa-eye', level: 92 },
-    { name: 'Pandas', category: 'ai', icon: 'fas fa-table', level: 88 },
-    { name: 'NumPy', category: 'ai', icon: 'fas fa-calculator', level: 88 },
-    { name: 'Machine Learning', category: 'ai', icon: 'fas fa-robot', level: 90 },
+    // AI / ML & Libraries
+    { name: 'TensorFlow', category: 'ai', icon: 'fas fa-brain' },
+    { name: 'PyTorch', category: 'ai', icon: 'fas fa-fire-alt' },
+    { name: 'scikit-learn', category: 'ai', icon: 'fas fa-robot' },
+    { name: 'Keras', category: 'ai', icon: 'fas fa-layer-group' },
+    { name: 'OpenCV', category: 'ai', icon: 'fas fa-eye' },
+    { name: 'Mediapipe', category: 'ai', icon: 'fas fa-hand' },
+    { name: 'NumPy', category: 'ai', icon: 'fas fa-calculator' },
+    { name: 'Pandas', category: 'ai', icon: 'fas fa-table' },
+    { name: 'Selenium', category: 'ai', icon: 'fas fa-robot' },
+    { name: 'Tkinter', category: 'ai', icon: 'fas fa-desktop' },
+    { name: 'Matplotlib', category: 'ai', icon: 'fas fa-chart-line' },
+    { name: 'Seaborn', category: 'ai', icon: 'fas fa-chart-area' },
 
-    // Web Technologies
-    { name: 'HTML5', category: 'frontend', icon: 'fab fa-html5', level: 95 },
-    { name: 'CSS3', category: 'frontend', icon: 'fab fa-css3-alt', level: 92 },
-    { name: 'Tailwind CSS', category: 'frontend', icon: 'fas fa-wind', level: 90 },
-    { name: 'Bootstrap', category: 'frontend', icon: 'fab fa-bootstrap', level: 88 },
+    // Web
+    { name: 'HTML', category: 'web', icon: 'fab fa-html5' },
+    { name: 'CSS', category: 'web', icon: 'fab fa-css3-alt' },
+    { name: 'Bootstrap', category: 'web', icon: 'fab fa-bootstrap' },
+    { name: 'Tailwind CSS', category: 'web', icon: 'fas fa-wind' },
 
-    // Frameworks & Tools
-    { name: 'Flutter', category: 'mobile', icon: 'fas fa-mobile-alt', level: 92 },
-    { name: 'React', category: 'frontend', icon: 'fab fa-react', level: 85 },
-    { name: 'Node.js', category: 'backend', icon: 'fab fa-node', level: 80 },
-    { name: 'Express.js', category: 'backend', icon: 'fas fa-server', level: 82 },
-    { name: 'Selenium', category: 'tools', icon: 'fas fa-robot', level: 85 },
-    { name: 'Git', category: 'tools', icon: 'fab fa-git-alt', level: 90 },
-    { name: 'GitHub', category: 'tools', icon: 'fab fa-github', level: 90 },
-    { name: 'Firebase', category: 'cloud', icon: 'fas fa-fire', level: 88 },
-    { name: 'Docker', category: 'tools', icon: 'fab fa-docker', level: 75 },
+    // Mobile / Cloud / Tools
+    { name: 'Flutter', category: 'mobile', icon: 'fas fa-mobile-alt' },
+    { name: 'Firebase', category: 'tools', icon: 'fas fa-fire' },
+    { name: 'Git', category: 'tools', icon: 'fab fa-git-alt' },
+    { name: 'GitHub', category: 'tools', icon: 'fab fa-github' },
+    { name: 'VS Code', category: 'tools', icon: 'fas fa-code' },
+    { name: 'Figma', category: 'tools', icon: 'fab fa-figma' },
+    { name: 'Google Colab', category: 'tools', icon: 'fas fa-cloud' },
+    { name: 'Kaggle', category: 'tools', icon: 'fab fa-kaggle' },
+    { name: 'Tinkercad', category: 'tools', icon: 'fas fa-microchip' },
+    { name: 'Zapier', category: 'tools', icon: 'fas fa-bolt' },
+    { name: 'Make', category: 'tools', icon: 'fas fa-tools' },
 
-    // Databases
-    { name: 'PostgreSQL', category: 'backend', icon: 'fas fa-database', level: 85 },
-    { name: 'MySQL', category: 'backend', icon: 'fas fa-database', level: 85 },
-    { name: 'MongoDB', category: 'backend', icon: 'fas fa-envira', level: 78 }
+    // Concepts & Domains
+    { name: 'Machine Learning', category: 'concepts', icon: 'fas fa-robot' },
+    { name: 'Deep Learning', category: 'concepts', icon: 'fas fa-brain' },
+    { name: 'Computer Vision', category: 'concepts', icon: 'fas fa-eye' },
+    { name: 'Image/Video Processing', category: 'concepts', icon: 'fas fa-photo-video' },
+    { name: 'NLP', category: 'concepts', icon: 'fas fa-language' },
+    { name: 'Object Tracking', category: 'concepts', icon: 'fas fa-crosshairs' },
+    { name: 'IoT', category: 'concepts', icon: 'fas fa-wifi' },
+    { name: 'Automation', category: 'concepts', icon: 'fas fa-cogs' },
+    { name: 'Human-Computer Interaction', category: 'concepts', icon: 'fas fa-user-check' },
+    { name: 'Data Visualization', category: 'concepts', icon: 'fas fa-chart-pie' },
+    { name: 'Big Data', category: 'concepts', icon: 'fas fa-database' }
   ];
 
-  // Projects data from Resume
-  // Projects data from Resume
+  // Projects data (matched to "Project Work" section in resume)
   const projects = [
     {
-      title: 'Dorm-Ease — AI Smart Dorm',
-      description: 'AI-based room assignment system using student preferences and regression models with a fully responsive dashboard. Includes real-time analytics.',
-      tags: ['Node.js', 'PostgreSQL', 'Machine Learning', 'Bootstrap'],
+      title: 'Smart Home Automation System — Mobile App and Voice Controlled',
+      description: 'Smart home IoT automation system enabling remote control of lights, TV, fan, and AC via mobile app and voice assistants, with real-time sensor monitoring and scheduling.',
+      tags: ['ESP32', 'Arduino (C++)', 'IoT', 'DHT11', 'MQ-5'],
       icon: 'fas fa-home',
       color: '#3b82f6',
-      github: 'https://github.com/tanvir-talha058/dorm-ease'
+      github: null
     },
     {
-      title: 'Automator — Low Code Engine',
-      description: 'Rule-based automation engine for automated behaviors and configurable triggers using Puppeteer and Node.js.',
-      tags: ['Node.js', 'Puppeteer', 'PostgreSQL', 'Tailwind CSS'],
-      icon: 'fas fa-cogs',
-      color: '#ef4444',
-      github: 'https://github.com/tanvir-talha058/automator'
-    },
-    {
-      title: 'Edu-Buddy AI Assistant',
-      description: 'Voice-activated assistant for students with reminders and study help. Built with speech recognition and natural language processing.',
-      tags: ['Python', 'SpeechRecognition', 'Google TTS', 'Tkinter'],
-      icon: 'fas fa-robot',
+      title: 'Edu-Buddy — AI Student Assistant',
+      description: 'Voice-activated assistant for reminders, study schedules, and quick access to educational resources with modular intent parsing and desktop TTS/ASR integration.',
+      tags: ['Python', 'SpeechRecognition', 'Google TTS', 'SQLite', 'Tkinter'],
+      icon: 'fas fa-graduation-cap',
       color: '#8b5cf6',
-      github: 'https://github.com/tanvir-talha058/edu-buddy-ai'
+      github: null
     },
     {
-      title: 'AgroKart BD',
-      description: 'Marketplace connecting farmers and consumers with a Flutter mobile app and responsive web portal. Features order management and auth.',
-      tags: ['Flutter', 'Dart', 'Firebase', 'PHP', 'MySQL'],
+      title: 'AgroKart BD — Cross-Platform Marketplace',
+      description: 'Cross-platform marketplace with a Flutter mobile app and responsive web portal connecting farmers with consumers, including auth, listings, cart, and backend order management.',
+      tags: ['Flutter', 'Firebase', 'PHP', 'SQL', 'HTML/CSS/JS'],
       icon: 'fas fa-shopping-basket',
       color: '#10b981',
-      github: 'https://github.com/tanvir-talha058/agrokart-bd'
+      github: null
     },
     {
       title: 'Hand Gesture Virtual Mouse',
-      description: 'Real-time hand-gesture based virtual mouse that maps detected hand positions to cursor movement with low latency.',
-      tags: ['Python', 'OpenCV', 'MediaPipe', 'PyAutoGUI'],
+      description: 'Real-time gesture-controlled cursor with click, scroll, and drag using multi-landmark detection and a low-latency frame pipeline.',
+      tags: ['Python', 'OpenCV', 'Mediapipe', 'PyAutoGUI'],
       icon: 'fas fa-mouse',
       color: '#6366f1',
-      github: 'https://github.com/tanvir-talha058/hand-gesture-mouse'
-    },
-    {
-      title: 'Bangladesh Crime Analytics',
-      description: 'Real-time crime tracking platform using web scraping from 18+ national news sources with interactive maps.',
-      tags: ['Node.js', 'Leaflet.js', 'Web Scraping', 'Chart.js'],
-      icon: 'fas fa-map-marked-alt',
-      color: '#f43f5e',
-      github: 'https://github.com/tanvir-talha058/bd-crime-map'
+      github: null
     },
     {
       title: 'Cross-Platform Task Manager',
-      description: 'Lightweight cross-platform task/process manager for desktop environments, monitoring CPU/memory usage.',
-      tags: ['Python', 'psutil', 'Tkinter', 'Desktop App'],
+      description: 'Lightweight tool to monitor processes and CPU/memory usage and perform safe terminations across platforms.',
+      tags: ['Python', 'psutil', 'Tkinter'],
       icon: 'fas fa-tasks',
       color: '#f59e0b',
-      github: 'https://github.com/tanvir-talha058/task-manager'
-    },
-    {
-      title: 'Garment Automation Tool',
-      description: 'Selenium-based GUI application to automate bulk web form submissions from Excel data for the garment industry.',
-      tags: ['Python', 'Selenium', 'Pandas', 'Excel Automation'],
-      icon: 'fas fa-tshirt',
-      color: '#ec4899',
-      github: 'https://github.com/tanvir-talha058/garment-automation'
+      github: null
     },
     {
       title: 'Automatic Water Dispenser',
-      description: 'Touchless dispenser logic controlled by IR sensors and transistor switching for hygienic water delivery.',
-      tags: ['IoT', 'C++', 'Embedded Systems', 'IR Sensors'],
+      description: 'Touchless water dispenser with calibrated IR sensor sensitivity and optimized circuit stability for reliable real-time detection.',
+      tags: ['IR Sensor', 'DC Pump', 'Circuit Design'],
       icon: 'fas fa-tint',
       color: '#06b6d4',
+      github: null
+    },
+    {
+      title: 'Automation Tool for Local Garment',
+      description: 'GUI app to upload Excel and auto-fill web forms with dynamic field mapping using browser automation to reduce manual entry and errors.',
+      tags: ['Python', 'Selenium', 'Tkinter', 'Excel'],
+      icon: 'fas fa-tshirt',
+      color: '#ec4899',
+      github: null
+    },
+    {
+      title: 'Bangladesh Crime Map & News Aggregator',
+      description: 'Real-time crime tracking platform aggregating data from 18+ national news sources using web scraping, with a bilingual dashboard featuring maps, filtering, and category classification.',
+      tags: ['Node.js', 'Express', 'Axios/Cheerio', 'Leaflet.js', 'Chart.js'],
+      icon: 'fas fa-map-marked-alt',
+      color: '#f43f5e',
       github: null
     }
   ];
@@ -293,12 +301,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Group skills by category
     const categories = {
       language: 'Languages',
-      frontend: 'Frontend',
-      backend: 'Backend',
-      mobile: 'Mobile App',
-      ai: 'AI & Data Science',
-      cloud: 'Cloud & DevOps',
-      tools: 'Tools & Others'
+      ai: 'AI / ML & Libraries',
+      web: 'Web',
+      mobile: 'Mobile',
+      tools: 'Tools',
+      concepts: 'Concepts & Domains'
     };
 
     const groupedSkills = skills.reduce((acc, skill) => {
@@ -307,15 +314,24 @@ document.addEventListener('DOMContentLoaded', () => {
       return acc;
     }, {});
 
-    const skillsHTML = Object.entries(groupedSkills).map(([categoryKey, categorySkills]) => {
+    const categoryOrder = ['language', 'ai', 'web', 'mobile', 'tools', 'concepts'];
+    const orderedEntries = [
+      ...categoryOrder
+        .filter((key) => Array.isArray(groupedSkills[key]) && groupedSkills[key].length > 0)
+        .map((key) => [key, groupedSkills[key]]),
+      ...Object.entries(groupedSkills).filter(([key]) => !categoryOrder.includes(key))
+    ];
+
+    const skillsHTML = orderedEntries.map(([categoryKey, categorySkills]) => {
       // Map category key to display name, or capitalize if not found
       const categoryName = categories[categoryKey] || categoryKey.charAt(0).toUpperCase() + categoryKey.slice(1);
+      const sortedSkills = [...categorySkills].sort((a, b) => a.name.localeCompare(b.name));
 
       return `
       <div class="skill-category-card">
         <h3 class="category-header">${categoryName}</h3>
         <div class="skill-tags">
-          ${categorySkills.map(skill => `
+          ${sortedSkills.map(skill => `
             <div class="skill-pill">
               <i class="${skill.icon}"></i>
               <span>${skill.name}</span>
@@ -1143,6 +1159,3 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isDesktop && !prefersReducedMotion) initParallax();
   }, 1000);
 });
-
-
-
