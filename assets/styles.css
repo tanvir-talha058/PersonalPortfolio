@@ -7901,3 +7901,58 @@ embed {
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   }
 }
+
+/* ===== Mobile Header Alignment Fix =====
+   Keeps the brand on the left and action buttons on the right on phones. */
+@media (max-width: 768px) {
+  .site-header .nav-wrap {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-wrap: nowrap !important;
+    width: 100% !important;
+    gap: 8px !important;
+    padding: 10px 14px !important;
+  }
+
+  .site-header .brand {
+    display: none !important;
+  }
+
+  .site-header .header-actions {
+    flex: 1 1 auto !important;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 8px !important;
+    margin-left: 0 !important;
+  }
+
+  .site-header .header-actions .theme-switch-wrapper,
+  .site-header .header-actions #nav-toggle {
+    margin: 0 !important;
+  }
+
+  .site-header .header-actions .theme-switch-wrapper {
+    order: 2 !important;
+  }
+
+  .site-header .header-actions #nav-toggle {
+    order: 1 !important;
+  }
+
+  .site-header .nav {
+    top: 64px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-header .nav-wrap {
+    padding: 8px 12px !important;
+  }
+
+  .site-header .header-actions {
+    gap: 6px !important;
+  }
+}
