@@ -646,7 +646,7 @@ pre,
 .nav-wrap {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   gap: 16px;
   padding: 8px;
   position: relative;
@@ -656,7 +656,7 @@ pre,
 .brand {
   font-family: 'Inter', sans-serif;
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   background: var(--gradient-2);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -706,6 +706,10 @@ pre,
   border-radius: 999px;
   padding: 10px 16px;
   backdrop-filter: blur(10px);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  justify-content: center;
 }
 
 .nav a {
@@ -740,7 +744,7 @@ pre,
 
 /* Hero Section */
 .hero {
-  padding: 180px 0 120px;
+  padding: 60px 0 120px;
   text-align: center;
   min-height: 80vh;
   display: flex;
@@ -1026,7 +1030,7 @@ pre,
 
 @media(max-width:768px) {
   .hero {
-    padding: 120px 0 80px;
+    padding: 50px 0 80px;
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -1182,7 +1186,7 @@ pre,
 
 @media (max-width:480px) {
   .hero {
-    padding: 70px 0 50px;
+    padding: 40px 0 50px;
     min-height: 80vh;
   }
 
@@ -1570,12 +1574,16 @@ pre,
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 14px;
+  padding: 10px 16px;
   background: rgba(255, 255, 255, 0.03);
   border-radius: 8px;
   transition: all 0.2s ease;
   font-size: 0.9rem;
   color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 .skill-pill i {
@@ -5257,9 +5265,12 @@ body.light-theme .custom-cursor-dot {
   }
 
   .skill-pill {
-    padding: 6px 12px;
+    padding: 8px 14px;
     font-size: 0.85rem;
     gap: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .skill-pill i {
@@ -6403,8 +6414,11 @@ picture {
   }
 
   .skill-pill {
-    padding: 4px 8px;
+    padding: 6px 12px;
     font-size: 0.75rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .skill-pill i {
@@ -6654,9 +6668,12 @@ picture {
   }
 
   .skill-pill {
-    padding: 3px 6px;
+    padding: 6px 12px;
     font-size: 0.7rem;
     gap: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .project-card {
@@ -6933,10 +6950,13 @@ picture {
   }
 
   .skill-pill {
-    padding: 2px 5px;
+    padding: 6px 12px;
     font-size: 0.65rem;
     gap: 3px;
     border-radius: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .skill-pill i {
@@ -7628,8 +7648,9 @@ embed {
 
 /* Compact brand styling (keeps it outside the pill navbar) */
 .site-header .brand {
-  font-size: 1.05rem !important;
-  font-weight: 800 !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 1.4rem !important;
+  font-weight: 700 !important;
   padding: 0 4px !important;
   margin: 0 !important;
 }
@@ -7894,6 +7915,9 @@ embed {
 .skill-pill {
   width: 100%;
   justify-content: flex-start;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @media (max-width: 480px) {
@@ -8033,6 +8057,9 @@ embed {
   gap: 6px !important;
   border-radius: 7px !important;
   line-height: 1.2 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
 }
 
 .skill-pill i {
@@ -8060,6 +8087,9 @@ embed {
   .skill-pill {
     padding: 5px 8px !important;
     font-size: 0.76rem !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
   }
 }
 
@@ -8079,6 +8109,9 @@ embed {
   .skill-pill {
     padding: 5px 7px !important;
     font-size: 0.72rem !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
   }
 }
 
@@ -8110,6 +8143,9 @@ embed {
   .skill-pill {
     font-size: 0.7rem !important;
     padding: 5px 6px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
   }
 }
 

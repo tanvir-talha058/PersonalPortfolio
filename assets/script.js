@@ -314,7 +314,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return acc;
     }, {});
 
-    const categoryOrder = ['language', 'ai', 'web', 'mobile', 'tools', 'concepts'];
+    const categoryOrder = ['language', 'ai', 'tools', 'web', 'mobile', 'concepts'];
     const orderedEntries = [
       ...categoryOrder
         .filter((key) => Array.isArray(groupedSkills[key]) && groupedSkills[key].length > 0)
