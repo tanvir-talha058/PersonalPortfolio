@@ -49,6 +49,10 @@
 }
 
 :root {
+  --font-heading: 'Sora', system-ui, sans-serif;
+  --font-body: 'Manrope', system-ui, sans-serif;
+  --font-ui: 'Inter Tight', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
   --bg: #0a0e27;
   --card: #1a1f3a;
   --accent: #00d4aa;
@@ -410,7 +414,7 @@ body {
 
 body {
   margin: 0;
-  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--font-body);
   background: linear-gradient(135deg, var(--bg) 0%, #0f1419 50%, #1a1f3a 100%);
   background-attachment: fixed;
   color: var(--text);
@@ -451,7 +455,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 1.2;
@@ -484,7 +488,7 @@ h4 {
 p,
 .subhead,
 .lead {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-body);
   font-weight: 400;
   line-height: 1.7;
   color: var(--text);
@@ -505,7 +509,7 @@ p {
 code,
 pre,
 .code {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-mono);
   font-weight: 400;
   font-size: 0.9rem;
 }
@@ -654,7 +658,7 @@ pre,
 }
 
 .brand {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 700;
   font-size: 1.4rem;
   background: var(--gradient-2);
@@ -713,6 +717,7 @@ pre,
 }
 
 .nav a {
+  font-family: var(--font-ui);
   color: var(--text);
   padding: 8px 16px;
   border-radius: 20px;
@@ -797,7 +802,7 @@ pre,
   /* Use CSS var for consistency */
   margin: 0 0 16px;
   color: var(--text-bright);
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 700;
   letter-spacing: -0.04em;
   text-shadow: 0 4px 20px rgba(0, 212, 170, 0.2);
@@ -812,7 +817,7 @@ pre,
   letter-spacing: 0.15em;
   text-transform: uppercase;
   margin: 0 0 12px;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-ui);
   animation: slideInDown 0.6s ease-out;
 }
 
@@ -821,7 +826,7 @@ pre,
   font-weight: 500;
   color: var(--text);
   margin: 0 0 24px;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-heading);
   letter-spacing: -0.02em;
   animation: slideInDown 0.8s ease-out 0.1s both;
 }
@@ -870,7 +875,7 @@ pre,
 
 .subhead {
   color: var(--text);
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-body);
   font-size: 1.25rem;
   font-weight: 400;
   line-height: 1.5;
@@ -1335,7 +1340,7 @@ pre,
   justify-content: center;
   padding: 14px 32px;
   border-radius: 25px;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-ui);
   font-weight: 600;
   text-decoration: none;
   border: none;
@@ -1410,7 +1415,7 @@ pre,
 }
 
 .section h2 {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-heading);
   font-size: 2.25rem;
   background: var(--gradient-2);
   -webkit-background-clip: text;
@@ -1481,7 +1486,7 @@ pre,
   font-weight: 500;
   transition: all 0.3s ease;
   position: relative;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-ui);
 }
 
 .skill-filter-btn::before {
@@ -7759,7 +7764,7 @@ embed {
 
 /* Compact brand styling (keeps it outside the pill navbar) */
 .site-header .brand {
-  font-family: 'Inter', sans-serif !important;
+  font-family: var(--font-heading) !important;
   font-size: 1.4rem !important;
   font-weight: 700 !important;
   padding: 0 4px !important;
