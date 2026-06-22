@@ -708,10 +708,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const existingNotification = document.querySelector('.notification');
     if (existingNotification) existingNotification.remove();
 
+    const iconMap = {
+      success: 'fas fa-check-circle',
+      error: 'fas fa-exclamation-circle',
+      info: 'fas fa-info-circle'
+    };
+
     const notification = document.createElement('div');
     notification.className = `notification ${type}`;
     notification.innerHTML = `
-      <span>${message}</span>
+      <div class="notification-content">
+        <i class="notification-icon ${iconMap[type] || iconMap.info}" aria-hidden="true"></i>
+        <span class="notification-message">${message}</span>
+      </div>
       <button class="notification-close" aria-label="Close">&times;</button>
     `;
     document.body.appendChild(notification);
@@ -725,13 +734,13 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => notification.remove(), 300);
     });
 
-    // Auto-dismiss after 5 seconds
+    // Auto-dismiss after a short delay
     setTimeout(() => {
       if (notification.parentNode) {
         notification.classList.remove('show');
         setTimeout(() => notification.remove(), 300);
       }
-    }, 5000);
+    }, 2500);
   }
 
   // Enhanced contact form handling
@@ -787,7 +796,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     }
 
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       // Validate all fields
@@ -815,8 +824,19 @@ document.addEventListener('DOMContentLoaded', () => {
         formStatus.textContent = 'Sending your message...';
       }
 
-      // Simulate form submission
-      setTimeout(() => {
+      try {
+        const formData = new FormData(contactForm);
+        const nameValue = contactForm.elements.name?.value.trim() || 'Anonymous';
+        const emailValue = contactForm.elements.email?.value.trim() || '';
+        formData.set('_subject', `Portfolio contact from ${nameValue}`);
+        formData.set('_replyto', emailValue);
+
+        await fetch(contactForm.action, {
+          method: 'POST',
+          mode: 'no-cors',
+          body: formData
+        });
+
         showNotification("Thanks for your message! I'll get back to you soon.", 'success');
         if (formStatus) {
           formStatus.textContent = 'Message sent successfully.';
@@ -837,7 +857,16 @@ document.addEventListener('DOMContentLoaded', () => {
             formStatus.textContent = '';
           }
         }, 5000);
-      }, 1500);
+      } catch (error) {
+        console.error('Failed to send contact form:', error);
+        if (formStatus) {
+          formStatus.textContent = 'Could not send message right now. Please try the email button instead.';
+        }
+        showNotification('Could not send message right now. Please try the email button instead.', 'error');
+      } finally {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      }
     });
   }
 
@@ -845,8 +874,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const mailtoBtn = document.getElementById('mailto-btn');
   if (mailtoBtn) {
     mailtoBtn.addEventListener('click', () => {
-      const subject = encodeURIComponent('Portfolio Contact');
-      const body = encodeURIComponent('Hi Tanvir,\n\nI found your portfolio and would like to connect.\n\nBest regards,');
+      const name = document.getElementById('contact-name')?.value.trim() || '';
+      const email = document.getElementById('contact-email')?.value.trim() || '';
+      const message = document.getElementById('contact-message')?.value.trim() || '';
+      const subject = encodeURIComponent(name ? `Portfolio Contact from ${name}` : 'Portfolio Contact');
+      const body = encodeURIComponent(
+        `Hi Tanvir,\n\nName: ${name || 'Not provided'}\nEmail: ${email || 'Not provided'}\n\nMessage:\n${message || 'No message provided'}\n`
+      );
       window.location.href = `mailto:tanvirahmed123000@gmail.com?subject=${subject}&body=${body}`;
     });
   }

@@ -4915,16 +4915,20 @@ html {
 /* 10. Notification System */
 .notification {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
+  top: 20px;
+  right: 20px;
+  bottom: auto;
+  left: auto;
   background: var(--card);
   border: 1px solid var(--accent);
-  border-radius: 12px;
-  padding: 16px 24px;
+  border-radius: 14px;
+  padding: 10px 12px;
   box-shadow: var(--shadow-card), 0 0 20px rgba(0, 212, 170, 0.2);
   z-index: 9999;
   animation: slideInUp 0.3s ease;
-  max-width: 400px;
+  max-width: 280px;
+  width: fit-content;
+  min-width: 180px;
 }
 
 .notification.fade-out {
@@ -4941,24 +4945,34 @@ html {
 .notification-content {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+  justify-content: flex-start;
+  gap: 10px;
+  min-width: 0;
+}
+
+.notification-icon {
+  color: var(--accent);
+  font-size: 0.95rem;
+  flex: 0 0 auto;
 }
 
 .notification-message {
   color: var(--text);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .notification-close {
   background: none;
   border: none;
   color: var(--muted);
-  font-size: 1.5rem;
+  font-size: 1rem;
   cursor: pointer;
   padding: 0;
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -5118,10 +5132,13 @@ textarea.error {
   }
 
   .notification {
-    bottom: 20px;
-    right: 20px;
-    left: 20px;
-    max-width: none;
+    top: 16px;
+    right: 16px;
+    left: auto;
+    bottom: auto;
+    max-width: 240px;
+    width: min(240px, calc(100vw - 32px));
+    padding: 9px 10px;
   }
 }
 
