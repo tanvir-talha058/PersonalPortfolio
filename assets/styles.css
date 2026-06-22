@@ -2721,6 +2721,7 @@ body.light-theme .share-btn.copy {
   align-items: center;
   gap: 20px;
   margin-top: 16px;
+  width: 100%;
 }
 
 .collaboration-cta p {
@@ -2736,6 +2737,8 @@ body.light-theme .share-btn.copy {
   gap: 16px;
   flex-wrap: wrap;
   justify-content: center;
+  width: 100%;
+  align-items: center;
 }
 
 .cta-btn {
@@ -3369,6 +3372,9 @@ body.light-theme .cta-btn.secondary:hover {
 
   .cta-buttons {
     gap: 12px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
   }
 
   .cta-btn {
@@ -3637,6 +3643,9 @@ body.light-theme .cta-btn.secondary:hover {
   .cta-buttons {
     flex-direction: column;
     width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
   }
 
   .cta-btn {
@@ -5985,6 +5994,9 @@ main,
 
   .cta-buttons {
     gap: 12px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
   }
 
   .cta-btn {
@@ -6048,6 +6060,9 @@ main,
     flex-direction: column;
     width: 100%;
     max-width: 280px;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
   }
 
   .cta-btn {
