@@ -153,6 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { name: 'Dart', category: 'language', icon: 'fas fa-code' },
     { name: 'PHP', category: 'language', icon: 'fab fa-php' },
     { name: 'SQL', category: 'language', icon: 'fas fa-database' },
+    { name: 'PostgreSQL', category: 'language', icon: 'fas fa-database' },
 
     // AI / ML & Libraries
     { name: 'TensorFlow', category: 'ai', icon: 'fas fa-brain' },
@@ -163,6 +164,9 @@ document.addEventListener('DOMContentLoaded', () => {
     { name: 'Mediapipe', category: 'ai', icon: 'fas fa-hand' },
     { name: 'NumPy', category: 'ai', icon: 'fas fa-calculator' },
     { name: 'Pandas', category: 'ai', icon: 'fas fa-table' },
+    { name: 'LangChain', category: 'ai', icon: 'fas fa-link' },
+    { name: 'ChromaDB', category: 'ai', icon: 'fas fa-database' },
+    { name: 'Qdrant', category: 'ai', icon: 'fas fa-database' },
     { name: 'Selenium', category: 'ai', icon: 'fas fa-robot' },
     { name: 'Tkinter', category: 'ai', icon: 'fas fa-desktop' },
     { name: 'Matplotlib', category: 'ai', icon: 'fas fa-chart-line' },
@@ -181,6 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { name: 'GitHub', category: 'tools', icon: 'fab fa-github' },
     { name: 'VS Code', category: 'tools', icon: 'fas fa-code' },
     { name: 'Figma', category: 'tools', icon: 'fab fa-figma' },
+    { name: 'OpenGL', category: 'tools', icon: 'fas fa-cube' },
     { name: 'Google Colab', category: 'tools', icon: 'fas fa-cloud' },
     { name: 'Kaggle', category: 'tools', icon: 'fab fa-kaggle' },
     { name: 'Tinkercad', category: 'tools', icon: 'fas fa-microchip' },
@@ -198,38 +203,56 @@ document.addEventListener('DOMContentLoaded', () => {
     { name: 'Automation', category: 'concepts', icon: 'fas fa-cogs' },
     { name: 'Human-Computer Interaction', category: 'concepts', icon: 'fas fa-user-check' },
     { name: 'Data Visualization', category: 'concepts', icon: 'fas fa-chart-pie' },
-    { name: 'Big Data', category: 'concepts', icon: 'fas fa-database' }
+    { name: 'Big Data', category: 'concepts', icon: 'fas fa-database' },
+    { name: 'RAG', category: 'concepts', icon: 'fas fa-comments' },
+    { name: 'Information Retrieval', category: 'concepts', icon: 'fas fa-search' }
   ];
 
   // Projects data (matched to "Project Work" section in resume)
   const projects = [
     {
-      title: 'Smart Home Automation System — Mobile App and Voice Controlled',
-      description: 'Smart home IoT automation system enabling remote control of lights, TV, fan, and AC via mobile app and voice assistants, with real-time sensor monitoring and scheduling.',
-      tags: ['ESP32', 'Arduino (C++)', 'IoT', 'DHT11', 'MQ-5'],
+      title: 'CrimeMap BD',
+      description: 'Bilingual, responsive crime and news dashboard with geospatial mapping, dynamic filtering, automated classification of 15+ Bangladeshi news sources, and NLP-based deduplication.',
+      tags: ['Python', 'Flask', 'PostgreSQL', 'Leaflet.js', 'Vercel', 'Supabase'],
+      icon: 'fas fa-map-marked-alt',
+      color: '#f43f5e',
+      github: null
+    },
+    {
+      title: 'Automation Tool for Levi Strauss & Co.',
+      description: 'Interactive app for uploading Excel files and auto-filling web forms with dynamic field mapping to reduce manual entry and errors.',
+      tags: ['Python', 'Selenium', 'Tkinter'],
+      icon: 'fas fa-tshirt',
+      color: '#ec4899',
+      github: null
+    },
+    {
+      title: 'AgroKart BD - Cross-Platform Marketplace',
+      description: 'Flutter mobile app and responsive web portal connecting farmers directly with consumers, with authentication, product listings, cart, and backend order management.',
+      tags: ['Flutter', 'Dart', 'Firebase', 'HTML/CSS/JS', 'PHP', 'SQL'],
+      icon: 'fas fa-shopping-basket',
+      color: '#10b981',
+      github: null
+    },
+    {
+      title: 'Smart Home Automation System',
+      description: 'Mobile app and voice-controlled IoT system for lights, TV, fan, and AC, with real-time sensor monitoring, scheduler features, and automated routines.',
+      tags: ['ESP32', 'Arduino (C++)', 'Flame Sensor', 'MQ-5', 'DHT11', 'LDR'],
       icon: 'fas fa-home',
       color: '#3b82f6',
       github: null
     },
     {
-      title: 'Edu-Buddy — AI Student Assistant',
-      description: 'Voice-activated assistant for reminders, study schedules, and quick access to educational resources with modular intent parsing and desktop TTS/ASR integration.',
+      title: 'Edu-Buddy - AI Student Assistant',
+      description: 'Voice-activated assistant for reminders, study schedules, and quick access to educational resources with intent parsing and desktop speech integration.',
       tags: ['Python', 'SpeechRecognition', 'Google TTS', 'SQLite', 'Tkinter'],
       icon: 'fas fa-graduation-cap',
       color: '#8b5cf6',
       github: null
     },
     {
-      title: 'AgroKart BD — Cross-Platform Marketplace',
-      description: 'Cross-platform marketplace with a Flutter mobile app and responsive web portal connecting farmers with consumers, including auth, listings, cart, and backend order management.',
-      tags: ['Flutter', 'Firebase', 'PHP', 'SQL', 'HTML/CSS/JS'],
-      icon: 'fas fa-shopping-basket',
-      color: '#10b981',
-      github: null
-    },
-    {
       title: 'Hand Gesture Virtual Mouse',
-      description: 'Real-time gesture-controlled cursor with click, scroll, and drag using multi-landmark detection and a low-latency frame pipeline.',
+      description: 'Real-time gesture-controlled cursor with click, scroll, and drag using multi-landmark detection and a low-latency interaction pipeline.',
       tags: ['Python', 'OpenCV', 'Mediapipe', 'PyAutoGUI'],
       icon: 'fas fa-mouse',
       color: '#6366f1',
@@ -237,34 +260,10 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
       title: 'Cross-Platform Task Manager',
-      description: 'Lightweight tool to monitor processes and CPU/memory usage and perform safe terminations across platforms.',
+      description: 'Lightweight tool to monitor processes and CPU or memory usage and perform safe terminations across platforms.',
       tags: ['Python', 'psutil', 'Tkinter'],
       icon: 'fas fa-tasks',
       color: '#f59e0b',
-      github: null
-    },
-    {
-      title: 'Automatic Water Dispenser',
-      description: 'Touchless water dispenser with calibrated IR sensor sensitivity and optimized circuit stability for reliable real-time detection.',
-      tags: ['IR Sensor', 'DC Pump', 'Circuit Design'],
-      icon: 'fas fa-tint',
-      color: '#06b6d4',
-      github: null
-    },
-    {
-      title: 'Automation Tool for Local Garment',
-      description: 'GUI app to upload Excel and auto-fill web forms with dynamic field mapping using browser automation to reduce manual entry and errors.',
-      tags: ['Python', 'Selenium', 'Tkinter', 'Excel'],
-      icon: 'fas fa-tshirt',
-      color: '#ec4899',
-      github: null
-    },
-    {
-      title: 'Bangladesh Crime Map & News Aggregator',
-      description: 'Real-time crime tracking platform aggregating data from 18+ national news sources using web scraping, with a bilingual dashboard featuring maps, filtering, and category classification.',
-      tags: ['Node.js', 'Express', 'Axios/Cheerio', 'Leaflet.js', 'Chart.js'],
-      icon: 'fas fa-map-marked-alt',
-      color: '#f43f5e',
       github: null
     }
   ];
