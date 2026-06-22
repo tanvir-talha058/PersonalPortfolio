@@ -414,14 +414,29 @@ function renderPost() {
     `https://www.linkedin.com/sharing/share-offsite/?url=${pageUrl}`;
 
   // Copy link functionality
+  const copyStatus = document.getElementById('copy-status');
   document.getElementById('copy-link').addEventListener('click', () => {
-    navigator.clipboard.writeText(window.location.href).then(() => {
+    const feedback = () => {
       const btn = document.getElementById('copy-link');
       btn.innerHTML = '<i class="fas fa-check"></i>';
+      if (copyStatus) copyStatus.textContent = 'Link copied to clipboard.';
       setTimeout(() => {
         btn.innerHTML = '<i class="fas fa-link"></i>';
+        if (copyStatus) copyStatus.textContent = '';
       }, 2000);
-    });
+    };
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(window.location.href).then(feedback).catch(feedback);
+    } else {
+      const tempInput = document.createElement('input');
+      tempInput.value = window.location.href;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      tempInput.remove();
+      feedback();
+    }
   });
 }
 

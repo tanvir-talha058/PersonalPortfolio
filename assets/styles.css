@@ -7473,6 +7473,7 @@ picture {
 
 .no-scroll {
   overflow: hidden !important;
+  overscroll-behavior: none;
 }
 
 /* ===== MOBILE FRIENDLY REFINEMENTS ===== */

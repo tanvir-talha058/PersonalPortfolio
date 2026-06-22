@@ -1,5 +1,18 @@
 // Enhanced interactive portfolio script
 document.addEventListener('DOMContentLoaded', () => {
+  const normalizeText = (value) => {
+    if (typeof value !== 'string') return value;
+
+    return value
+      .replace(/â€™/g, "'")
+      .replace(/â€œ/g, '"')
+      .replace(/â€/g, '"')
+      .replace(/â€“/g, '-')
+      .replace(/â€”/g, '-')
+      .replace(/â€¦/g, '...')
+      .replace(/â†/g, 'v');
+  };
+
   // Enhanced mobile viewport handling
   const setVH = () => {
     try {
@@ -119,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
     loadingScreen.classList.add('fade-out');
     setTimeout(() => loadingScreen.remove(), 500);
-  }, 1200);
+  }, prefersReducedMotion ? 0 : 450);
 
   // Scroll progress indicator
   const createScrollProgress = () => {
@@ -273,19 +286,71 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Fetch blog data from JSON
   const loadBlogData = async () => {
+    const fallbackPosts = [
+      {
+        title: 'My Journey into AI & Machine Learning',
+        excerpt: 'How I transitioned from traditional programming to exploring applied AI and what I learned from building real projects.',
+        date: '2026-01-15',
+        readTime: '5 min read',
+        category: 'Career',
+        icon: 'fas fa-brain',
+        color: '#8b5cf6',
+        slug: 'my-journey-into-ai-machine-learning'
+      },
+      {
+        title: 'Building Scalable Full-Stack Applications',
+        excerpt: 'Key lessons learned from developing production-ready applications, from architecture decisions to deployment strategies.',
+        date: '2026-01-08',
+        readTime: '7 min read',
+        category: 'Development',
+        icon: 'fas fa-layer-group',
+        color: '#3b82f6',
+        slug: 'building-scalable-full-stack-applications'
+      },
+      {
+        title: 'The Importance of Clean Code',
+        excerpt: 'Why writing maintainable, readable code matters more than clever tricks, and how it impacts long-term productivity.',
+        date: '2025-12-20',
+        readTime: '4 min read',
+        category: 'Best Practices',
+        icon: 'fas fa-code',
+        color: '#10b981',
+        slug: 'the-importance-of-clean-code'
+      },
+      {
+        title: 'Lessons from My First Open Source Contribution',
+        excerpt: 'What I learned from contributing to open source projects and how it improved my problem-solving and communication skills.',
+        date: '2025-12-10',
+        readTime: '6 min read',
+        category: 'Open Source',
+        icon: 'fab fa-github',
+        color: '#f59e0b',
+        slug: 'lessons-from-my-first-open-source-contribution'
+      }
+    ];
+
     try {
+      if (window.location.protocol === 'file:') {
+        blogPosts = fallbackPosts;
+        renderBlogPosts();
+        return;
+      }
+
       const response = await fetch('data/blog.json');
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
       const data = await response.json();
-      blogPosts = data.posts;
+      blogPosts = (Array.isArray(data.posts) ? data.posts : fallbackPosts).map((post) => ({
+        ...post,
+        title: normalizeText(post.title),
+        excerpt: normalizeText(post.excerpt),
+        category: normalizeText(post.category),
+        readTime: normalizeText(post.readTime)
+      }));
       renderBlogPosts(); // Re-render after loading
     } catch (error) {
       console.error('Failed to load blog posts:', error);
-      // Fallback to empty state
-      const blogPostsList = document.getElementById('blog-posts');
-      if (blogPostsList) {
-        blogPostsList.innerHTML = '<p>Blog posts will be available soon.</p>';
-      }
+      blogPosts = fallbackPosts;
+      renderBlogPosts();
     }
   };
 
@@ -580,6 +645,14 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && nav.classList.contains('show')) {
+        nav.classList.remove('show');
+        navToggle.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('no-scroll');
+      }
+    });
+
     // Close nav on swipe up (mobile gesture)
     nav.addEventListener('touchstart', (e) => {
       touchStartY = e.changedTouches[0].screenY;
@@ -726,6 +799,9 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       if (!allValid) {
+        if (formStatus) {
+          formStatus.textContent = 'Please fix the errors in the form.';
+        }
         showNotification('Please fix the errors in the form', 'error');
         return;
       }
@@ -735,10 +811,16 @@ document.addEventListener('DOMContentLoaded', () => {
       const originalText = submitBtn.textContent;
       submitBtn.textContent = 'Sending...';
       submitBtn.disabled = true;
+      if (formStatus) {
+        formStatus.textContent = 'Sending your message...';
+      }
 
       // Simulate form submission
       setTimeout(() => {
-        showNotification('🎉 Thanks for your message! I\'ll get back to you soon.', 'success');
+        showNotification("Thanks for your message! I'll get back to you soon.", 'success');
+        if (formStatus) {
+          formStatus.textContent = 'Message sent successfully.';
+        }
         contactForm.reset();
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
@@ -749,6 +831,12 @@ document.addEventListener('DOMContentLoaded', () => {
           const errorDiv = input.parentNode.querySelector('.field-error');
           if (errorDiv) errorDiv.remove();
         });
+
+        setTimeout(() => {
+          if (formStatus) {
+            formStatus.textContent = '';
+          }
+        }, 5000);
       }, 1500);
     });
   }
@@ -811,7 +899,7 @@ function hideMobileLoader() {
 function addScrollIndicator() {
   const indicator = document.createElement('div');
   indicator.className = 'mobile-scroll-indicator';
-  indicator.innerHTML = '↓';
+  indicator.textContent = 'v';
   document.body.appendChild(indicator);
 
   // Hide indicator after scroll
