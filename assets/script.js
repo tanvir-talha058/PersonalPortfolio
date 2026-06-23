@@ -221,6 +221,52 @@ document.addEventListener('DOMContentLoaded', () => {
     { name: 'Information Retrieval', category: 'concepts', icon: 'fas fa-search' }
   ];
 
+  const skillLevelMap = {
+    Python: 98,
+    'Machine Learning': 96,
+    'Deep Learning': 94,
+    'Computer Vision': 93,
+    'Natural Language Processing': 92,
+    NLP: 92,
+    Flutter: 88,
+    Dart: 86,
+    JavaScript: 85,
+    HTML: 92,
+    CSS: 90,
+    PostgreSQL: 87,
+    SQL: 86,
+    Firebase: 84,
+    Git: 90,
+    GitHub: 88,
+    TensorFlow: 94,
+    PyTorch: 95,
+    OpenCV: 93,
+    LangChain: 90,
+    ChromaDB: 84,
+    Qdrant: 83,
+    Selenium: 88,
+    Pandas: 91,
+    NumPy: 90,
+    Matplotlib: 85,
+    Seaborn: 84,
+    Bootstrap: 82,
+    'Tailwind CSS': 81,
+    'Google Colab': 87,
+    Kaggle: 84,
+    Automation: 89,
+    RAG: 91,
+    'Information Retrieval': 89
+  };
+
+  const categoryLevelMap = {
+    language: 94,
+    ai: 95,
+    web: 86,
+    mobile: 84,
+    tools: 88,
+    concepts: 92
+  };
+
   // Projects data (matched to "Project Work" section in resume)
   const projects = [
     {
@@ -390,15 +436,26 @@ document.addEventListener('DOMContentLoaded', () => {
       // Map category key to display name, or capitalize if not found
       const categoryName = categories[categoryKey] || categoryKey.charAt(0).toUpperCase() + categoryKey.slice(1);
       const sortedSkills = [...categorySkills].sort((a, b) => a.name.localeCompare(b.name));
+      const categoryLevel = categoryLevelMap[categoryKey] || 85;
 
       return `
       <div class="skill-category-card">
         <h3 class="category-header">${categoryName}</h3>
+        <div class="skill-category-meta">
+          <span class="skill-category-label">Proficiency</span>
+          <span class="skill-category-value">${categoryLevel}%</span>
+        </div>
+        <div class="skill-progress-track" aria-hidden="true">
+          <span class="skill-progress-bar" style="width: ${categoryLevel}%"></span>
+        </div>
         <div class="skill-tags">
           ${sortedSkills.map(skill => `
-            <div class="skill-pill">
+            <div class="skill-pill" data-level="${skillLevelMap[skill.name] || categoryLevel}">
               <i class="${skill.icon}"></i>
               <span>${skill.name}</span>
+              <span class="skill-pill-meter" aria-hidden="true">
+                <span class="skill-pill-meter-fill" style="width: ${skillLevelMap[skill.name] || categoryLevel}%"></span>
+              </span>
             </div>
           `).join('')}
         </div>
@@ -415,7 +472,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!projectsList) return;
 
     const projectsHTML = projects.map((project, index) => `
-      <div class="project-card" style="--delay: ${index * 0.1}s">
+      <article class="project-card" style="--delay: ${index * 0.1}s" data-project-index="${index}">
         <div class="project-header">
             <div class="project-icon" style="background: linear-gradient(135deg, ${project.color}, ${project.color}aa)">
             <i class="${project.icon}"></i>
@@ -428,6 +485,9 @@ document.addEventListener('DOMContentLoaded', () => {
             ${project.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
           </div>
           <div class="project-actions">
+            <button type="button" class="btn small outline project-preview-trigger" data-project-preview="${index}">
+              <i class="fas fa-eye"></i> Preview
+            </button>
             ${project.github ? `
               <a href="${project.github}" target="_blank" rel="noopener noreferrer" class="btn small outline">
                 <i class="fab fa-github"></i> Code
@@ -440,10 +500,101 @@ document.addEventListener('DOMContentLoaded', () => {
             ` : ''}
           </div>
         </div>
-      </div>
+      </article>
     `).join('');
 
     projectsList.innerHTML = projectsHTML;
+    bindProjectPreviewTriggers();
+  };
+
+  const projectPreviewModal = document.getElementById('project-preview-modal');
+  const projectPreviewTitle = document.getElementById('project-preview-title');
+  const projectPreviewDescription = document.getElementById('project-preview-description');
+  const projectPreviewTags = document.getElementById('project-preview-tags');
+  const projectPreviewIcon = document.getElementById('project-preview-icon');
+  const projectPreviewLink = document.getElementById('project-preview-link');
+
+  const closeProjectPreview = () => {
+    if (!projectPreviewModal) return;
+    projectPreviewModal.classList.remove('open');
+    projectPreviewModal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('no-scroll');
+  };
+
+  const openProjectPreview = (project) => {
+    if (!projectPreviewModal || !project) return;
+
+    projectPreviewTitle.textContent = project.title;
+    projectPreviewDescription.textContent = project.description;
+    projectPreviewTags.innerHTML = project.tags.map(tag => `<span class="project-preview-tag">${tag}</span>`).join('');
+    projectPreviewIcon.innerHTML = `<i class="${project.icon}"></i>`;
+    projectPreviewIcon.style.background = `linear-gradient(135deg, ${project.color}, ${project.color}aa)`;
+    projectPreviewLink.setAttribute('href', project.github || '#projects');
+    projectPreviewLink.innerHTML = project.github ? '<i class="fab fa-github"></i> View code' : '<i class="fas fa-arrow-up-right-from-square"></i> Back to projects';
+
+    projectPreviewModal.classList.add('open');
+    projectPreviewModal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('no-scroll');
+  };
+
+  const bindProjectPreviewTriggers = () => {
+    const previewButtons = document.querySelectorAll('[data-project-preview]');
+    previewButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const project = projects[Number(button.getAttribute('data-project-preview'))];
+        openProjectPreview(project);
+      });
+    });
+  };
+
+  if (projectPreviewModal) {
+    projectPreviewModal.querySelectorAll('[data-close-preview]').forEach((element) => {
+      element.addEventListener('click', closeProjectPreview);
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && projectPreviewModal.classList.contains('open')) {
+        closeProjectPreview();
+      }
+    });
+  }
+
+  // Animated stats counters
+  const initCounters = () => {
+    const counterElements = document.querySelectorAll('[data-count]');
+    if (counterElements.length === 0) return;
+
+    const animateCounter = (element) => {
+      const target = Number(element.getAttribute('data-count') || '0');
+      const duration = 1400;
+      const start = performance.now();
+
+      const tick = (now) => {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        element.textContent = String(Math.round(target * eased));
+
+        if (progress < 1) {
+          requestAnimationFrame(tick);
+        }
+      };
+
+      requestAnimationFrame(tick);
+    };
+
+    if ('IntersectionObserver' in window) {
+      const counterObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animateCounter(entry.target);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.4 });
+
+      counterElements.forEach((element) => counterObserver.observe(element));
+    } else {
+      counterElements.forEach(animateCounter);
+    }
   };
 
   // Render blog posts

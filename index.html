@@ -117,6 +117,20 @@
             <a class="btn outline" href="Tanvir Ahmed.pdf" target="_blank" rel="noopener noreferrer">Download
               CV</a>
           </div>
+          <div class="hero-stats" aria-label="Portfolio highlights">
+            <div class="stat-card">
+              <span class="stat-number" data-count="6">0</span>
+              <span class="stat-label">Projects</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number" data-count="4">0</span>
+              <span class="stat-label">Blog Topics</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number" data-count="3">0</span>
+              <span class="stat-label">Core Domains</span>
+            </div>
+          </div>
           <div class="social">
             <a href="https://github.com/tanvir-talha058" target="_blank" rel="noopener noreferrer"
               class="social-link github" aria-label="Visit my GitHub profile">
@@ -288,7 +302,41 @@
       <div class="container">
         <h2>Blog & Insights</h2>
         <p class="lead">Sample topics and insights I&#39;m preparing to publish based on real projects and research.</p>
-        <div id="blog-posts" class="blog-grid"></div>
+        <div id="blog-posts" class="blog-grid" aria-live="polite">
+          <article class="blog-card skeleton-card" aria-hidden="true">
+            <div class="blog-card-header">
+              <div class="blog-icon skeleton"></div>
+              <span class="blog-category skeleton skeleton-line"></span>
+            </div>
+            <div class="blog-card-content">
+              <div class="skeleton skeleton-line skeleton-title"></div>
+              <div class="skeleton skeleton-line"></div>
+              <div class="skeleton skeleton-line"></div>
+            </div>
+          </article>
+          <article class="blog-card skeleton-card" aria-hidden="true">
+            <div class="blog-card-header">
+              <div class="blog-icon skeleton"></div>
+              <span class="blog-category skeleton skeleton-line"></span>
+            </div>
+            <div class="blog-card-content">
+              <div class="skeleton skeleton-line skeleton-title"></div>
+              <div class="skeleton skeleton-line"></div>
+              <div class="skeleton skeleton-line"></div>
+            </div>
+          </article>
+          <article class="blog-card skeleton-card" aria-hidden="true">
+            <div class="blog-card-header">
+              <div class="blog-icon skeleton"></div>
+              <span class="blog-category skeleton skeleton-line"></span>
+            </div>
+            <div class="blog-card-content">
+              <div class="skeleton skeleton-line skeleton-title"></div>
+              <div class="skeleton skeleton-line"></div>
+              <div class="skeleton skeleton-line"></div>
+            </div>
+          </article>
+        </div>
         <div class="blog-cta">
           <p class="blog-cta-text">These are planned articles. New posts will be published here soon.</p>
         </div>
@@ -373,6 +421,26 @@
       </div>
     </div>
   </footer>
+
+  <div id="project-preview-modal" class="project-preview-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="project-preview-title">
+    <div class="project-preview-backdrop" data-close-preview></div>
+    <div class="project-preview-panel" role="document">
+      <button type="button" class="project-preview-close" aria-label="Close project preview" data-close-preview>&times;</button>
+      <div class="project-preview-header">
+        <div class="project-preview-icon" id="project-preview-icon"></div>
+        <div>
+          <p class="project-preview-kicker">Interactive preview</p>
+          <h3 id="project-preview-title"></h3>
+        </div>
+      </div>
+      <p id="project-preview-description" class="project-preview-description"></p>
+      <div id="project-preview-tags" class="project-preview-tags"></div>
+      <div class="project-preview-actions">
+        <a id="project-preview-link" class="btn primary" href="#projects">Open project</a>
+        <button type="button" class="btn outline" data-close-preview>Close</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Back to Top Button -->
   <button id="back-to-top" class="back-to-top" aria-label="Back to top" title="Back to top">
