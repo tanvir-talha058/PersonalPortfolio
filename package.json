@@ -1,0 +1,20 @@
+{
+  "name": "personal-portfolio",
+  "version": "1.0.0",
+  "description": "Tanvir Ahmed's Personal Portfolio - Full-Stack Developer & AI Engineer",
+  "private": true,
+  "scripts": {
+    "dev": "npx live-server --port=5501",
+    "build": "echo 'No build step needed for static site'"
+  },
+  "keywords": [
+    "portfolio",
+    "personal-website",
+    "developer-portfolio"
+  ],
+  "author": "Tanvir Ahmed",
+  "license": "MIT",
+  "dependencies": {
+    "@vercel/analytics": "^1.4.1"
+  }
+}
